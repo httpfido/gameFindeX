@@ -5,8 +5,9 @@ const { Videogame } = require("../db");
 const { API_KEY } = process.env;
 
 
+// - - - - - - - - - - - - - - - - - - - - TRAER TODOS LOS JUEGOS - - - - - - - - - - - - - - - - - - - - 
+
 // traigo todos los videogames desde la API 
-// les hago una limpieza trayendo solo lo que me interesa
 const getAllGames = async () => {
   const getAll = await axios.get(
     `https://api.rawg.io/api/games?key=${API_KEY}`
@@ -19,17 +20,11 @@ const getAllGames = async () => {
       released: game.released,
       rating: game.rating,
       genres: game.genres.map((g) => g.name),
-      description: game.description_raw,
+      // description: game.description_raw,
       created: false,
     };
   });
   return gamesREADY;
-};
-
-const findGamesBDD = async (name) => {
-  let result = await Videogame.findAll({ where: { name: name } });
-  if (result.length === 0) return (result = null);
-  else return result[0].dataValues;
 };
 
 // concateno los videogames de la BDD con los de la API
@@ -41,6 +36,16 @@ const getAllGamesBDDAPI = async () => {
 };
 
 
+// - - - - - - - - - - - - - - - - - - - - BUSCAR POR NOMBRE - - - - - - - - - - - - - - - - - - - - 
+
+// busca en la BDD
+const findGamesBDD = async (name) => {
+  let result = await Videogame.findAll({ where: { name: name } });
+  if (result.length === 0) return result = null;
+  else return result[0].dataValues;
+};
+
+// concatena BDD y API
 const findGames = async (name) => {
   const bdd = await findGamesBDD(name);
   const api = await getAllGames();
@@ -51,23 +56,29 @@ const findGames = async (name) => {
 };
 
 
-// findbyID funciona de spliter. Señala si buscar en BDD o API
-const findById = async (id, source) => {
-  const result = source === "api" ? await findByIdAPI(id) :  await findByIdBDD(id)
-  return result;
-};
+// - - - - - - - - - - - - - - - - - - - - BUSCAR POR ID - - - - - - - - - - - - - - - - - - - - 
+
 // busca el juego por NAME solamente en la API
 const findByIdAPI = async (id) => {
   const allGames = await getAllGames();
-  console.log(allGames);
   const result = allGames.filter((game) => game.id == id);
   return result
 };
+
 // busca el juego por NAME solamente en la BDD
 const findByIdBDD = async (id) => {
   const result = await Videogame.findAll({ where: { id } });
   return result;
 };
+
+// findbyID funciona de spliter. Señala si buscar en BDD o API
+const findById = async (id, source) => {
+  const result = source === "api" ? await findByIdAPI(id) :  await findByIdBDD(id)
+  return result;
+};
+
+
+// - - - - - - - - - - - - - - - - - - - - CREAR NUEVO JUEGO - - - - - - - - - - - - - - - - - - - - 
 
 // createGame crea el juego. Se asegura de que no exista ningun juego con el mismo nombre en API
 const createGame = async (

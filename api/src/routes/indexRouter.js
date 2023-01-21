@@ -13,3 +13,4 @@ router.use("/videogames", vGamesRouter);
 router.use("/genre", genreRouter);
 
 module.exports = router;
+
