@@ -20,6 +20,6 @@ module.exports = (sequelize) => {
         defaultValue: true,
       },
     },
-    { timestapms: false }
+    { timestamps: false }
   );
 };
