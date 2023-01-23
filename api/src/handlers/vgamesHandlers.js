@@ -16,7 +16,7 @@ const getGamesHandler = async (req, res) => {
     if(result.length === 0) throw Error("No se encontro el juego")
     return res.status(200).json(result);
   } catch (error) {
-    return res.status(400).json({ error: error.message});
+    return res.status(404).json({ error: error.message});
   }
 };
 
@@ -33,7 +33,7 @@ const getByIdHandler = async (req, res) => {
     return res.status(400).json({ error: error.message });
   }
 };
-
+ 
 
 // creo un videogame en la BDD
 const createGameHandler = async (req, res) => {
