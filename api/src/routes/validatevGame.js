@@ -1,9 +1,20 @@
-module.exports = (req, res, next)=>{
-    const {name, description, releaseDate, rating, platforms} = req.body;
-    if(!name) res.status(400).send({ error: "Missing name"})
-    if(!description) res.status(400).send({ error: "Missing description"})
-    if(!releaseDate) res.status(400).send({ error: "Missing releaseDate"})
-    if(!rating) res.status(400).send({ error: "Missing rating"})
-    if(!platforms) res.status(400).send({ error: "Missing platforms"})
-    next()
+const validate = (req, res, next) => {
+  try {
+    const { name, description, releaseDate, rating, platforms } = req.body;
+    if (!name) throw Error("Missing name")
+    if (!description) throw Error("Missing description")
+    if (!releaseDate) throw Error("Missing release date")
+    if (!rating) throw Error("Missin rating")
+    if (!platforms) throw Error("Missing platforms")
+    
+    next();
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 };
+
+module.exports = validate ;
+
+//    arr2 = ["PlayStation 2", "PlayStation 3", "PlayStation 4", "PlayStation 5", "PC"]
+//   let commonElements = platforms.filter(element => arr2.includes(element));
+//   console.log("hla")

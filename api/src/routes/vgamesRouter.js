@@ -7,12 +7,14 @@ const  {
   getByIdHandler,
   createGameHandler,
 } = require("../handlers/vgamesHandlers")
-const validate = require('./validatevGame');
+const validate  = require('./validatevGame');
+// poner validate antes del create handler
+
 
 // Aca mis rutas
 vGamesRouter.get("/", getGamesHandler);
 vGamesRouter.get("/:id", getByIdHandler);
-vGamesRouter.post("/", validate,  createGameHandler);
+vGamesRouter.post("/", validate, createGameHandler);
 
 
 module.exports = vGamesRouter;

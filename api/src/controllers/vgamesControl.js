@@ -22,6 +22,7 @@ const getAllGames = async () => {
       released: game.released,
       rating: game.rating,
       genres: game.genres.map((g) => g.name),
+      platforms: game.platforms.map(g=>g.platform.name),
       created: false,
     };
   });
@@ -53,6 +54,7 @@ const findGamesAPI = async (name) => {
       released: game.released,
       rating: game.rating,
       genres: game.genres.map((g) => g.name),
+      platforms: game.platforms.map(g=>g.platform.name),
       created: false,
     };
   });
@@ -66,9 +68,7 @@ const findGamesBDD = async (name) => {
       name: { [Op.iLike]: `%${name}%` },
     },
   });
-
-  if (result.length === 0) return (result = null);
-  else return result;
+  return result
 };
 
 // concatena BDD y API
@@ -76,8 +76,7 @@ const findGames = async (name) => {
   const bdd = await findGamesBDD(name);
   const api = await findGamesAPI(name);
 
-  if (api.length === 0 && !bdd) throw Error("No se encontro el juego");
-  else if (!bdd) return api.slice(0, 15);
+  if (!api && !bdd) throw Error("No se encontro el juego");
 
   return [...bdd, ...api].slice(0, 15);
 };

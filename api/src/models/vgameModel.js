@@ -27,16 +27,7 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
       },
       platforms: {
-        type: DataTypes.ENUM,
-        values: [
-          "macOS",
-          "PC",
-          "Linux",
-          "Xbox One",
-          "PlayStation 3",
-          "PlayStation 4",
-          "PlayStation 5",
-        ],
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
       created: {

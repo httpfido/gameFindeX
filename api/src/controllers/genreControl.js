@@ -1,29 +1,21 @@
-require("dotenv").config();
-const { Router } = require('express');
-const axios= require('axios');
-const { Videogame, Genre, Platform} = require('../db')
-const {API_KEY} = process.env
-const router = Router();
-
+const axios = require("axios");
+const { Genre } = require("../db");
+const { API_KEY } = process.env;
 
 const getAllGenres = async () => {
-    const apiGenres = (await axios.get(`https://api.rawg.io/api/genres?key=${API_KEY}`)).data.results
+  const getGenres = await axios.get(
+    `https://api.rawg.io/api/genres?key=${API_KEY}`
+  );
 
-    const genresName = apiGenres.map(g => g.name)
+  // Lo guardo en mi db con el nombre
+  const genresAPI = await getGenres.data.results.map((g) => g.name);
+  console.log(genresAPI);
+  genresAPI.forEach((g) => {
+    Genre.findOrCreate({ where: { name: g } });
+  });
+  // Retorno todos los generos de mi db
+  let genresBDD = await Genre.findAll();
+  return genresBDD;
+};
 
-
-    await genresName.map(async (g,i) => {
-      // busca un objeto "genre" con el mismo nombre en la base de datos
-      // si no existe, crea uno nuevo con el nombre especificado
-      await Genre.findOrCreate({
-        where: {name: g},
-        defaults: {id: i+1}
-      }); 
-    });
-
-    const AllGenresOnDb = Genre.findAll()
-
-    return AllGenresOnDb
-  }
-
-  module.exports = {getAllGenres}
+module.exports = { getAllGenres };

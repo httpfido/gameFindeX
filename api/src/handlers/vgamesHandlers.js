@@ -42,10 +42,9 @@ const createGameHandler = async (req, res) => {
     const newGame = await createGame(name, description, releaseDate, rating, platforms)
     return res.status(201).json(newGame)
   } catch (error) {
-    res.status(400).json({ error: error.message })
+    return res.status(400).json({ error: error.message });
   }
 };
-
 
 module.exports = {
     getGamesHandler,
