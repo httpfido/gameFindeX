@@ -37,9 +37,9 @@ const getByIdHandler = async (req, res) => {
 
 // creo un videogame en la BDD
 const createGameHandler = async (req, res) => {
-  const {name, description, releaseDate, rating, platforms} = req.body;
+  const {name, description, released, genres, rating, platforms} = req.body;
   try {
-    const newGame = await createGame(name, description, releaseDate, rating, platforms)
+    const newGame = await createGame(name, description, released, genres, rating, platforms)
     return res.status(201).json(newGame)
   } catch (error) {
     return res.status(400).json({ error: error.message });

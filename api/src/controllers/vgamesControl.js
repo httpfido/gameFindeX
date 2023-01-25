@@ -2,15 +2,32 @@
 
 const { Op } = require("sequelize");
 const axios = require("axios");
-const { Videogame } = require("../db");
+const { Videogame, Genre, VideogameGenre } = require("../db");
 const { API_KEY } = process.env;
 
 
+// me voy a auxiliar con una funcion que me va a devolver de manera prolija los generos cada juego de BDD
+
+const genreMap = async (games)=>{
+   const result = await games.map((game) => {
+    return {
+      id: game.id,
+      name: game.name,
+      released: game.released,
+      rating: game.rating,
+      genres: game.genres.map(genre=>genre.name),
+      platforms: game.platforms,
+      created: game.created
+    };
+  });
+  return result;
+}
+ 
 
 // - - - - - - - - - - - - - - - - - - - - TRAER TODOS LOS JUEGOS - - - - - - - - - - - - - - - - - - - -
 
 // traigo todos los videogames desde la API
-const getAllGames = async () => {
+const getAllAPI = async () => {
   const getAll = await axios.get(
     `https://api.rawg.io/api/games?key=${API_KEY}`
   );
@@ -22,22 +39,38 @@ const getAllGames = async () => {
       released: game.released,
       rating: game.rating,
       genres: game.genres.map((g) => g.name),
-      platforms: game.platforms.map(g=>g.platform.name),
+      platforms: game.platforms.map((g) => g.platform.name),
       created: false,
     };
   });
   return gamesREADY;
 };
 
+// traigo todos los videogames desde la BDD
+const getAllBDD = async () => {
+  const allGames = await Videogame.findAll({
+    include: [
+      {
+        model: Genre,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+
+    const mapped = await genreMap(allGames);
+  return mapped;
+};
 
 // concateno los videogames de la BDD con los de la API
 const getAllGamesBDDAPI = async () => {
-  const fromAPI = await getAllGames();
-  const fromBDD = await Videogame.findAll();
+  const fromAPI = await getAllAPI();
+  const fromBDD = await getAllBDD();
   const BDDAPI = await fromBDD.concat(fromAPI).slice(0, 15);
   return BDDAPI;
 };
-
 
 // - - - - - - - - - - - - - - - - - - - - BUSCAR POR NOMBRE - - - - - - - - - - - - - - - - - - - -
 
@@ -54,13 +87,13 @@ const findGamesAPI = async (name) => {
       released: game.released,
       rating: game.rating,
       genres: game.genres.map((g) => g.name),
-      platforms: game.platforms.map(g=>g.platform.name),
+      platforms: game.platforms.map((g) => g.platform.name),
       created: false,
     };
   });
   return gamesREADY;
 };
- 
+
 // busca en la BDD
 const findGamesBDD = async (name) => {
   let result = await Videogame.findAll({
@@ -68,7 +101,7 @@ const findGamesBDD = async (name) => {
       name: { [Op.iLike]: `%${name}%` },
     },
   });
-  return result
+  return result;
 };
 
 // concatena BDD y API
@@ -80,7 +113,6 @@ const findGames = async (name) => {
 
   return [...bdd, ...api].slice(0, 15);
 };
-
 
 // - - - - - - - - - - - - - - - - - - - - BUSCAR POR ID - - - - - - - - - - - - - - - - - - - -
 
@@ -109,9 +141,22 @@ const findByIdAPI = async (id) => {
 
 // busca el juego por NAME solamente en la BDD
 const findByIdBDD = async (id) => {
-  const result = await Videogame.findAll({ where: { id } });
-  return result;
-};
+  const result = await Videogame.findAll({ 
+    where: { id },
+    include: [
+      {
+        model: Genre,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+
+  const mapped = await genreMap(result);
+  return mapped
+}
 
 // findbyID funciona de spliter. Señala si buscar en BDD o API
 const findById = async (id, source) => {
@@ -120,27 +165,34 @@ const findById = async (id, source) => {
   return result;
 };
 
-
 // - - - - - - - - - - - - - - - - - - - - CREAR NUEVO JUEGO - - - - - - - - - - - - - - - - - - - -
 
 // createGame crea el juego. Se asegura de que no exista ningun juego con el mismo nombre en API
 const createGame = async (
   name,
   description,
-  releaseDate,
+  released,
+  genres,
   rating,
   platforms
 ) => {
-  const api = await getAllGames();
+  const api = await getAllAPI();
   const apiFilter = api.filter((game) => game.name === name);
   if (apiFilter.length !== 0) throw Error("Ya existe un juego con ese nombre");
   const createGame = await Videogame.create({
     name,
     description,
-    releaseDate,
+    released,
     rating,
     platforms,
   });
+
+  const genreBDD = await Genre.findAll({
+    where: {
+      name: genres,
+    },
+  });
+  createGame.addGenre(genreBDD);
   return createGame;
 };
 
