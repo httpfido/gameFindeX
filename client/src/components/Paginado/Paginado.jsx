@@ -1,23 +1,23 @@
 import React from 'react'
-import style from './Paginado.module.css'
+import style from './Pagination.module.css'
 
-export default function Pagination({gamesPerPage, allVideoGames, paginado}) {
+const Pagination = ({gamesPerPage, allGames, paginado}) => {
   const pageNumber = [];
   
-   for(let i=0; i<=Math.ceil(allVideoGames/gamesPerPage); i++){
+   for(let i=0; i<=Math.ceil(allGames/gamesPerPage); i++){
     pageNumber.push(i+1)
    }
 
    pageNumber.pop()
 
    return(
-      <nav className={style.containerPadre}>
-        <ul className={style.nums}>
+      <nav className={style.nav}>
+        <ul>
           {pageNumber && 
           pageNumber.map((number) =>{
             return(
                 <li key={number}>
-              <button className={style.button} onClick={() => paginado(number)}>{number}</button>
+              <button onClick={() => paginado(number)}>{number}</button>
             </li>)
           })}
         </ul>
@@ -25,6 +25,7 @@ export default function Pagination({gamesPerPage, allVideoGames, paginado}) {
    )
 }
 
+export default Pagination
 
 
 

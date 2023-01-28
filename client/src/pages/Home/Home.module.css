@@ -9,6 +9,7 @@ body {
 
 .body {
   display: inline-flex;
+  /* position: absolute; */
 }
 
 .body .orderbox {
@@ -24,4 +25,18 @@ body {
   justify-content: center;
   border: 1px solid black;
   color: antiquewhite;
+}
+
+
+.container {
+
+  width: 100%;
+  max-width: 1300px;
+  height: auto;
+  border: 2px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  scroll-behavior: smooth;
 }

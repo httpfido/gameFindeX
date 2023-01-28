@@ -4,10 +4,11 @@
   align-items: center;
   justify-content: space-around;
   /* background-color: rgb(59, 25, 92); */
-  background-color: #575757;
-  height: 150px;
+  /* background-color: #575757; */
+  height: 70px;
   border-radius: 5px;
   border: 1px solid black;
+
 }
 
 .btnHome {

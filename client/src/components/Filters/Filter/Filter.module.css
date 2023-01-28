@@ -1,0 +1,15 @@
+.orderbox {
+  width: 400px;
+  height: 100vh;
+  text-align: center;
+  border: 1px solid aqua;
+
+}
+
+.orderbox .text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid black;
+  color: antiquewhite;
+}

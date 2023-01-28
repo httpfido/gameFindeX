@@ -3,6 +3,10 @@ import axios from "axios";
 export const GET_GAMES = "GET_GAMES";
 export const GET_GAME = "GET_GAME";
 export const GET_ID = "GET_ID";
+export const GET_GENRES = "GET_GENRES";
+export const GET_PLATFORM = "GET_PLATFORM";
+export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
+
 
 // los dispatch se hacen desde los componentes
 
@@ -31,7 +35,30 @@ export const getById = (id) => {
     const apiData = await axios.get(`http://localhost:3001/videogames/${id}`);
     const game = apiData.data;
     dispatch({ type: GET_ID, payload: game });
+  }
+}
+// mi actionCreator get de genres
+export const getGenres = () => {
+  return async function (dispatch) {
+    const apiData = await axios.get(`http://localhost:3001/genres`);
+    const genres = apiData.data.map(g=>g.name)
+    console.log(genres);
+    dispatch({ type: GET_GENRES, payload: genres });
   };
+};
+
+// mi actionCreator get de platform
+export const getPlatform = () => {
+  return async function (dispatch) {
+    const apiData = await axios.get(`http://localhost:3001/platforms`);
+    const platform = apiData.data
+    dispatch({ type: GET_PLATFORM, payload: platform });
+  };
+};
+
+// mi actionCreator filtrar por genero
+export const filterByGenre = (payload) => {
+  return { type: FILTER_BY_GENRE, payload  }
 };
 
 
