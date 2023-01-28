@@ -1,0 +1,27 @@
+body {
+  /* background-image: url(gris.png); */
+  /* background-color: #242536; */
+  /* background-repeat: no-repeat; */
+  background-color: #011522;
+  background-position: center;
+  background-size: cover;
+}
+
+.body {
+  display: inline-flex;
+}
+
+.body .orderbox {
+  width: 400px;
+  height: 400px;
+  text-align: center;
+  border: 1px solid aqua;
+}
+
+.orderbox .text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  border: 1px solid black;
+  color: antiquewhite;
+}

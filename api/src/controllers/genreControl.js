@@ -9,6 +9,7 @@ const getAllGenres = async () => {
 
   // Lo guardo en mi db con el nombre
   const genresAPI = await getGenres.data.results.map((g) => g.name);
+  
   genresAPI.forEach((g) => {
     Genre.findOrCreate({ where: { name: g } });
   });

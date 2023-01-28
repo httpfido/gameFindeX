@@ -1,16 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
-import style from "./Form.module.css";
+import style from "./form.module.css";
 
 const Form = () => {
   const [form, setForm] = useState({
     name: "",
-    background_image: "",
     description: "",
     genres: [],
     released: "",
     rating: "",
     platforms: [],
+    img: "",
   });
 
   const platf = [
@@ -139,34 +139,30 @@ const Form = () => {
   }
 
   return (
-    <form onSubmit={submitHandler} className={style.container}>
+    <form onSubmit={submitHandler}>
       <div>
-        {/* <label>Name: </label> */}
+        <label>Name: </label>
         <input
-          className={style.input}
           type="text"
           value={form.name}
           onChange={changeHandler}
           name="name"
-          placeholder="Name"
         />
       </div>
 
       <div>
-        {/* <label>Description: </label> */}
+        <label>Description: </label>
         <input
-          className={style.input}
           type="text"
           value={form.description}
           onChange={changeHandler}
           name="description"
-          placeholder="Description"
         />
       </div>
 
-      {/* <label>Genres: </label> */}
+      <label>Genres: </label>
       <select name="genres" onChange={handleSelectG}>
-        <option value="genres" className={style.genres}>Genres</option>
+        <option value="genres">Genres</option>
         {gen?.map((element, index) => (
           <option key={index}>{element}</option>
         ))}
@@ -183,32 +179,28 @@ const Form = () => {
       </div>
 
       <div>
-        {/* <label>Released: </label> */}
+        <label>Released: </label>
         <input
-          className={style.input}
           type="text"
           value={form.released}
           onChange={changeHandler}
           name="released"
-          placeholder="Released"
         />
       </div>
 
       <div>
-        {/* <label>Rating: </label> */}
+        <label>Rating: </label>
         <input
-          className={style.input}
           type="text"
           value={form.rating}
           onChange={changeHandler}
           name="rating"
-          placeholder="Rating"
         />
       </div>
 
-      {/* <label>Platforms: </label> */}
+      <label>Platforms: </label>
       <select name="platforms" onChange={handleSelectP}>
-        <option value="platforms" className={style.genres}>Platforms</option>
+        <option value="platforms">Platforms</option>
         {platf?.map((element, index) => (
           <option key={index}>{element}</option>
         ))}
@@ -225,19 +217,16 @@ const Form = () => {
       </div>
 
       <div>
-
+        <label>Img: </label>
         <input
-          className={style.input}
           type="text"
-          value={form.background_image}
+          value={form.img}
           onChange={changeHandler}
-          name="background_image"
-          placeholder="Imagen"
+          name="img"
         />
       </div>
-      
 
-      <button className={style.submit} type="submit">
+      <button className={style.button} type="submit">
         SUBMIT
       </button>
     </form>

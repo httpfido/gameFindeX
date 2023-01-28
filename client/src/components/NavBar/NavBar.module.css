@@ -1,62 +1,93 @@
-.mainContainer{
-    display: flex;
-    background-color: blueviolet;
+.mainContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  /* background-color: rgb(59, 25, 92); */
+  background-color: #575757;
+  height: 150px;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 
-.containerWrapperList {
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  
-  .wrapperList {
-    width: 330px;
-    height: 430px;
-    border-radius: 8px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    margin: 20px;
-    text-align: center;
-  }
-  .wrapperList:hover {
-    transform: translateY(-15px);
-    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
-  }
+.btnHome {
+  margin: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  padding: 0.6em 1.2em;
+  background-color: #ffeba7;
+  color: #5e6681;
+  box-shadow: 0 4px 9px 0 rgb(255 235 167 / 20%);
+  transition: all 0.3s ease-in-out;
+}
 
-  .buttonContainer {
-    border: 1px solid rgb(66, 60, 60); /* linea de borde */
-    background-color: rgb(158, 154, 150); /* Color de fondo */
-    border-radius: 10px; /* Bordes redondeados */
-    width: 180px; /* Ancho */
-    padding: 10px;
-    box-shadow: 0, 0, 50px black; /* Sombra */
-  }
-  
-  .name {
-    font-weight: 600;
-  }
-  
-  .info {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .img {
-    width: 95%;
-    border: 1px solid rgb(66, 60, 60); /* linea de borde */
-    border-radius: 10px; /* Bordes redondeados */
-  }
-  
-  .buttonContainer {
-    display: flex; /* Ponerlo a un costado y asi poder usar flex-end */
-    justify-content: flex-end; /* flex-end; Ponerlo al final en este caso a la derecha */
-  }
-  
-  .buttonContainer button {
-    margin: 3px, 3px, 0, 0; /* Se le da un margen al boton y se empieza desde arriba */
-    border: 1px solid rgb(66, 60, 60); /* linea de borde */
-    background-color: rgb(216, 69, 69);
-    color: antiquewhite;
-    border-radius: 4px; /* Bordes redondeados */
-  }
+.btnHome:hover {
+  background-color: #012136;
+  color: #ffeba7;
+  box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
+}
+
+
+
+
+
+.containerWrapperList {
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.wrapperList {
+  width: 330px;
+  height: 430px;
+  border-radius: 8px;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  margin: 20px;
+  text-align: center;
+}
+.wrapperList:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 12px 16px rgba(0, 0, 0, 0.2);
+}
+
+.buttonContainer {
+  border: 1px solid rgb(66, 60, 60); /* linea de borde */
+  background-color: rgb(158, 154, 150); /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  width: 180px; /* Ancho */
+  padding: 10px;
+  box-shadow: 0, 0, 50px black; /* Sombra */
+}
+
+.name {
+  font-weight: 600;
+}
+
+.info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.img {
+  width: 95%;
+  border: 1px solid rgb(66, 60, 60); /* linea de borde */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.buttonContainer {
+  display: flex; /* Ponerlo a un costado y asi poder usar flex-end */
+  justify-content: flex-end; /* flex-end; Ponerlo al final en este caso a la derecha */
+}
+
+.buttonContainer button {
+  margin: 3px, 3px, 0, 0; /* Se le da un margen al boton y se empieza desde arriba */
+  border: 1px solid rgb(66, 60, 60); /* linea de borde */
+  background-color: rgb(216, 69, 69);
+  color: antiquewhite;
+  border-radius: 4px; /* Bordes redondeados */
+}

@@ -16,6 +16,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true
       },
+      background_image: {
+        type: DataTypes.STRING,
+      },
       description: {
         type: DataTypes.STRING,
         allowNull: false,

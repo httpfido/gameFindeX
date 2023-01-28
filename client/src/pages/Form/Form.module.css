@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  /* justify-content: center; */
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid blue;
+  display: flex;
+  flex-flow: column;
+  height: auto;
+  /* max-width: 200px; */
+}
+
+.input {
+  border: none;
+  border-radius: 15px;
+  padding: 15px;
+  background-color: #e8e8e8;
+  margin: 10px;
+
+  background: linear-gradient(145deg, #cacaca, #f0f0f0);
+  font-size: medium;
+  font-weight: bold;
+  max-width: 200px;
+  transition: all 0.2s ease;
+}
+
+.input:focus {
+  box-shadow: 0px 0px 10px #bebebe, -3px -3px 5px #ffffff;
+  outline-color: rgb(149, 54, 54);
+  place-content: "Enter your message!";
+}
+
+
+
+.submit {
+    padding: 17px 40px;
+    border-radius: 15px;
+    font-weight: bold;
+    border: 0;
+    background-color: #ffeba7;
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-size: 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+.submit:hover {
+    letter-spacing: 3px;
+    background-color: rgb(66, 51, 95);
+    color: hsl(0, 0%, 100%);
+    /* box-shadow: rgb(66, 51, 95) 0px 7px 15px 0px; */
+}
+
+.submit:active {
+    letter-spacing: 3px;
+    background-color: hsl(261deg 80% 48%);
+    color: hsl(0, 0%, 100%);
+    transform: translateY(5px);
+    transition: 100ms;
+}
+
+
+.genres {
+    font-weight: bold;
+    
+}
