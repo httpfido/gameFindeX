@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.css";
+import { useEffect, useState } from 'react';
 
 const NavBar = () => {
+
+
   return (
-    <div className={style.mainContainer}>
-      <Link to="/home" className={style.btnHome}>
+    <div className={style.nav}>
+      {/* <Link to="/home" className={style.btnHome}>
         H O M E
       </Link>
       <Link to="/create" className={style.btnHome}>
         F O R M
-      </Link>
+      </Link> */}
     </div>
   );
 };

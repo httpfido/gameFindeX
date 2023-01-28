@@ -1,13 +1,15 @@
-.nav{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: space-around;
-    /* background-color: rgb(59, 25, 92); */
-    /* background-color: #575757; */
-    height: 70px;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid pink
+.pagination {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  height: 70px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid pink;
+
+  position: relative;
+  z-index: 1;
+
 }

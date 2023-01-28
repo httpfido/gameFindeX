@@ -4,10 +4,16 @@
   width: 100%;
   max-width: 1300px;
   height: auto;
-  border: 2px solid black;
+  border: 2px solid rgb(6, 220, 67);
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: auto;
   scroll-behavior: smooth;
+  position: relative;
+  
+  z-index: 0;
+
+
+  
 }

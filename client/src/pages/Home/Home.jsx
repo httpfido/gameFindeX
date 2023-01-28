@@ -14,7 +14,7 @@ const Home = () => {
     dispatch(getGames());
   }, [dispatch]);
 
-  
+
   return (
     <div className={style.body}>
 

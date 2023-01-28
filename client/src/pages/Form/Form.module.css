@@ -1,15 +1,38 @@
-.container {
+.mainContainer {
+  padding-top: 70px;
+  display: inline-flex;
+
+}
+
+
+.formContainer {
   display: flex;
   /* justify-content: center; */
   flex-direction: column;
   align-items: center;
   border: 1px solid blue;
-  display: flex;
-  flex-flow: column;
+
+
   height: auto;
-  /* max-width: 200px; */
+  /* height: 700px; */
+  width: 100%;
+  width: max-content;
+  /* max-width: 1300px; */
+  position: relative;
+
 }
 
+.form {
+  border: 2px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  scroll-behavior: smooth;
+  
+  z-index: 0;
+
+}
 .input {
   border: none;
   border-radius: 15px;

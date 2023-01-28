@@ -1,14 +1,17 @@
+import Filters from "../../components/Filters/Filter/Filter";
+import { getGenres, getPlatform } from "../../redux/actions";
+
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import axios from "axios";
 import style from "./Form.module.css";
-import { getGenres, getPlatform } from "../../redux/actions";
 
 const Form = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGenres());
-    dispatch(getPlatform())
+    dispatch(getPlatform());
   }, [dispatch]);
 
   const [form, setForm] = useState({
@@ -23,9 +26,6 @@ const Form = () => {
 
   const gen = useSelector((state) => state.copyOfGenres);
   const platf = useSelector((state) => state.copyOfPlatform);
-
-
-
 
   // const gen = [
   //   "Action",
@@ -100,110 +100,114 @@ const Form = () => {
   }
 
   return (
-    <form onSubmit={submitHandler} className={style.container}>
-      <div>
-        {/* <label>Name: </label> */}
-        <input
-          className={style.input}
-          type="text"
-          value={form.name}
-          onChange={changeHandler}
-          name="name"
-          placeholder="Name"
-        />
-      </div>
+    <div className={style.mainContainer}>
+      <Filters />
 
-      <div>
-        {/* <label>Description: </label> */}
-        <input
-          className={style.input}
-          type="text"
-          value={form.description}
-          onChange={changeHandler}
-          name="description"
-          placeholder="Description"
-        />
-      </div>
+      <form onSubmit={submitHandler} className={style.formContainer}>
+        <div>
+          {/* <label>Name: </label> */}
+          <input
+            className={style.input}
+            type="text"
+            value={form.name}
+            onChange={changeHandler}
+            name="name"
+            placeholder="Name"
+          />
+        </div>
 
-      {/* <label>Genres: </label> */}
-      <select name="genres" onChange={handleSelectG}>
-        <option value="genres" className={style.genres}>
-          Genres
-        </option>
-        {gen?.map((element, index) => (
-          <option key={index}>{element}</option>
-        ))}
-      </select>
-      <div>
-        {form.genres?.map((element, index) => (
-          <span key={index}>
-            {element}
-            <button value={element} onClick={handleDeleteG}>
-              X
-            </button>
-          </span>
-        ))}
-      </div>
+        <div>
+          {/* <label>Description: </label> */}
+          <input
+            className={style.input}
+            type="text"
+            value={form.description}
+            onChange={changeHandler}
+            name="description"
+            placeholder="Description"
+          />
+        </div>
 
-      <div>
-        {/* <label>Released: </label> */}
-        <input
-          className={style.input}
-          type="text"
-          value={form.released}
-          onChange={changeHandler}
-          name="released"
-          placeholder="Released"
-        />
-      </div>
+        {/* <label>Genres: </label> */}
+        <select name="genres" onChange={handleSelectG}>
+          <option value="genres" className={style.genres}>
+            Genres
+          </option>
+          {gen?.map((element, index) => (
+            <option key={index}>{element}</option>
+          ))}
+        </select>
+        <div>
+          {form.genres?.map((element, index) => (
+            <span key={index}>
+              {element}
+              <button value={element} onClick={handleDeleteG}>
+                X
+              </button>
+            </span>
+          ))}
+        </div>
 
-      <div>
-        {/* <label>Rating: </label> */}
-        <input
-          className={style.input}
-          type="text"
-          value={form.rating}
-          onChange={changeHandler}
-          name="rating"
-          placeholder="Rating"
-        />
-      </div>
+        <div>
+          {/* <label>Released: </label> */}
+          <input
+            className={style.input}
+            type="text"
+            value={form.released}
+            onChange={changeHandler}
+            name="released"
+            placeholder="Released"
+          />
+        </div>
 
-      {/* <label>Platforms: </label> */}
-      <select name="platforms" onChange={handleSelectP}>
-        <option value="platforms" className={style.genres}>
-          Platforms
-        </option>
-        {platf?.map((element, index) => (
-          <option key={index}>{element}</option>
-        ))}
-      </select>
-      <div>
-        {form.platforms?.map((element, index) => (
-          <span key={index}>
-            {element}
-            <button value={element} onClick={handleDeleteP}>
-              X
-            </button>
-          </span>
-        ))}
-      </div>
+        <div>
+          {/* <label>Rating: </label> */}
+          <input
+            className={style.input}
+            type="text"
+            value={form.rating}
+            onChange={changeHandler}
+            name="rating"
+            placeholder="Rating"
+          />
+        </div>
 
-      <div>
-        <input
-          className={style.input}
-          type="text"
-          value={form.background_image}
-          onChange={changeHandler}
-          name="background_image"
-          placeholder="Imagen"
-        />
-      </div>
+        {/* <label>Platforms: </label> */}
+        <select name="platforms" onChange={handleSelectP}>
+          <option value="platforms" className={style.genres}>
+            Platforms
+          </option>
+          {platf?.map((element, index) => (
+            <option key={index}>{element}</option>
+          ))}
+        </select>
+        <div>
+          {form.platforms?.map((element, index) => (
+            <span key={index}>
+              {element}
+              <button value={element} onClick={handleDeleteP}>
+                X
+              </button>
+            </span>
+          ))}
+        </div>
 
-      <button className={style.submit} type="submit">
-        SUBMIT
-      </button>
-    </form>
+        <div>
+          <input
+            className={style.input}
+            type="text"
+            value={form.background_image}
+            onChange={changeHandler}
+            name="background_image"
+            placeholder="Imagen"
+          />
+        </div>
+
+        <button className={style.submit} type="submit">
+          SUBMIT
+        </button>
+      </form>
+    </div>
   );
 };
 

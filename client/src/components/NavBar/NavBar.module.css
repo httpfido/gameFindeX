@@ -1,15 +1,19 @@
-.mainContainer {
+.nav {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  /* background-color: rgb(59, 25, 92); */
+  background-color: rgb(59, 25, 92);
   /* background-color: #575757; */
-  height: 70px;
+  width: 100vw;
+  height: 50px;
   border-radius: 5px;
   border: 1px solid black;
-
+  
+  position: fixed;
+  z-index: 1;
 }
+
 
 .btnHome {
   margin: 1rem;

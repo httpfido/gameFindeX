@@ -1,5 +1,6 @@
 import React from 'react'
-import style from './Pagination.module.css'
+// import style from './Pagination.module.css'
+
 
 const Pagination = ({gamesPerPage, allGames, paginado}) => {
   const pageNumber = [];
@@ -11,16 +12,18 @@ const Pagination = ({gamesPerPage, allGames, paginado}) => {
    pageNumber.pop()
 
    return(
-      <nav className={style.nav}>
-        <ul>
+      <nav className={style.pagination}>
+        
           {pageNumber && 
           pageNumber.map((number) =>{
             return(
-                <li key={number}>
-              <button onClick={() => paginado(number)}>{number}</button>
-            </li>)
+                <div>
+
+                  <button onClick={() => paginado(number)}>{number}</button>
+                </div>
+            )
           })}
-        </ul>
+        
       </nav>
    )
 }
