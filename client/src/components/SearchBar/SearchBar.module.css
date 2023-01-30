@@ -1,0 +1,33 @@
+.search {
+    border-radius: 19px;
+    /* border: none; */
+    /* margin: 0; */
+    /* padding: 0; */
+    color: rgba(0, 0, 0, .87);
+    background-color: #033c6263;
+    word-wrap: break-word;
+    outline: none;
+    display: flex;
+    flex: 100%;
+    /* margin-top: -37px; */
+    height: 34px;
+    font-size: 16px;
+    max-width: 100%;
+    width: 800px;
+    top: 0px;
+    transition: all 0.3s ease;
+
+    z-index: 2;
+}
+
+.search:hover {
+    background-color: aliceblue;
+}
+
+.searchtext {
+    background-color: rgb(255, 255, 255);
+}
+
+.searchbar {
+    display: flex;
+}

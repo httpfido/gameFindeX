@@ -45,7 +45,6 @@ const genreMap = async (games) => {
 //   return gamesREADY;
 // };
 
-
 // traigo todos los videogames desde la API
 const getAllAPI = async () => {
   const oneHundredGames = [];
@@ -59,16 +58,15 @@ const getAllAPI = async () => {
         id: game.id,
         name: game.name,
         background_image: game.background_image,
-        genres: game.genres.map(g => g.name),
+        genres: game.genres.map((g) => g.name),
         released: game.released,
         rating: game.rating,
-        platform: game.platforms.map(p => p.platform.name),
+        platform: game.platforms.map((p) => p.platform.name),
       });
     });
   }
   return oneHundredGames;
 };
-
 
 // traigo todos los videogames desde la BDD
 const getAllBDD = async () => {
@@ -99,23 +97,46 @@ const getAllGamesBDDAPI = async () => {
 // - - - - - - - - - - - - - - - - - - - - BUSCAR POR NOMBRE - - - - - - - - - - - - - - - - - - - -
 
 // busca en la API
+// const findGamesAPI = async (name) => {
+//   const api = await axios.get(
+//     `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`
+//     );
+//     console.log(api.data.results);
+
+//   const gamesREADY = api.data.results.map((game) => {
+//     return {
+//       id: game.id,
+//       name: game.name,
+//       background_image: game.background_image,
+//       released: game.released,
+//       rating: game.rating,
+//       genres: game.genres.map((g) => g.name),
+//       platforms: game.platforms?.map((p) => p.platform.name),
+//     };
+//   });
+//   return gamesREADY;
+// };
+
 const findGamesAPI = async (name) => {
-  const api = await axios.get(
-    `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`
-  );
-  const gamesREADY = api.data.results.map((game) => {
-    return {
-      id: game.id,
-      name: game.name,
-      background_image: game.background_image,
-      released: game.released,
-      rating: game.rating,
-      genres: game.genres.map((g) => g.name),
-      platforms: game.platforms.map((g) => g.platform.name),
-      created: false,
-    };
-  });
-  return gamesREADY;
+  const sixtyGames = [];
+  for (let i = 1; i <= 3; i++) {
+    let api = await axios.get(
+      `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}&page=${i}`
+    );
+    api.data.results.map((game) => {
+      sixtyGames.push({
+        id: game.id,
+        name: game.name,
+        background_image: game.background_image,
+        genres: game.genres?.map((g) => g.name),
+        released: game.released,
+        rating: game.rating,
+        platform: game.platforms?.map((p) => p.platform.name),
+        created: false,
+      });
+    });
+  }
+  return sixtyGames;
 };
 
 // busca en la BDD
@@ -134,7 +155,6 @@ const findGamesBDD = async (name) => {
       },
     ],
   });
-
   const result = await genreMap(game);
   return result;
 };

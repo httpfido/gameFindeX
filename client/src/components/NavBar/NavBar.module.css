@@ -3,17 +3,29 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
-  background-color: rgb(59, 25, 92);
-  /* background-color: #575757; */
+
   width: 100vw;
-  height: 50px;
+  height: 80px;
   border-radius: 5px;
+
+
+  background-color: rgb(59, 25, 92);
   border: 1px solid black;
-  
+
   position: fixed;
-  z-index: 1;
+  z-index: 2;
 }
 
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  height: 50px;
+  width: 400px;
+  border: 1px solid orange;
+}
 
 .btnHome {
   margin: 1rem;
@@ -34,10 +46,6 @@
   color: #ffeba7;
   box-shadow: 0 8px 24px 0 rgb(16 39 112 / 20%);
 }
-
-
-
-
 
 .containerWrapperList {
   display: flex;

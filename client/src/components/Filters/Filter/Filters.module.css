@@ -1,10 +1,10 @@
-.orderbox {
+.filters {
   width: 270px;
   height: 800px;
   text-align: center;
   border: 1px solid aqua;
-  position: relative;
-  /* top: 70px; */
+  position: fixed;
+  top: 80px;
   z-index: 0;
 
 }
@@ -18,19 +18,19 @@
   text-align: left;
 }
 
-.navbar {
+/* .buttons {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     height: 150px;
     border: 1px solid orange;
     margin: 30px;
-}
+} */
 
-.filters{
+/* .filters{
     border: 1px solid rgb(123, 81, 3);
     padding: 50px;
-}
+} */
 
 
   .box {

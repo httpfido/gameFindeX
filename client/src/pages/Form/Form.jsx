@@ -1,4 +1,4 @@
-import Filters from "../../components/Filters/Filter/Filter";
+
 import { getGenres, getPlatform } from "../../redux/actions";
 
 import { useEffect, useState } from "react";
@@ -8,12 +8,15 @@ import axios from "axios";
 import style from "./Form.module.css";
 
 const Form = () => {
+  // como primera instancia, le ordeno al reducer que haga la peticion a la api, tanto de generos como de plataformas, y los meta
+  // en el objeto global
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getPlatform());
   }, [dispatch]);
 
+  // ahora, declaro estado local con valor inicial un objeto con atributes IDENTICOS (importante) a lo que espera el back
   const [form, setForm] = useState({
     name: "",
     background_image: "",
@@ -24,31 +27,12 @@ const Form = () => {
     platforms: [],
   });
 
+  // ahora me traigo del objeto global los generos y plataformas
   const gen = useSelector((state) => state.copyOfGenres);
   const platf = useSelector((state) => state.copyOfPlatform);
 
-  // const gen = [
-  //   "Action",
-  //   "Indie",
-  //   "Adventure",
-  //   "RPG",
-  //   "Strategy",
-  //   "Shooter",
-  //   "Casual",
-  //   "Simulation",
-  //   "Puzzle",
-  //   "Arcade",
-  //   "Platformer",
-  //   "Racing",
-  //   "Massively Multiplayer",
-  //   "Sports",
-  //   "Fighting",
-  //   "Family",
-  //   "Board Games",
-  //   "Educational",
-  //   "Card",
-  // ];
-
+  // HANDLERS PARA INPUTS
+  // handler para controlar que lo que escribo en el input, se modifique en el state
   const changeHandler = (event) => {
     const property = event.target.name;
     const value = event.target.value;
@@ -56,11 +40,14 @@ const Form = () => {
     setForm({ ...form, [property]: value });
   };
 
+  // handler para enviar el post al back
   const submitHandler = (event) => {
     event.preventDefault();
     axios.post("http://localhost:3001/videogames", form);
   };
 
+  // HANDLERS PARA MENUS DESPLEGABLES
+  // platforms: agrega
   function handleSelectP(event) {
     if (
       event.target.value !== "platforms" &&
@@ -72,6 +59,7 @@ const Form = () => {
       });
   }
 
+  // platforms: borra
   function handleDeleteP(event) {
     setForm({
       ...form,
@@ -81,6 +69,7 @@ const Form = () => {
     });
   }
 
+  // genero: agrega
   function handleSelectG(event) {
     if (
       event.target.value !== "platforms" &&
@@ -92,6 +81,7 @@ const Form = () => {
       });
   }
 
+  // genero: borra
   function handleDeleteG(event) {
     setForm({
       ...form,
@@ -101,11 +91,10 @@ const Form = () => {
 
   return (
     <div className={style.mainContainer}>
-      <Filters />
+
 
       <form onSubmit={submitHandler} className={style.formContainer}>
         <div>
-          {/* <label>Name: </label> */}
           <input
             className={style.input}
             type="text"
@@ -117,7 +106,6 @@ const Form = () => {
         </div>
 
         <div>
-          {/* <label>Description: </label> */}
           <input
             className={style.input}
             type="text"
@@ -128,20 +116,19 @@ const Form = () => {
           />
         </div>
 
-        {/* <label>Genres: </label> */}
-        <select name="genres" onChange={handleSelectG}>
+        <select className={style.select} name="genres" onChange={handleSelectG}>
           <option value="genres" className={style.genres}>
             Genres
           </option>
           {gen?.map((element, index) => (
-            <option key={index}>{element}</option>
+            <option key={index} className={style.selectGenre}>{element}</option>
           ))}
         </select>
-        <div>
+        <div className={style.selected}>
           {form.genres?.map((element, index) => (
             <span key={index}>
               {element}
-              <button value={element} onClick={handleDeleteG}>
+              <button value={element} className={style.x} onClick={handleDeleteG}>
                 X
               </button>
             </span>
@@ -149,7 +136,6 @@ const Form = () => {
         </div>
 
         <div>
-          {/* <label>Released: </label> */}
           <input
             className={style.input}
             type="text"
@@ -161,7 +147,6 @@ const Form = () => {
         </div>
 
         <div>
-          {/* <label>Rating: </label> */}
           <input
             className={style.input}
             type="text"
@@ -172,8 +157,7 @@ const Form = () => {
           />
         </div>
 
-        {/* <label>Platforms: </label> */}
-        <select name="platforms" onChange={handleSelectP}>
+        <select className={style.select} name="platforms" onChange={handleSelectP}>
           <option value="platforms" className={style.genres}>
             Platforms
           </option>
@@ -181,9 +165,9 @@ const Form = () => {
             <option key={index}>{element}</option>
           ))}
         </select>
-        <div>
+        <div className={style.selected}>
           {form.platforms?.map((element, index) => (
-            <span key={index}>
+            <span key={index} >
               {element}
               <button value={element} onClick={handleDeleteP}>
                 X

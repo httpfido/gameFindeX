@@ -1,19 +1,51 @@
 import { Link } from "react-router-dom";
 import style from "./NavBar.module.css";
-import { useEffect, useState } from 'react';
+import SearchBar from "../SearchBar/SearchBar";
+
+import { useDispatch, useSelector } from "react-redux";
+import { getGames, backupPage } from "../../redux/actions";
 
 const NavBar = () => {
+  const searchGames = useSelector((state) => state.game);
 
+
+  const dispatch = useDispatch();
+  const handleHome = () => {
+    dispatch(getGames());
+    dispatch(backupPage())
+  };
+  
 
   return (
-    <div className={style.nav}>
-      {/* <Link to="/home" className={style.btnHome}>
-        H O M E
-      </Link>
-      <Link to="/create" className={style.btnHome}>
-        F O R M
-      </Link> */}
-    </div>
+
+      <div className={style.nav}>
+      <div className={style.buttons}>
+        <Link to="/home">
+          <button onClick={handleHome} className={style.button}>
+            Home
+          </button>
+        </Link>
+        <Link to="/create">
+          <button className={style.button}>Add game</button>
+        </Link>
+      </div>
+        <SearchBar/>
+
+        <div >
+              {searchGames.length
+                ? searchGames
+                    .map((game, index) => (
+                      <div key={index} >
+                        <Link to={`/home/${game.id}`}>
+                          <img src={game.image} alt="logo gome" />
+                          <span>{game.name}</span>
+                        </Link>
+                      </div>
+                    ))
+                    .slice(0, 3)
+                : null}
+            </div> 
+      </div>
   );
 };
 

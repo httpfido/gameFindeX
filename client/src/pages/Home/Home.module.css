@@ -1,8 +1,9 @@
 body {
 
-  background-color: #011522;
+  background-color: #030f17;
   background-position: center;
   background-size: cover;
+  display: flex;
   /* position: relative; */
   /* position: absolute; */
 }

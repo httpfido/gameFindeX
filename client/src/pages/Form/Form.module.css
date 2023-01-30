@@ -1,25 +1,18 @@
 .mainContainer {
+  margin: 70px 0px;
   padding-top: 70px;
   display: inline-flex;
-
+  justify-content: center;
 }
-
 
 .formContainer {
   display: flex;
-  /* justify-content: center; */
   flex-direction: column;
   align-items: center;
   border: 1px solid blue;
 
-
   height: auto;
-  /* height: 700px; */
-  width: 100%;
-  width: max-content;
-  /* max-width: 1300px; */
-  position: relative;
-
+  width: 100vw;
 }
 
 .form {
@@ -29,9 +22,8 @@
   justify-content: center;
   margin: auto;
   scroll-behavior: smooth;
-  
-  z-index: 0;
 
+  z-index: 0;
 }
 .input {
   border: none;
@@ -53,38 +45,47 @@
   place-content: "Enter your message!";
 }
 
-
-
 .submit {
-    padding: 17px 40px;
-    border-radius: 15px;
-    font-weight: bold;
-    border: 0;
-    background-color: #ffeba7;
-    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-size: 15px;
-    transition: all 0.3s ease-in-out;
+  padding: 17px 40px;
+  margin: 50px;
+  border-radius: 15px;
+  font-weight: bold;
+  border: 0;
+  background-color: #ffeba7;
+  box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 15px;
+  transition: all 0.3s ease-in-out;
 }
 
 .submit:hover {
-    letter-spacing: 3px;
-    background-color: rgb(66, 51, 95);
-    color: hsl(0, 0%, 100%);
-    /* box-shadow: rgb(66, 51, 95) 0px 7px 15px 0px; */
+  letter-spacing: 3px;
+  background-color: rgb(66, 51, 95);
+  color: hsl(0, 0%, 100%);
 }
 
 .submit:active {
-    letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
-    color: hsl(0, 0%, 100%);
-    transform: translateY(5px);
-    transition: 100ms;
+  letter-spacing: 3px;
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  transform: translateY(5px);
+  transition: 100ms;
 }
 
-
 .genres {
-    font-weight: bold;
-    
+  font-weight: bold;
+}
+.select {
+  border-radius: 5px;
+}
+
+.selected {
+  border: 1px solid white;
+
+  background-color: grey;
+}
+
+.x {
+  border-radius: 15px;
 }

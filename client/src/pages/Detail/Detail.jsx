@@ -1,91 +1,111 @@
-// import { usestate } from "react";
-// import { useDispatch } from 'react-redux';
-// import { getGame } from "../../redux/actions";
-// import axios from "axios";
+import { getById } from "../../redux/actions";
+
+import { useEffect } from "react";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { useParams, Link } from "react-router-dom";
 // import style from "./Detail.module.css";
 
-// const Detail = () => {
-//     const dispatch = useDispatch();
-//     useEffect(()=>{
-//       dispatch(getGame())
-//     }, [])
+const Detail = () => {
 
-//     return(
-        
-//     )
-// }
-
-
-
-import axios from "axios";
-import { useState, useEffect } from "react";
-// import { useParams } from "react-router";
-import { Link, useParams } from "react-router-dom";
-
-
-
-
-/**
- * Shows the details of an specific genre
- * @param {String} id - route identifier to use in the genre API call
- */
-export default function GenreDetail() {
-  const [genre, setGenre] = useState(null);
-
-  let { id } = useParams();
-
+  const dispatch = useDispatch();
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/genres/${id}`)
-      .then((x) => {
-        setGenre(x.data);
-      })
-      .catch((e) => console.log("ERORR", e));
-    return () => {
-      setGenre(null);
-    };
-  }, [id]);
+    dispatch(getById(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
 
-  return (
-    <div>
-      <div className="">
-        {genre ? (
-          <div>
-            <img
-              className=""
-              src={genre.image_background}
-              alt="imgNotFound"
-            />
+  const { id } = useParams();
+  const gamesDetail = useSelector((state) => state.game);
+  // const [gameState, setGameState] = useState(gamesDetail);
 
-            <h1 className="">
-              {genre.name ? genre.name : "404 - Not Found"}
-            </h1>
 
-            <div className="">
-              <h3>Games count: {genre.games_count ? genre.games_count : 0}</h3>
+  // useEffect(() => {
+  //   if (gamesDetail) {
+  //     setGameState(gamesDetail);
+  //   }
+  // }, [gamesDetail]);
 
-              {genre.description ? (
-                <p
-                  className=""
-                  dangerouslySetInnerHTML={{ __html: genre.description }}
-                ></p>
-              ) : (
-                <p>"Genre detail not found in database"</p>
-              )}
+  if (!gamesDetail) return <h1>Cargando</h1>;
+  
+  
+    return (
+      <div>
+        <div className="">
+          {gamesDetail ? (
+            <div>
+              <img
+                className=""
+                src={gamesDetail.background_image}
+                alt="imgNotFound"
+              />
+  
+              <h1 className="">
+                {gamesDetail.name ? gamesDetail.name : "404 - Not Found"}
+              </h1>
+  
+              <div className="">
+                <h3>Games count: {gamesDetail.games_count ? gamesDetail.games_count : 0}</h3>
+  
+                {gamesDetail.description ? (
+                  <p
+                    className=""
+                    dangerouslySetInnerHTML={{ __html: gamesDetail.description }}
+                  ></p>
+                ) : (
+                  <p>"GamegamesDetail detail not found in database"</p>
+                )}
+              </div>
             </div>
-          </div>
-        ) : (
-          <h1>Reloading</h1>
-        )}
-
-        <Link to="/home">
-          <button className="">
-            <h3>Back to Home</h3>
-          </button>
-        </Link>
-        <br />
-        <br />
+          ) : (
+            <h1>Reloading</h1>
+          )}
+  
+          <Link to="/home">
+            <button className="">
+              <h3>Back to Home</h3>
+            </button>
+          </Link>
+          <br />
+          <br />
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+
+
+
+  // return (
+
+  //   <div>
+  //     {gameState.map((game) => {
+  //       return (
+  //         <div key={game.id}>
+  //           <h1>{game?.name}</h1>
+
+  //           <img src={game?.background_image} alt="" />
+
+  //           <br></br>
+
+  //           <label>Released: </label>
+  //           <p>{game?.released}</p>
+
+  //           <label>Rating: </label>
+  //           <p>{game?.rating}</p>
+
+  //           <label>Platforms: </label>
+  //           <p>{game?.platforms}</p>
+
+  //           <label>Description: </label>
+  //           <p>{game?.description}</p>
+  //         </div>
+  //       );
+  //     })}
+  //   </div>
+  // );
+
+
+
+
+};
+
+export default Detail;
