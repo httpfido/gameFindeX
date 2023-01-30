@@ -2,9 +2,9 @@
   width: 270px;
   height: 800px;
   text-align: center;
-  border: 1px solid aqua;
+  /* border: 1px solid aqua; */
   position: fixed;
-  top: 80px;
+  top: 115px;
   z-index: 0;
 
 }
@@ -17,6 +17,22 @@
   color: antiquewhite;
   text-align: left;
 }
+
+.underline{
+  /* cursor: pointer; */
+  /* margin: 1rem; */
+  /* border: none; */
+  /* border-radius: 7px; */
+  /* font-weight: bold; */
+  font-size: 1em;
+  /* text-transform: uppercase; */
+  padding: 0.6em 1.2em;
+  /* background-color: #ffeaa700; */
+  color: #eaeaea;
+  /* box-shadow: 0 4px 9px 0 rgb(255 235 167 / 20%); */
+  /* transition: all 0.1s ease-in-out; */
+}
+
 
 /* .buttons {
     display: flex;

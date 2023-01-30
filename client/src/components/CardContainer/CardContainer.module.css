@@ -1,6 +1,6 @@
 .container{
   position: absolute;
-  top: 80px;
+  top: 115px;
   left: 270px;
 }
 
@@ -10,11 +10,11 @@
   width: 1200px;
   max-width: 1200px;
   height: auto;
-  border: 2px solid rgb(6, 220, 67);
+  /* border: 2px solid rgb(6, 220, 67); */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 0px;
+  margin: 10px opx;
   scroll-behavior: smooth;
   position: relative;
   

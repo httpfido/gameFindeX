@@ -13,6 +13,7 @@ import {
   FILTER_BY_ABC,
   FILTER_CREATED,
   CLEAN_DETAIL,
+  POINTER
 } from "./actions";
 
 const initialState = {
@@ -24,6 +25,7 @@ const initialState = {
   copyOfGenres: [],
   currentPage: 1,
   currentPageBackup: 1,
+  pointer: 0
 };
 
 export const searchVideoGame = (videoGames, gameSearch) => {
@@ -33,6 +35,10 @@ export const searchVideoGame = (videoGames, gameSearch) => {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
+    case POINTER:
+      return{ ...state, pointer: state.pointer + 1};
+
+
     case GET_GAMES:
       return { ...state, games: action.payload };
 
@@ -157,7 +163,7 @@ const rootReducer = (state = initialState, action) => {
     case CLEAN_DETAIL:
       return {
         ...state,
-        game: action.payload,
+        games: action.payload,
       };
 
     default:

@@ -54,8 +54,8 @@ export default function Filters({ setCurrentPage, setOrden }) {
     <div className={style.filters}>
       <div className={style.filterContainer}>
         <h5 className={style.underline}>Filters</h5>
+        
         <div className={style.aligns}>
-
         <p>Genres:</p>
         <select className={style.options} onChange={(e) => handleFilterByGenre(e)}>
           <option  value="all">All</option>

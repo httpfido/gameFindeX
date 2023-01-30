@@ -14,8 +14,7 @@ export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const FILTER_BY_ABC = "FILTER_BY_ABC"
 export const FILTER_CREATED = "FILTER_CREATED"
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
-
-
+export const POINTER = "POINTER"
 
 // los dispatch se hacen desde los componentes
 // mi actionCreator de allgames
@@ -27,12 +26,15 @@ export const getGames = () => {
   };
 };
 
+export const usePointer = () => {
+  return {type: POINTER,   }
+}
+
 // mi actionCreator get por NAME
 export const getGame = (name) => {
   return async function (dispatch) {
     const apiData = await axios.get(`http://localhost:3001/videogames?name=${name}`);
     const games = apiData.data;
-    console.log(games);
     dispatch({ type: BY_NAME, payload: games });
   };
 };
@@ -42,7 +44,6 @@ export const getById = (id) => {
   return async function (dispatch) {
     const apiData = await axios.get(`http://localhost:3001/videogames/${id}`);
     const game = apiData.data;
-    // console.log(game);
     dispatch({ type: GET_ID, payload: game });
   }
 }

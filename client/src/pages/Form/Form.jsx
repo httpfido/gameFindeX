@@ -15,7 +15,7 @@ const Form = () => {
     dispatch(getGenres());
     dispatch(getPlatform());
   }, [dispatch]);
-
+  const [error, setError] = useState()
   // ahora, declaro estado local con valor inicial un objeto con atributes IDENTICOS (importante) a lo que espera el back
   const [form, setForm] = useState({
     name: "",
@@ -31,6 +31,49 @@ const Form = () => {
   const gen = useSelector((state) => state.copyOfGenres);
   const platf = useSelector((state) => state.copyOfPlatform);
 
+
+
+  function validate(form) {
+    let error = {};
+
+    if (!form.name) {
+      error.name = "Name is required";
+    } else if (form.name.length > 50) {
+      error.name = "Name is too long";
+    }
+
+    if (!form.description) {
+      error.description = "Description is required ";
+    } else if (form.description.length > 1500) {
+      error.description = "Description is too long. (Max = 1500 characters)";
+    }
+
+    if (!form.rating) {
+      error.rating = "Rating is required";
+    } else if (form.rating > 5 || form.rating < 0) {
+      error.rating = "Rating must range between 0 to 5";
+    }
+
+    if (!form.released) {
+      error.released = "Date of release is required";
+    } else if (form.released.length < 10) {
+      error.released = "Date of release is to long";
+    }
+    if (!form.image) {
+      error.image = "Image URL is required";
+    }
+
+    if (!form.genre[0]) {
+      error.genre = "Minimun one Genre is required ";
+    }
+
+    if (!form.platform[0]) {
+      error.platform = "Minimun one Platform is required";
+    }
+
+    return error;
+  }
+  
   // HANDLERS PARA INPUTS
   // handler para controlar que lo que escribo en el input, se modifique en el state
   const changeHandler = (event) => {
@@ -38,7 +81,15 @@ const Form = () => {
     const value = event.target.value;
 
     setForm({ ...form, [property]: value });
+    setError(
+      validate({
+        ...form,
+        [event.target.name]: event.target.value,
+      })
+    )
+    console.log(form);
   };
+
 
   // handler para enviar el post al back
   const submitHandler = (event) => {

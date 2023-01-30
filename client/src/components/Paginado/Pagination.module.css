@@ -11,7 +11,7 @@
   max-width: 1200px;
 
   border-radius: 5px;
-  border: 1px solid pink;
+  /* border: 1px solid pink; */
   
   position: relative;
   z-index: 1;
@@ -26,20 +26,36 @@
   outline: none;
   cursor: pointer;
 
-  width: 50px;
+  width: 35px;
   height: 50px;
-  border-radius: 1px;
+
   margin: 7px;
   background-image: linear-gradient(to top, #9c9c9c 0%, #fff 80%, #FDFDFD 100%);
-  border-radius: 13px;
+  border-radius: 6px;
   border: 1px solid #8F9092;
   transition: all 0.1s ease-in-out;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
   font-weight: 600;
-  color: #140f3c;
-
 }
+
+.btnHome {
+  cursor: pointer;
+  margin: 1rem;
+  border: none;
+  border-radius: 7px;
+  font-weight: bold;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  padding: 0.6em 1.2em;
+  background-color: #ffeaa700;
+  color: #eaeaea;
+  transition: all 0.1s ease-in-out;
+}
+
+
+
+
 
   .paginationButton:active {
     box-shadow: 0 4px 10px 1px #011522, 0 6px 14px #02263e, 0 -2px 3px #023150, 0 -2px 3px #FEFEFE, inset 0 0 5px 3px #999, inset 0 0 30px #aaa;

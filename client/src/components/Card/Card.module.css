@@ -1,47 +1,124 @@
 .card {
   width: 260px;
   height: 400px;
+  justify-content: center;
   text-align: center;
-  border: 1px solid #011522;
-  background: linear-gradient(0deg, #673573, #1f0f23);
+  border: 2px solid #002137;
+  border-radius: 10px;
+  background: linear-gradient(0deg, #3f3f3f, #232323);
   margin: 19px 10px;
-  /* padding: 6px; */
+  padding: 6px;
   transition: all 0.2s ease;
+  overflow: hidden;
+  position: relative;
 }
 .card:hover {
-  box-shadow: 0px 0px 20px 1px #ffbb763f;
-  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0px 0px 20px 2px #ffbb763f, 0px 0px 13px 6px  #013354;
+  border: 2px solid rgba(255, 255, 255, 0.6);
   transform: translateY(-10px);
 }
 
-.card:hover .name {
-  text-shadow: #202020 0px 0px 5px, #ff2d95 0px 0px 6px, #ff2d95 0px 0px 15px,
-    #ff2d95 0px 0px 30px, -40px -40px 0px rgba(0, 0, 0, 0);
+
+.imgContainer{
+  width: 100%;
+  height: 230px;
+  position: absolute;
+  top: 75px;
 }
 
 .card img {
-  width: 100%;
+  width: 140%;
+  height: 100%;
   margin-bottom: 10px;
-  max-height:50%;
+  position: absolute;
+  left: -50px;
+  object-fit: cover;
+  z-index: 0;
+  
 }
 
-.card .name {
+.card:hover img {
+  
+  width: 140%;
+  top: -85px;
+  height: 200%;
+  object-fit: cover;
+  transform: translateX(-10px);
+  opacity: 0.5;
+}
+
+.name {
   font-family: Impact, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 2.8px;
-  word-spacing: 2.2px;
+  position: relative;
+  
+  
+  top: 0px;
+  word-spacing: 2.4px;
   color: #ffffff;
   font-weight: 400;
-  text-shadow: #202020 0px 0px 5px, #ff2d95 0px 0px 6px, #ff2d95 0px 0px 11px,
-    -40px -40px 0px rgba(206, 89, 55, 0);
+  text-shadow: #202020 0px 0px 5px, #000000 0px 0px 6px
+  -40px -40px 0px rgba(206, 89, 55, 0);
   color: #ffffff;
-  /* transition: opacity .3s; */
+  /* transition: all 0.5s ease; */
+
+  z-index: 1;
 }
 
-.genres {
+.card:hover .name {
+  font-size: 23px;
+  top: 150px;
+  text-shadow: #202020 0px 0px 5px, #ff2d95 0px 0px 6px, #ff2d95 0px 0px 15px,
+  #ff2d95 0px 0px 30px, -40px -40px 0px rgba(0, 0, 0, 0);
+}
+
+/* .genres {
   font-family: Verdana, Geneva, sans-serif;
   font-size: 13px;
   letter-spacing: 0.2px;
   word-spacing: 2px;
   color: rgb(215, 168, 49);
+} */
+
+.att {
+  /* border: 1px solid greenyellow; */
+  /* border: 1px solid red; */
+  
+  position: absolute;
+  width: 260px;
+
+  left: 5px;
+  bottom: 0px;
+
+  visibility: visible;
+}
+
+.card:hover .att {
+  visibility: hidden;
+
+}
+.div1 {
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+/* border: 1px solid greenyellow; */
+height: 50px;
+}
+
+.tituloGenres{
+  font-size: 15px;
+}
+
+.genres {
+  font-family: "Courier New", Courier, monospace;
+font-size: 15px;
+letter-spacing: -0.2px;
+word-spacing: -1.6px;
+color: #000000;
+font-weight: 700;
+text-decoration: underline solid rgb(68, 68, 68);
+font-style: normal;
+font-variant: normal;
+text-transform: none;
 }

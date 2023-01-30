@@ -97,26 +97,6 @@ const getAllGamesBDDAPI = async () => {
 // - - - - - - - - - - - - - - - - - - - - BUSCAR POR NOMBRE - - - - - - - - - - - - - - - - - - - -
 
 // busca en la API
-// const findGamesAPI = async (name) => {
-//   const api = await axios.get(
-//     `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}`
-//     );
-//     console.log(api.data.results);
-
-//   const gamesREADY = api.data.results.map((game) => {
-//     return {
-//       id: game.id,
-//       name: game.name,
-//       background_image: game.background_image,
-//       released: game.released,
-//       rating: game.rating,
-//       genres: game.genres.map((g) => g.name),
-//       platforms: game.platforms?.map((p) => p.platform.name),
-//     };
-//   });
-//   return gamesREADY;
-// };
-
 const findGamesAPI = async (name) => {
   const sixtyGames = [];
   for (let i = 1; i <= 3; i++) {

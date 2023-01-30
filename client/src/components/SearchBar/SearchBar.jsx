@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { getGame, resetPage } from "../../redux/actions";
+import { cleanDetail, getGame, resetPage, setPage, usePointer } from "../../redux/actions";
 import style from "./SearchBar.module.css"
 
 
@@ -17,12 +17,19 @@ const SearchBar = () => {
     setName(e.target.value);
   }
     
-  function handleSubmit(e) {
+  function HandleSubmit(e) {
     e.preventDefault();
     dispatch(getGame(name));
-    dispatch(resetPage())
     setName("");
+    dispatch(cleanDetail())
+    dispatch(resetPage())
   }
+
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      HandleSubmit(event);
+    }
+  };
 
   if (gamesName.length === 0) return <h1>Cargando</h1>;
 
@@ -33,15 +40,13 @@ const SearchBar = () => {
         type="text"
         placeholder="Search..."
         onChange={handleInputChange}
-        // onChange={handleSearchGame}
-        // onBlur={(e) => blurInpuTextSearch(e)}
         value={name}
-        // value={inputSearch}
+        onKeyPress={handleKeyPress}
       />
       
-      <button type="submit" onClick={handleSubmit}>
+      {/* <button type="submit" onClick={handleSubmit}>
         <p>Search</p>
-      </button>
+      </button> */}
     </div>
   );
 };

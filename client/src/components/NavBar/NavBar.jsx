@@ -3,7 +3,7 @@ import style from "./NavBar.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getGames, backupPage } from "../../redux/actions";
+import { getGames, backupPage, cleanDetail } from "../../redux/actions";
 
 const NavBar = () => {
   const searchGames = useSelector((state) => state.game);
@@ -11,6 +11,7 @@ const NavBar = () => {
 
   const dispatch = useDispatch();
   const handleHome = () => {
+    dispatch(cleanDetail())
     dispatch(getGames());
     dispatch(backupPage())
   };
@@ -21,12 +22,12 @@ const NavBar = () => {
       <div className={style.nav}>
       <div className={style.buttons}>
         <Link to="/home">
-          <button onClick={handleHome} className={style.button}>
+          <button onClick={handleHome} className={style.btnHome}>
             Home
           </button>
         </Link>
         <Link to="/create">
-          <button className={style.button}>Add game</button>
+          <button className={style.btnCreate}>+</button>
         </Link>
       </div>
         <SearchBar/>
