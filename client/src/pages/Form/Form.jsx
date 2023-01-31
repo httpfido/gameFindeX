@@ -87,7 +87,7 @@ const Form = () => {
         [event.target.name]: event.target.value,
       })
     )
-    console.log(form);
+    // console.log(form);
   };
 
 
@@ -200,11 +200,14 @@ const Form = () => {
         <div>
           <input
             className={style.input}
-            type="text"
+            type="number"
             value={form.rating}
             onChange={changeHandler}
             name="rating"
             placeholder="Rating"
+            min='0.25'
+            max='5'
+            step='0.25'
           />
         </div>
 

@@ -1,22 +1,35 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import style from "./NavBar.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { useDispatch, useSelector } from "react-redux";
-import { getGames, backupPage, cleanDetail } from "../../redux/actions";
+import { backupPage, getGames, resetPage, setPage } from "../../redux/actions";
 
 const NavBar = () => {
   const searchGames = useSelector((state) => state.game);
-
+  const allGames = useSelector((state) => state.games);
+  const location = useLocation();
 
   const dispatch = useDispatch();
   const handleHome = () => {
-    dispatch(cleanDetail())
-    dispatch(getGames());
-    dispatch(backupPage())
-  };
-  
+    // quiero que:
+    // si ya estoy en home && allgames.length > 99  => resetPage 
+    // si ya estoy en home viendo results => resetPage && dispach allGames && no guardar backup page
+    // si no estoy en home => /home && backup page
 
+    if(location.pathname === "/home" && allGames.length > 90) {
+      dispatch(resetPage())
+    }else if(location.pathname === "/home") {
+      dispatch(getGames());
+      // dispatch(setPage(1));
+      dispatch(backupPage());
+    }else{
+      dispatch(backupPage());
+    }
+  };
+
+
+  
   return (
 
       <div className={style.nav}>

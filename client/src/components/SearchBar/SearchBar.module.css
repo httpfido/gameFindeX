@@ -1,11 +1,12 @@
 .search {
     border-radius: 19px;
     color: rgba(0, 0, 0, .87);
-    background-color: #033c6263;
+    background-color: #033c6233;
     word-wrap: break-word;
     outline: none;
     display: flex;
     flex: 100%;
+    padding: 0px 20px;
     /* margin-top: -37px; */
     height: 34px;
     font-size: 16px;
@@ -18,7 +19,13 @@
 }
 
 .search:hover {
+    background-color: rgba(240, 248, 255, 0.901);
+}
+/* .search:active {
     background-color: aliceblue;
+} */
+.search:focus {
+    background-color: rgba(240, 248, 255, 0.901);
 }
 
 .searchtext {

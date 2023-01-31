@@ -8,20 +8,23 @@ import { getGames, setPage } from "../../redux/actions";
 import { Link } from "react-router-dom";
 
 // defino mi Card Container
-
 const CardContainer = () => {
   
+  
+  const searchGame = useSelector(state=> state.searchGames)
+
+
+
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getGames());
-    }, [dispatch]);
+    dispatch(getGames(searchGame));
+    }, [dispatch, searchGame]);
 
   // agarro el array de juegos del objeto global y lo meto en allGames
   const currentPage = useSelector(state => state.currentPage)
   const allGames = useSelector((state) => state.games);
-  
   // a continuacion, declaro estados locales
   // const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(15);
@@ -34,8 +37,9 @@ const CardContainer = () => {
 
 // declaro una funcion que va a modificar el estado local de CurrentPage, esto lo voy a pasar 
 // como prop al componente Paginated
-const paginado = (pageNumber) => {
-  dispatch(setPage(pageNumber));
+const paginado = (pageNumber, gamesLength) => {
+
+  dispatch(setPage(pageNumber, gamesLength));
 };
 
 if (allGames.length === 0) return <h1>Cargando</h1>;

@@ -34,7 +34,7 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
             <div key={number}>
               <button className={`${style.paginationButton} ${
       currentPage === number ? style.focus : ''
-    }`} onClick={() => paginado(number)}>
+    }`} onClick={() => paginado(number, allGames)}>
                 {number}
               </button>
             </div>

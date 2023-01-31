@@ -12,14 +12,14 @@ import {
   FILTER_BY_RATING,
   FILTER_BY_ABC,
   FILTER_CREATED,
-  CLEAN_DETAIL,
-  POINTER
+  CLEAN_GAMES,
+
 } from "./actions";
 
 const initialState = {
   games: [],
   game: [],
-  searchGames: [],
+  searchGames: null,
   filters: [],
   copyOfPlatform: [],
   copyOfGenres: [],
@@ -35,9 +35,6 @@ export const searchVideoGame = (videoGames, gameSearch) => {
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case POINTER:
-      return{ ...state, pointer: state.pointer + 1};
-
 
     case GET_GAMES:
       return { ...state, games: action.payload };
@@ -54,17 +51,18 @@ const rootReducer = (state = initialState, action) => {
     case GET_PLATFORM:
       return { ...state, copyOfPlatform: action.payload };
 
-    case SEARCH_GAME: {
+    case SEARCH_GAME: 
+
       return {
         ...state,
-        searchGames: searchVideoGame(state.games, action.payload),
+        searchGames: action.payload,
       };
-    }
+    
     case SET_PAGE:
       return {
         ...state,
         currentPage: action.payload,
-        currentPageBackup: action.payload
+        currentPageBackup: action.gamesLength > 90 ? action.payload : state.currentPageBackup
       };
 
     case RESET_PAGE:
@@ -160,7 +158,7 @@ const rootReducer = (state = initialState, action) => {
         games: action.payload === "origin" ? state.allGames : createdFilter,
       };
 
-    case CLEAN_DETAIL:
+    case CLEAN_GAMES:
       return {
         ...state,
         games: action.payload,

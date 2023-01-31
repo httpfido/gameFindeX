@@ -13,31 +13,49 @@ export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
 export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const FILTER_BY_ABC = "FILTER_BY_ABC"
 export const FILTER_CREATED = "FILTER_CREATED"
-export const CLEAN_DETAIL = "CLEAN_DETAIL"
+export const CLEAN_GAMES = "CLEAN_GAMES"
 export const POINTER = "POINTER"
 
 // los dispatch se hacen desde los componentes
 // mi actionCreator de allgames
-export const getGames = () => {
-  return async function (dispatch) {
-    const apiData = await axios.get("http://localhost:3001/videogames/");
-    const games = apiData.data;
-    dispatch({ type: GET_GAMES, payload: games });
-  };
-};
 
-export const usePointer = () => {
-  return {type: POINTER,   }
-}
+// export const getGames = (dispatch) => {
+//   return async function (dispatch) {
+//     const apiData = await axios.get("http://localhost:3001/videogames/");
+//     const games = apiData.data;
+//     dispatch({ type: GET_GAMES, payload: games });
+//   };
+// };
 
 // mi actionCreator get por NAME
-export const getGame = (name) => {
+export const getGames = (name) => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/videogames?name=${name}`);
-    const games = apiData.data;
-    dispatch({ type: BY_NAME, payload: games });
+    const apiData = name ? await axios.get(`http://localhost:3001/videogames?name=${name}`)
+    : await axios.get("http://localhost:3001/videogames/");
+    const results = apiData.data;
+    dispatch({ type: GET_GAMES, payload: results });
   };
 };
+
+// backup de commit "martes madrugada"
+// export const getGames = (paylo) => {
+//   return async function (dispatch) {
+//     const apiData = await axios.get("http://localhost:3001/videogames/");
+//     const games = apiData.data;
+//     dispatch({ type: GET_GAMES, payload: games });
+//   };
+// };
+
+// export const getGame = (name) => {
+//   return async function (dispatch) {
+//     const apiData = await axios.get(`http://localhost:3001/videogames?name=${name}`);
+//     const games = apiData.data;
+//     dispatch({ type: BY_NAME, payload: games });
+//   };
+// };
+
+
+
 
 // mi actionCreator get por ID
 export const getById = (id) => {
@@ -67,14 +85,15 @@ export const getPlatform = () => {
 };
 
 export const searchGame = (payload) => {
+
   return {
     type: SEARCH_GAME,
     payload,
   };
 };
 
-export const setPage = (payload) => {
-  return {type: SET_PAGE, payload}
+export const setPage = (payload, gamesLength) => {
+  return {type: SET_PAGE, payload, gamesLength}
 }
 
 export const resetPage = () => {
@@ -84,13 +103,6 @@ export const resetPage = () => {
 export const backupPage = () => {
   return {type: GO_BACKUP_PAGE  }
 }
-
-// mi actionCreator filtrar por genero
-// export const filterByGenre = (payload) => {
-//   return { type: FILTER_BY_GENRE, payload  }
-// };
-
-// mi actionCreator para buscar por searchBar
 
 export const filterByGenre = (payload) => {
   return {
@@ -122,7 +134,7 @@ export const filterCreated = (payload) => {
 
 export const cleanDetail = () => {
   return {
-    type: CLEAN_DETAIL,
+    type: CLEAN_GAMES,
     payload: []
 }
 }
