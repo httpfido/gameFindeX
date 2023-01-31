@@ -9,12 +9,12 @@ const Card = ({ name, image, genres, platform }) => {
       </div>
       <div className={style.att}>
         <div className={style.div1}>
-        <p className={style.tituloGenres}>Genres:</p>
-        <p className={style.genres}>{genres}</p>
+        <p className={style.title}>Genres:</p>
+        <p className={style.values}>{genres}</p>
         </div>
         <div className={style.div1}>
-        <p className={style.tituloPlatform}>Platform:</p>
-        <p className={style.platform}>{platform}</p>
+        <p className={style.title}>Platform:</p>
+        <p className={style.values}>{platform}</p>
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@
   /* margin: 1rem; */
   /* border: none; */
   /* border-radius: 7px; */
-  /* font-weight: bold; */
+  font-weight: bold;
   font-size: 1em;
   /* text-transform: uppercase; */
   padding: 0.6em 1.2em;
@@ -33,6 +33,9 @@
   /* transition: all 0.1s ease-in-out; */
 }
 
+.aligns {
+  color: #eaeaea;
+}
 
 /* .buttons {
     display: flex;

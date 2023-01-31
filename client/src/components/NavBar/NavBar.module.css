@@ -42,7 +42,7 @@
 }
 
 .btnHome:hover {
-  color: #ffeba7;
+  color: #fdde76;
   border: 1px solid rgb(92, 92, 92);
   background: rgba(170, 170, 170, 0.062);
 }
@@ -62,7 +62,7 @@
 }
 
 .btnCreate:hover {
-  color: #ffeba7;
+  color: #fdde76;
   border: 1px solid rgb(92, 92, 92); 
   background: rgba(170, 170, 170, 0.062);
  }
