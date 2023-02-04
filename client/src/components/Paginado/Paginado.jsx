@@ -21,13 +21,13 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   const prev = "<< Prev"
   const next = "Next >>"
   return (
+    <div  className={style.container}>
 
-    <div className={style.container}>
       {currentPage !== 1? 
-      <button className={style.prevNext} key="prev" onClick={() => handlePrev(currentPage)}> {prev} </button> 
+      <button className={style.prev} key="prev" onClick={() => handlePrev(currentPage)}> {prev} </button> 
       : ""}
       
-
+    <div className={style.paginationButtonContainer}>
       {pageNumber &&
         pageNumber.map((number) => {
           return (
@@ -40,11 +40,12 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
             </div>
           );
         })}
+</div>
 
         {currentPage !== Math.ceil(allGames / gamesPerPage)? 
-        <button className={style.prevNext} key="next" onClick={() => handleNext(currentPage)}>{next}</button>
+        <button className={style.next} key="next" onClick={() => handleNext(currentPage)}>{next}</button>
         : ""}
-    </div>
+        </div>
   );
 };
 

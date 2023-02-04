@@ -56,7 +56,7 @@ const SearchBar = () => {
       <input
         className={style.search}
         type="text"
-        placeholder="Search among more than 917655 games..."
+        placeholder="Search among more than 917655 games around the globe..."
         onChange={handleInputChange}
         value={name}
         onKeyPress={handleKeyPress}

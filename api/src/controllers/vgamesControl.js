@@ -62,6 +62,7 @@ const getAllAPI = async () => {
         released: game.released,
         rating: game.rating,
         platform: game.platforms.map((p) => p.platform.name),
+        created: false,
       });
     });
   }

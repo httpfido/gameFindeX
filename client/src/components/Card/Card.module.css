@@ -1,11 +1,11 @@
 .card {
   width: 260px;
-  height: 400px;
+  height: 415px;
   justify-content: center;
   text-align: center;
   border: 2px solid #002137;
   border-radius: 10px;
-  background: linear-gradient(0deg, #505050, #1c1c1c);
+  background: linear-gradient(0deg, #545454, #232323);
   margin: 19px 10px;
   padding: 6px;
   transition: all 0.2s ease;
@@ -75,9 +75,10 @@
   
   left: 5px;
   bottom: 0px;
-  height: 110px;
+  height: 120px;
   
   visibility: visible;
+  /* border: 1px solid navy; */
 }
 .card:hover .att {
   visibility: hidden;
@@ -97,7 +98,8 @@
   display: inline-flex;
   justify-content: space-between;
   width: 95%;
-  height: 45%;
+  height: 50%;
+  /* border: 1px solid red; */
 }
 
 .title {
@@ -110,7 +112,7 @@
   text-align: right;
   width: 70%;
   font-family: Georgia, serif;
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 2.8px;
   word-spacing: 0.8px;
   color: #b7a51e;

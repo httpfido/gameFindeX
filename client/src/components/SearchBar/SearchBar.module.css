@@ -1,31 +1,38 @@
 .search {
-    border-radius: 19px;
-    color: rgba(0, 0, 0, .87);
-    background-color: #033c6233;
+    border-radius:40px;
+    border: none;
+    color: rgba(255, 255, 255, 0.651);
+    background-color: #1f465f74;
     word-wrap: break-word;
     outline: none;
     display: flex;
     flex: 100%;
     padding: 0px 20px;
     /* margin-top: -37px; */
-    height: 34px;
+    height: 46px;
     font-size: 16px;
+    font-weight: 100;
     max-width: 100%;
-    width: 800px;
+    width: 1000px;
     top: 0px;
     transition: all 0.3s ease;
-
+    
     z-index: 2;
 }
 
 .search:hover {
-    background-color: rgba(240, 248, 255, 0.901);
+    color: rgb(68, 68, 68);
+    /* background-color: rgba(240, 248, 255, 0.901); */
+    background-color: rgb(240, 248, 255);
 }
 /* .search:active {
     background-color: aliceblue;
 } */
 .search:focus {
-    background-color: rgba(240, 248, 255, 0.901);
+    color: rgb(68, 68, 68);
+    /* color: rgba(95, 95, 95, 0.87); */
+    
+    background-color: rgb(240, 248, 255);
 }
 
 .searchtext {

@@ -70,7 +70,6 @@ export const getGenres = () => {
   return async function (dispatch) {
     const apiData = await axios.get(`http://localhost:3001/genres`);
     const genres = apiData.data.map(g=>g.name)
-
     dispatch({ type: GET_GENRES, payload: genres });
   };
 };
@@ -128,7 +127,7 @@ export const filterByAbc = (payload) => {
 export const filterCreated = (payload) => {
   return {
       type: FILTER_CREATED,
-      payload: payload
+      payload
   }
 }
 

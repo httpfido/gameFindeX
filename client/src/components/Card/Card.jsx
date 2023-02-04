@@ -10,11 +10,11 @@ const Card = ({ name, image, genres, platform }) => {
       <div className={style.att}>
         <div className={style.div1}>
         <p className={style.title}>Genres:</p>
-        <p className={style.values}>{genres}</p>
+        <p className={style.values}>{genres? genres: "no especificado"}</p>
         </div>
         <div className={style.div1}>
         <p className={style.title}>Platform:</p>
-        <p className={style.values}>{platform}</p>
+        <p className={style.values}>{platform? platform : "aun no disponible"}</p>
         </div>
       </div>
     </div>

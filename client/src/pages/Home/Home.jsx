@@ -5,7 +5,7 @@ import style from "./Home.module.css";
 const Home = () => {
   return (
     <div className={style.body}>
-      <Filters/>
+      {/* <Filters/> */}
       <CardContainer/>
 
     </div>

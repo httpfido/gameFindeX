@@ -1,12 +1,17 @@
 const validate = (req, res, next) => {
   try {
-    const { name, description, released, genres, rating, platforms } =
+    const { name, description, genres, platforms } =
       req.body;
     if (!name) throw Error("Missing name");
     if (!description) throw Error("Missing description");
 
-    if (!genres) throw Error("Missing genres");
-    if (!platforms) throw Error("Missing platforms");
+    if (!genres.lenght) {
+      console.log("missing genres");
+      throw Error("Missing genres")};
+
+    if (!platforms.lenght) {
+      console.log("missing platforms");
+      throw Error("Missing platforms")};
 
     next();
   } catch (error) {

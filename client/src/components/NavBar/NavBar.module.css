@@ -29,41 +29,46 @@
 
 .btnHome {
   cursor: pointer;
-  margin: 1rem;
+  margin: 12px;
   border: none;
   border-radius: 7px;
   font-weight: bold;
   font-size: 1.5em;
   text-transform: uppercase;
+  height: 55px;
+  width: 140px;
   padding: 0.6em 1.2em;
   background-color: #ffeaa700;
   color: #eaeaea;
   transition: all 0.1s ease-in-out;
+  border: 1px solid rgb(92, 92, 92);
 }
 
 .btnHome:hover {
   color: #fdde76;
-  border: 1px solid rgb(92, 92, 92);
   background: rgba(170, 170, 170, 0.062);
 }
 
 .btnCreate {
+  width: 140px;
+  width: 140px;
   cursor: pointer;
-  margin: 1rem;
+  margin: 12px;
   border: none;
   border-radius: 7px;
   font-weight: bold;
   font-size: 2.4em;
+
   text-transform: uppercase;
   padding: 0.1em 0.9em;
   background-color: #ffeaa700;
   color: #eaeaea;
   transition: all 0.1s ease-in-out;
+  border: 1px solid rgb(92, 92, 92); 
 }
 
 .btnCreate:hover {
   color: #fdde76;
-  border: 1px solid rgb(92, 92, 92); 
   background: rgba(170, 170, 170, 0.062);
  }
 

@@ -3,7 +3,7 @@ import style from "./NavBar.module.css";
 import SearchBar from "../SearchBar/SearchBar";
 
 import { useDispatch, useSelector } from "react-redux";
-import { backupPage, getGames, resetPage, setPage } from "../../redux/actions";
+import { backupPage, getGames, resetPage, cleanDetail } from "../../redux/actions";
 
 const NavBar = () => {
   const searchGames = useSelector((state) => state.game);
@@ -21,7 +21,8 @@ const NavBar = () => {
       dispatch(resetPage())
     }else if(location.pathname === "/home") {
       dispatch(getGames());
-      // dispatch(setPage(1));
+      dispatch(cleanDetail())
+
       dispatch(backupPage());
     }else{
       dispatch(backupPage());

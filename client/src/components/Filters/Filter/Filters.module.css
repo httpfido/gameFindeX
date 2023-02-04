@@ -1,10 +1,11 @@
 .filters {
-  width: 270px;
+  width: 240px;
   height: 800px;
   text-align: center;
   /* border: 1px solid aqua; */
   position: fixed;
   top: 115px;
+  left: 0px;
   z-index: 0;
 
 }

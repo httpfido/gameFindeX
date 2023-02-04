@@ -18,9 +18,9 @@ import {
 
 const initialState = {
   games: [],
+  gamesBackup: [],
   game: [],
   searchGames: null,
-  filters: [],
   copyOfPlatform: [],
   copyOfGenres: [],
   currentPage: 1,
@@ -37,6 +37,7 @@ const rootReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case GET_GAMES:
+
       return { ...state, games: action.payload };
 
     case BY_NAME:
@@ -79,16 +80,11 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_BY_GENRE:
       let juegos = action.payload;
-      if (state.games.length === 0) {
-        state.games = state.allGames;
-      }
-      state.games = state.games.filter((videogames) =>
-        videogames.genres?.includes(juegos)
-      );
+      state.games = state.games.filter((videogames) => videogames.genres?.includes(juegos));
       if (action.payload === "all") state.games = state.allGames;
       if (state.games.length === 0) {
-        alert("No hay resultados");
         state.games = state.allGames;
+        alert("No hay resultados");
       }
       return {
         ...state,
@@ -151,8 +147,8 @@ const rootReducer = (state = initialState, action) => {
     case FILTER_CREATED:
       const createdFilter =
         action.payload === "db"
-          ? state.allGames.filter((e) => e.createDB)
-          : state.allGames.filter((e) => !e.createDB);
+          ? state.allGames.filter((e) => e.created)
+          : state.allGames.filter((e) => !e.created);
       return {
         ...state,
         games: action.payload === "origin" ? state.allGames : createdFilter,

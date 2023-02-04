@@ -10,8 +10,6 @@ const {
 // busco videogames por NAME
 const getGamesHandler = async (req, res) => {
   const { name } = req.query;
-  console.log(name);
-
   try {
     const result = name ? await findGames(name) : await getAllGamesBDDAPI();
     if(result.length === 0) throw Error("No se encontro el juego")

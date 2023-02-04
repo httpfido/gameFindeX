@@ -1,19 +1,23 @@
 
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import {
   getGames,
   filterByGenre,
   filterByRating,
   filterByAbc,
   filterCreated,
-  getGenres
+  getGenres,
+  resetPage,
+  setPage,
 } from "../../../redux/actions";
 import style from "./Filters.module.css";
 
 export default function Filters({ setCurrentPage, setOrden }) {
+  const [byGenre, setByGenre] = useState()
   const dispatch = useDispatch();
-  const myGenres = useSelector((state) => state.allMyGenres);
+  const myGenres = useSelector((state) => state.copyOfGenres);
 
   useEffect(() => {
     dispatch(getGenres());
@@ -23,31 +27,39 @@ export default function Filters({ setCurrentPage, setOrden }) {
   function handleFilterByGenre(e) {
     e.preventDefault();
     dispatch(filterByGenre(e.target.value));
-    setCurrentPage(1);
+    dispatch(resetPage());
   }
 
-  function handleFilterByRating(e) {
-    e.preventDefault();
-    e.target.value === "all"
-      ? dispatch(getGames) && setOrden(`Rating ${e.target.value}`)
-      : dispatch(filterByRating(e.target.value));
-    setOrden(`Rating ${e.target.value}`);
-    setCurrentPage(1);
-  }
+  // function handleDeleteG(event) {
+  //   setForm({
+  //     ...myGenres,
+  //     genres: form.genres.filter((element) => element !== event.target.value),
+  //   });
+  // }
 
-  function handleFilterByAbc(e) {
-    e.preventDefault();
-    e.target.value === "all"
-      ? dispatch(filterByAbc) && setOrden(`ABC ${e.target.value}`)
-      : dispatch(filterByAbc(e.target.value));
-    setOrden(`ABC ${e.target.value}`);
-    setCurrentPage(1);
-  }
+
+  // function handleFilterByRating(e) {
+  //   e.preventDefault();
+  //   e.target.value === "all"
+  //     ? dispatch(getGames) && setOrden(`Rating ${e.target.value}`)
+  //     : dispatch(filterByRating(e.target.value));
+  //   setOrden(`Rating ${e.target.value}`);
+  //   dispatch(resetPage());
+  // }
+
+  // function handleFilterByAbc(e) {
+  //   e.preventDefault();
+  //   e.target.value === "all"
+  //     ? dispatch(filterByAbc) && setOrden(`ABC ${e.target.value}`)
+  //     : dispatch(filterByAbc(e.target.value));
+  //   setOrden(`ABC ${e.target.value}`);
+  //   dispatch(resetPage());
+  // }
 
   function handleFilterCreated(e) {
     e.preventDefault();
     dispatch(filterCreated(e.target.value));
-    setCurrentPage(1);
+    dispatch(resetPage());
   }
 
   return (
@@ -60,9 +72,25 @@ export default function Filters({ setCurrentPage, setOrden }) {
         <select className={style.options} onChange={(e) => handleFilterByGenre(e)}>
           <option  value="all">All</option>
           {myGenres?.map((element, index) => (
-            <option key={index}>{element}</option>
+            <option key={index}>
+              {element}
+            </option>
           ))}
         </select>
+        {/* <div className={style.selected}>
+          {form.genres?.map((element, index) => (
+            <span key={index}>
+              {element}
+              <button
+                value={element}
+                className={style.x}
+                onClick={handleDeleteG}
+              >
+                X
+              </button>
+            </span>
+          ))}
+        </div> */}
 
       </div>
         </div>
@@ -84,20 +112,20 @@ export default function Filters({ setCurrentPage, setOrden }) {
       <div className={style.sortingContainer}>
         
         <h5 className={style.underline}>Sorting</h5>
-        <div className={style.aligns}>
+        {/* <div className={style.aligns}>
           <p>Rating:</p>
           <select className={style.options} onChange={(e) => handleFilterByRating(e)}>
             <option value="all">All</option>
             <option value="asc">Rating Asc</option>
             <option value="desc">Rating Desc</option>
           </select>
-        </div>
-        <h5 className={style.underline}>Alphabetical Order:</h5>
+        </div> */}
+        {/* <h5 className={style.underline}>Alphabetical Order:</h5>
         <select className={style.options} onChange={(e) => handleFilterByAbc(e)}>
           <option value="all">All</option>
           <option value="asc">A-Z</option>
           <option value="desc">Z-A</option>
-        </select>
+        </select> */}
       </div>
     </div>
   );
