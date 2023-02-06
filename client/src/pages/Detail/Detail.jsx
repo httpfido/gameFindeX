@@ -1,78 +1,72 @@
-import { getById } from "../../redux/actions";
+import { cleanGames, getById } from "../../redux/actions";
 
 import { useEffect } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
-
+import { useLocation } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
-// import style from "./Detail.module.css";
+import style from "./Detail.module.css";
 
 const Detail = () => {
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getById(id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    return ()=>{
+      cleanGames()
+    }
   }, [dispatch]);
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const { id } = useParams();
   const gamesDetail = useSelector((state) => state.game);
-  // const [gameState, setGameState] = useState(gamesDetail);
 
-
-  // useEffect(() => {
-  //   if (gamesDetail) {
-  //     setGameState(gamesDetail);
-  //   }
-  // }, [gamesDetail]);
 
   if (!gamesDetail) return <h1>Cargando</h1>;
-  
-  
-    return (
-      <div>
-        <div className="">
-          {gamesDetail ? (
-            <div>
-              <img
-                className=""
-                src={gamesDetail.background_image}
-                alt="imgNotFound"
-              />
-  
-              <h1 className="">
-                {gamesDetail.name ? gamesDetail.name : "404 - Not Found"}
-              </h1>
-  
-              <div className="">
-                <h3>Games count: {gamesDetail.games_count ? gamesDetail.games_count : 0}</h3>
-  
-                {gamesDetail.description ? (
-                  <p
-                    className=""
-                    dangerouslySetInnerHTML={{ __html: gamesDetail.description }}
-                  ></p>
-                ) : (
-                  <p>"GamegamesDetail detail not found in database"</p>
-                )}
-              </div>
-            </div>
-          ) : (
-            <h1>Reloading</h1>
-          )}
-  
-          <Link to="/home">
-            <button className="">
-              <h3>Back to Home</h3>
-            </button>
-          </Link>
-          <br />
-          <br />
+
+  return (
+    <div className={style.container}>
+      <div className={style.imgContainer}>
+        <img
+          className={style.img}
+          src={gamesDetail.background_image}
+          alt="imgNotFound"
+        />
+
+        <div className={style.dataContainer}>
+          <div className={style.nameDescriptionContainer}>
+            <h1 className={style.name}>
+              {gamesDetail.name ? gamesDetail.name : "404 - Not Found"}
+            </h1>
+
+            {gamesDetail.description ? (
+              <p
+                className={style.description}
+                dangerouslySetInnerHTML={{
+                  __html: gamesDetail.description,
+                }}
+              ></p>
+            ) : (
+              <p>"Game detail not found in database"</p>
+            )}
+          </div>
+          <div className={style.extraData}></div>
         </div>
       </div>
-    );
 
-
+      <Link to="/home">
+        <button className="">
+          <h3>Back to Home</h3>
+        </button>
+      </Link>
+      <br />
+      <br />
+    </div>
+  );
 
   // return (
 
@@ -102,10 +96,6 @@ const Detail = () => {
   //     })}
   //   </div>
   // );
-
-
-
-
 };
 
 export default Detail;

@@ -1,40 +1,61 @@
-
 .paginationButtonContainer {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   position: relative;
 
   height: 70px;
   width: 350px;
   max-width: 1200px;
-/* border: 1px solid green; */
-border-radius: 5px;
-position: absolute;
-z-index: 1;
+  /* border: 1px solid green; */
+  border-radius: 5px;
+  position: absolute;
+  z-index: 1;
+}
+.back {
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  left: 70px;
+  background-color: #ffeaa700;
+  color: #eaeaea;
+  padding: 15px;
+  margin: 7px;
+  border-radius: 4px;
+  border: 1px solid #8f9092;
+  transition: all 0.1s ease-in-out;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  /* text-shadow: #d7bf04 0px 0px 8px, #c6af00 0px 0px 3px,
+    -40px -40px 0px rgba(0, 0, 0, 0); */
 }
 
-.container{
+.back:hover {
+  color: #fdde76;
+  background: rgba(170, 170, 170, 0.062);
+}
+
+.container {
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   position: relative;
-  
+
   height: 70px;
   width: 1200px;
   max-width: 1200px;
   /* border: 1px solid rgb(219, 110, 15); */
-  
+
   position: relative;
   z-index: 1;
 }
 
-
-.paginationButton  {
+.paginationButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -49,13 +70,12 @@ z-index: 1;
 
   margin: 7px;
   border-radius: 4px;
-  border: 1px solid #8F9092;
+  border: 1px solid #8f9092;
   transition: all 0.1s ease-in-out;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
   font-weight: 600;
 }
-
 
 .paginationButton:hover {
   color: #ffeba7;
@@ -63,67 +83,76 @@ z-index: 1;
   background: rgba(170, 170, 170, 0.062);
 }
 
-
 .paginationButton:active {
   color: #fdd962;
-  background-image: linear-gradient(to top, #9c9c9c 0%, #fff 80%, #FDFDFD 100%);
-  box-shadow: 0 4px 10px 1px #011522, 0 6px 14px #02263e, 0 -2px 3px #023150, 0 -2px 3px #FEFEFE, inset 0 0 7px 3px #999, inset 0 0 20px #aaa;
+  background-image: linear-gradient(to top, #9c9c9c 0%, #fff 80%, #fdfdfd 100%);
+  box-shadow: 0 4px 10px 1px #011522, 0 6px 14px #02263e, 0 -2px 3px #023150,
+    0 -2px 3px #fefefe, inset 0 0 7px 3px #999, inset 0 0 20px #aaa;
 }
-  
-  .paginationButton:focus {
-    color: #fdd962;
-    background-image: linear-gradient(to top, #2b2b2bc9 0%, #3030309c 80%, #35353576 100%);
-    box-shadow:  inset 0 0 5px 3px rgb(43, 43, 43), inset 0 0 8px #aaa;
-  }
-  
-  .focus {
-    color: #fdd962;
-    background-image: linear-gradient(to top, #2b2b2bc9 0%, #3030309c 80%, #35353576 100%);
-    box-shadow:  inset 0 0 5px 3px rgb(43, 43, 43), inset 0 0 8px #aaa;
-  }
 
-  .prev {
-    outline: none;
-    cursor: pointer;
-  
-    /* width: 35px;
+.paginationButton:focus {
+  color: #fdd962;
+  background-image: linear-gradient(
+    to top,
+    #2b2b2bc9 0%,
+    #3030309c 80%,
+    #35353576 100%
+  );
+  box-shadow: inset 0 0 5px 3px rgb(43, 43, 43), inset 0 0 8px #aaa;
+}
+
+.focus {
+  color: #fdd962;
+  background-image: linear-gradient(
+    to top,
+    #2b2b2bc9 0%,
+    #3030309c 80%,
+    #35353576 100%
+  );
+  box-shadow: inset 0 0 5px 3px rgb(43, 43, 43), inset 0 0 8px #aaa;
+}
+
+.prev {
+  outline: none;
+  cursor: pointer;
+
+  /* width: 35px;
     height: 50px; */
   position: absolute;
   left: 340px;
-  
+
   background-color: #ffeaa700;
   color: #eaeaea;
   padding: 5px;
   margin: 7px;
   border-radius: 4px;
-  border: 1px solid #8F9092;
+  border: 1px solid #8f9092;
   transition: all 0.1s ease-in-out;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
   font-weight: 500;
-  text-shadow: #ff2d95 0px 0px 8px, 
-  #ff2d95 0px 0px 3px , -40px -40px 0px rgba(0, 0, 0, 0);
-  }
-  .next {
-    outline: none;
-    cursor: pointer;
-    
-    /* width: 35px;
-    height: 50px; */
-    
-    background-color: #ffeaa700;
-    color: #eaeaea;
-    position: absolute;
-    right: 340px;
-    padding: 5px;
-    margin: 7px;
-    border-radius: 4px;
-    border: 1px solid #8F9092;
-    transition: all 0.1s ease-in-out;
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    text-shadow: #ff2d95 0px 0px 8px, 
-    #ff2d95 0px 0px 3px , -40px -40px 0px rgba(0, 0, 0, 0);
-  }
+  text-shadow: #ff2d95 0px 0px 8px, #ff2d95 0px 0px 3px,
+    -40px -40px 0px rgba(0, 0, 0, 0);
+}
+.next {
+  outline: none;
+  cursor: pointer;
 
+  /* width: 35px;
+    height: 50px; */
+
+  background-color: #ffeaa700;
+  color: #eaeaea;
+  position: absolute;
+  right: 340px;
+  padding: 5px;
+  margin: 7px;
+  border-radius: 4px;
+  border: 1px solid #8f9092;
+  transition: all 0.1s ease-in-out;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  text-shadow: #ff2d95 0px 0px 8px, #ff2d95 0px 0px 3px,
+    -40px -40px 0px rgba(0, 0, 0, 0);
+}

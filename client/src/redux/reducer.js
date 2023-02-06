@@ -13,6 +13,7 @@ import {
   FILTER_BY_ABC,
   FILTER_CREATED,
   CLEAN_GAMES,
+  CLEAN_DETAIL,
 
 } from "./actions";
 
@@ -53,7 +54,6 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, copyOfPlatform: action.payload };
 
     case SEARCH_GAME: 
-
       return {
         ...state,
         searchGames: action.payload,
@@ -155,6 +155,12 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case CLEAN_GAMES:
+      return {
+        ...state,
+        games: action.payload,
+      };
+    
+      case CLEAN_DETAIL:
       return {
         ...state,
         games: action.payload,

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { cleanDetail, getGames, resetPage, searchGame } from "../../redux/actions";
+import { cleanGames, getGames, resetPage, searchGame } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -22,7 +22,7 @@ const SearchBar = () => {
     
     // setName("");
     dispatch(resetPage())
-    dispatch(cleanDetail());
+    dispatch(cleanGames());
 
     if(location.pathname === "/home") {  
       dispatch(getGames(name))   
@@ -41,7 +41,7 @@ const SearchBar = () => {
     // e.preventDefault();
     // dispatch(getGame(name));
     // setName("");
-    // dispatch(cleanDetail())
+    // dispatch(cleanGames())
     // dispatch(resetPage())
   }
 

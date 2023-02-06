@@ -5,11 +5,7 @@ const validate = (req, res, next) => {
     if (!name) throw Error("Missing name");
     if (!description) throw Error("Missing description");
 
-    if (!genres.lenght) {
-      console.log("missing genres");
-      throw Error("Missing genres")};
-
-    if (!platforms.lenght) {
+    if (!platforms.length) {
       console.log("missing platforms");
       throw Error("Missing platforms")};
 

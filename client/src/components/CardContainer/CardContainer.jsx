@@ -18,6 +18,7 @@ const CardContainer = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGames(searchGame));
+
   }, [dispatch, searchGame]);
 
   // agarro el array de juegos del objeto global y lo meto en allGames
@@ -54,13 +55,13 @@ const CardContainer = () => {
         paginado={paginado}
       />
       <div className={style.cardContainer}>
-        {currentGames.map((game, index) => {
+        {currentGames.map((game) => {
           return (
-            <div key={"CO MAP" + index }>
+            <div key={"CO MAP" + game.id }>
               <Link to={`/home/${game.id}`} className={style.link} key={"CO5"}>
                 <Card
-                  key={index}
-                  image={game.background_image}
+                  key={game.id}
+                  image={game.background_image && game.background_image}
                   name={game.name}
                   genres={game.genres?.join(", ")}
                   platform={game.platform?.slice(0, 3).join(", ")}

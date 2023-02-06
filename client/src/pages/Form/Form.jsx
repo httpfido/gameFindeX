@@ -1,8 +1,9 @@
 import { getGenres, getPlatform } from "../../redux/actions";
 import { useForm } from "../../components/hooks/useForm.jsx";
+import Circle from "../../components/Loader/Circle";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import style from "./Form.module.css";
 
@@ -27,14 +28,24 @@ const Form = () => {
     dispatch(getPlatform());
   }, [dispatch]);
 
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   // me traigo del objeto global los generos y plataformas
   const gen = useSelector((state) => state.copyOfGenres);
   const platf = useSelector((state) => state.copyOfPlatform);
 
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
+  const [max, setMax] = useState({
+    genres: false,
+    platforms: false,
+  });
   const [loading, setLoading] = useState(false);
-  const [response, setResponse] = useState();
+  const [incomplete, setIncomplete] = useState(false);
 
   const validateField = (field) => {
     switch (field) {
@@ -46,7 +57,7 @@ const Form = () => {
 
       case "name":
         if (!form.name.trim())
-          setErrors({ ...errors, name: "Name date is required" });
+          setErrors({ ...errors, name: "A name is required" });
         if (form.name.trim()) delete errors.name;
         break;
 
@@ -56,53 +67,54 @@ const Form = () => {
         if (form.description.trim()) delete errors.description;
         break;
 
-      case "platform":
-        if (!form.platforms)
-          setErrors({
-            ...errors,
-            platform: "At least one platform must be selectioned",
-          });
-        if (form.platforms) delete errors.platform;
-        break;
     }
   };
 
+  const validateSelected = () => {
+    setErrors({
+      ...errors,
+      platforms: "At least one platform must be selectioned",
+    });
+  if (form.platforms.length) delete errors.platforms;
+
+    if(!form.genres.length){
+      setErrors({
+        ...errors,
+        genres: "At least one genre must be selectioned",
+      });
+    if (form.genres.length) delete errors.genres;
+    }
+  }
+
   const handleChange = (e) => {
+    setIncomplete(false);
     const { name, value } = e.target;
     setForm({
       ...form,
       [name]: value,
     });
     if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
+      delete errors[name];
     }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setErrors(validateField(form));
-
-    if (!Object.keys(errors).length) setLoading(true);
-  };
-
-  //   // handler para enviar el post al back
-  //   const submitHandler = (event) => {
-  //     event.preventDefault();
-  //     axios.post("http://localhost:3001/videogames", form);
-  //   };
 
   // HANDLERS PARA MENUS DESPLEGABLES
 
   // platforms: agrega
   function handleSelectP(event) {
-    if (
-      event.target.value !== "platforms" &&
-      !form.platforms.includes(event.target.value)
-    )
+    if (form.platforms.length >= 8) {
+      setMax({ ...max, platforms: true });
+      setTimeout(() => {
+        setMax({ ...max, platforms: false });
+      }, 2300);
+      return;
+    }
+    if (!form.platforms.includes(event.target.value)) {
       setForm({
         ...form,
         platforms: [...form.platforms, event.target.value],
       });
+    }
   }
 
   // platforms: borra
@@ -117,14 +129,19 @@ const Form = () => {
 
   // genero: agrega
   function handleSelectG(event) {
-    if (
-      event.target.value !== "platforms" &&
-      !form.genres.includes(event.target.value)
-    )
+    if (form.genres.length >= 4) {
+      setMax({ ...max, genres: true });
+      setTimeout(() => {
+        setMax({ ...max, genres: false });
+      }, 2300);
+      return;
+    }
+    if (!form.genres.includes(event.target.value)) {
       setForm({
         ...form,
         genres: [...form.genres, event.target.value],
       });
+    }
   }
 
   // genero: borra
@@ -135,9 +152,34 @@ const Form = () => {
     });
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    validateSelected();
+
+    if (!form.name || !form.description || !form.platforms.length){
+      setLoading(false)
+      return setIncomplete(true);
+    }
+    if (Object.keys(errors).length) {
+      setLoading(false)
+      return setIncomplete(true);
+    }
+
+    if (!Object.keys(errors).length) setLoading(true);
+    axios
+      .post("http://localhost:3001/videogames", form)
+      .then((res) => setLoading(false));
+  };
+
+  //   // handler para enviar el post al back
+  //   const submitHandler = (event) => {
+  //     event.preventDefault();
+  //     axios.post("http://localhost:3001/videogames", form);
+  //   };
   return (
     <div className={style.mainContainer}>
       <form onSubmit={handleSubmit} className={style.formContainer}>
+        <h1 className={style.title}>Add a new game to the list!</h1>
         {/* <div className={style.nameReleased}>
             </div> */}
         <div className={style.inputContainer}>
@@ -149,7 +191,6 @@ const Form = () => {
             onChange={handleChange}
             onBlur={() => validateField("name")}
             placeholder="Name"
-            required
           />
           {errors.name && <p className={style.error}>{errors.name}</p>}
         </div>
@@ -175,7 +216,6 @@ const Form = () => {
             onChange={handleChange}
             onBlur={() => validateField("description")}
             placeholder="Description"
-            required
           />
 
           {errors.description && (
@@ -183,7 +223,7 @@ const Form = () => {
           )}
         </div>
 
-        <div className={style.inputContainer}>
+        <div className={style.selectContainer}>
           <select
             className={style.select}
             name="genres"
@@ -204,46 +244,54 @@ const Form = () => {
           <div className={style.selected}>
             {form.genres?.map((element, index) => (
               <span key={index}>
-                {element}
                 <button
                   value={element}
                   className={style.x}
                   onClick={handleDeleteG}
                 >
-                  X
+                  {element}
                 </button>
               </span>
             ))}
+            {max.genres && <p className={style.max}>Max 4 genres</p>}
           </div>
         </div>
 
-        <input
-          className={style.input}
-          type="text"
-          value={form.background_image}
-          onChange={handleChange}
-          onBlur={() => validateField("img")}
-          name="background_image"
-          placeholder="Imagen"
-        />
-
-        <input
-          className={style.input}
-          type="number"
-          value={form.rating}
-          onChange={handleChange}
-          onBlur={() => validateField("rating")}
-          name="rating"
-          placeholder="Rating"
-          min="0.25"
-          max="5"
-          step="0.25"
-        />
         <div className={style.inputContainer}>
+          <input
+            className={style.input}
+            type="text"
+            value={form.background_image}
+            onChange={handleChange}
+            onBlur={() => validateField("img")}
+            name="background_image"
+            placeholder="Imagen"
+          />
+        </div>
+
+        <div className={style.inputContainer}>
+          <input
+            className={style.rating}
+            type="number"
+            value={form.rating}
+            onChange={handleChange}
+            onBlur={() => validateField("rating")}
+            name="rating"
+            placeholder="Rating"
+            min="0.25"
+            max="5"
+            step="0.25"
+          />
+        </div>
+
+        <div className={style.selectContainer}>
           <select
             className={style.select}
             name="platforms"
             onChange={handleSelectP}
+            onClick={() => {
+              validateField("platforms");
+            }}
           >
             <option value="platforms" className={style.genres}>
               Platforms
@@ -252,270 +300,35 @@ const Form = () => {
               <option key={index}>{element}</option>
             ))}
           </select>
-          {errors.platforms && (
-            <p className={style.error}>{errors.platforms}</p>
-          )}
           <div className={style.selected}>
             {form.platforms?.map((element, index) => (
               <span key={index}>
-                {element}
-                <button value={element} onClick={handleDeleteP}>
-                  X
+                <button
+                  value={element}
+                  onClick={handleDeleteP}
+                  className={style.x}
+                >
+                  {element}
                 </button>
               </span>
             ))}
+            {errors.platforms && <p className={style.error}>{errors.platforms}</p>}
+            {/* {errors.platforms && <p className={style.error}>{errors.platforms}</p>} */}
+            {max.platforms && <p className={style.max}>Max 8 platforms</p>}
           </div>
         </div>
-
-        <button className={style.submit} type="submit">
-          SUBMIT
-        </button>
+        <div className={style.submitContainer}>
+          {!loading && (
+            <button className={style.submit} type="submit">
+              SUBMIT
+            </button>
+          )}
+          {incomplete && <p className={style.error}>There is incompleted fields</p>}
+          {loading && <Circle />}
+        </div>
       </form>
     </div>
   );
 };
-
-// const Form = () => {
-//   // como primera instancia, le ordeno al reducer que haga la peticion a la api, tanto de generos como de plataformas, y los meta
-//   // en el objeto global
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(getGenres());
-//     dispatch(getPlatform());
-//   }, [dispatch]);
-
-//   const [error, setError] = useState({
-
-//   });
-
-//   // ahora, declaro estado local con valor inicial un objeto con atributes IDENTICOS (importante) a lo que espera el back
-//   const [form, setForm] = useState({
-//     name: "",
-//     background_image: "",
-//     description: "",
-//     genres: [],
-//     released: "",
-//     rating: "",
-//     platforms: [],
-//   });
-
-//   function validate(form) {
-
-//     if (!form.name) {
-//       error.name = "Name is required";
-//     } else if (form.name.length > 50) {
-//       error.name = "Name is too long";
-//     }
-
-//     if (!form.description) {
-//       error.description = "Description is required ";
-//     } else if (form.description.length > 1500) {
-//       error.description = "Description is too long. (Max = 1500 characters)";
-//     }
-
-//     if (!form.rating) {
-//       error.rating = "Rating is required";
-//     } else if (form.rating > 5 || form.rating < 0) {
-//       error.rating = "Rating must range between 0 to 5";
-//     }
-
-//     if (!form.released) {
-//       error.released = "Date of release is required";
-//     } else if (form.released.length < 10) {
-//       error.released = "Date of release is to long";
-//     }
-//     if (!form.image) {
-//       error.image = "Image URL is required";
-//     }
-
-//     if (!form.genres.length) {
-//       error.genre = "Minimun one Genre is required ";
-//     }
-
-//     // if (!form.platform[0]) {
-//     //   error.platforms = "Minimun one Platform is required";
-//     // }
-//     console.log(error);
-//     return error;
-//   }
-
-//   // HANDLERS PARA INPUTS
-//   // handler para controlar que lo que escribo en el input, se modifique en el state
-//   const changeHandler = (event) => {
-//     const property = event.target.name;
-//     const value = event.target.value;
-
-//     setForm({ ...form, [property]: value });
-//     setError(validate({ ...form, [property]: value }));
-//   };
-
-//   // handler para enviar el post al back
-//   const submitHandler = (event) => {
-//     event.preventDefault();
-//     axios.post("http://localhost:3001/videogames", form);
-//   };
-
-//   // HANDLERS PARA MENUS DESPLEGABLES
-//   // platforms: agrega
-//   function handleSelectP(event) {
-//     if (
-//       event.target.value !== "platforms" &&
-//       !form.platforms.includes(event.target.value)
-//     )
-//       setForm({
-//         ...form,
-//         platforms: [...form.platforms, event.target.value],
-//       });
-//   }
-
-//   // platforms: borra
-//   function handleDeleteP(event) {
-//     setForm({
-//       ...form,
-//       platforms: form.platforms.filter(
-//         (element) => element !== event.target.value
-//       ),
-//     });
-//   }
-
-//   // genero: agrega
-//   function handleSelectG(event) {
-//     if (
-//       event.target.value !== "platforms" &&
-//       !form.genres.includes(event.target.value)
-//     )
-//       setForm({
-//         ...form,
-//         genres: [...form.genres, event.target.value],
-//       });
-//   }
-
-//   // genero: borra
-//   function handleDeleteG(event) {
-//     setForm({
-//       ...form,
-//       genres: form.genres.filter((element) => element !== event.target.value),
-//     });
-//   }
-
-//   return (
-//     <div className={style.mainContainer}>
-//       <form onSubmit={submitHandler} className={style.formContainer}>
-//         <div>
-//           <input
-//             className={style.input}
-//             type="text"
-//             value={form.name}
-//             onChange={changeHandler}
-//             name="name"
-//             placeholder="Name"
-//           />
-//           {error.name && <h1 className={style.error}>{error.name}</h1>}
-//         </div>
-
-//         <div>
-//           <input
-//             className={style.input}
-//             type="text"
-//             value={form.description}
-//             onChange={changeHandler}
-//             name="description"
-//             placeholder="Description"
-//           />
-//           {/* {error.name && <h1>{error.name}</h1>} */}
-//         </div>
-
-//         <select className={style.select} name="genres" onChange={handleSelectG}>
-//           <option value="genres" className={style.genres}>
-//             Genres
-//           </option>
-//           {gen?.map((element, index) => (
-//             <option key={index} className={style.selectGenre}>
-//               {element}
-//             </option>
-//           ))}
-//         </select>
-//         {/* {error.name && <h1>{error.name}</h1>} */}
-//         <div className={style.selected}>
-//           {form.genres?.map((element, index) => (
-//             <span key={index}>
-//               {element}
-//               <button
-//                 value={element}
-//                 className={style.x}
-//                 onClick={handleDeleteG}
-//               >
-//                 X
-//               </button>
-//             </span>
-//           ))}
-//         </div>
-
-//         <div>
-//           <input
-//             className={style.input}
-//             type="text"
-//             value={form.released}
-//             onChange={changeHandler}
-//             name="released"
-//             placeholder="Released"
-//           />
-//         </div>
-
-//         <div>
-//           <input
-//             className={style.input}
-//             type="number"
-//             value={form.rating}
-//             onChange={changeHandler}
-//             name="rating"
-//             placeholder="Rating"
-//             min="0.25"
-//             max="5"
-//             step="0.25"
-//           />
-//         </div>
-
-//         <select
-//           className={style.select}
-//           name="platforms"
-//           onChange={handleSelectP}
-//         >
-//           <option value="platforms" className={style.genres}>
-//             Platforms
-//           </option>
-//           {platf?.map((element, index) => (
-//             <option key={index}>{element}</option>
-//           ))}
-//         </select>
-//         <div className={style.selected}>
-//           {form.platforms?.map((element, index) => (
-//             <span key={index}>
-//               {element}
-//               <button value={element} onClick={handleDeleteP}>
-//                 X
-//               </button>
-//             </span>
-//           ))}
-//         </div>
-
-//         <div>
-//           <input
-//             className={style.input}
-//             type="text"
-//             value={form.background_image}
-//             onChange={changeHandler}
-//             name="background_image"
-//             placeholder="Imagen"
-//           />
-//         </div>
-
-//         <button className={style.submit} type="submit">
-//           SUBMIT
-//         </button>
-//       </form>
-//     </div>
-//   );
-// };
 
 export default Form;
