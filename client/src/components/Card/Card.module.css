@@ -78,8 +78,8 @@
   height: 120px;
   
   visibility: visible;
-  /* border: 1px solid navy; */
 }
+
 .card:hover .att {
   visibility: hidden;
   align-items: center;

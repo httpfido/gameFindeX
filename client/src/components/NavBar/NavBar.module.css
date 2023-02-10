@@ -5,7 +5,7 @@
   justify-content: space-around;
   width: 100vw;
   height: 110px;
-  transition: height 0.2s ease-in-out;
+  transition: height 0.3s ease-in-out;
   position: fixed;
   z-index: 2;
 }
@@ -20,7 +20,7 @@
   background: #151515ee;
   position: fixed;
   z-index: 2;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .buttons {
@@ -54,6 +54,10 @@
 .btnHome:hover {
   color: #fdde76;
   background: rgba(170, 170, 170, 0.062);
+}
+
+.star {
+  
 }
 
 .btnCreate {

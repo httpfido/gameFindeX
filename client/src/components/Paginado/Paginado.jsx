@@ -7,6 +7,7 @@ import {
   cleanGames,
 } from "../../redux/actions";
 
+
 const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   const pageNumber = [];
   
@@ -31,7 +32,9 @@ const dispatch = useDispatch()
   const prev = "<< Prev"
   const next = "Next >>"
   return (
+    
     <div  className={style.container}>
+
       {allGames < 90 && <button className={style.back} onClick={handleBack}> BACK </button>}
 
       {currentPage !== 1? 

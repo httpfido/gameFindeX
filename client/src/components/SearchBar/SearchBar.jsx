@@ -3,12 +3,13 @@ import { useState } from "react";
 import { cleanGames, getGames, resetPage, searchGame } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 import { useHistory, useLocation } from "react-router-dom";
+import logo from "../../assets/search.svg"
 
 const SearchBar = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  // const gamesName = useSelector((state) => state.games); //Estado Global
+
   const location = useLocation() 
   const [name, setName] = useState(); //Estado Local
 
@@ -19,8 +20,6 @@ const SearchBar = () => {
 
   function HandleSubmit(e) {
     e.preventDefault();
-    
-    // setName("");
     dispatch(resetPage())
     dispatch(cleanGames());
 
@@ -30,19 +29,6 @@ const SearchBar = () => {
       dispatch(searchGame(name));
       history.push("/home");
     }
-
-
-    // if(gamesName.length === 0) return <h1>Cargando</h1>;
-
-
-
-
-
-    // e.preventDefault();
-    // dispatch(getGame(name));
-    // setName("");
-    // dispatch(cleanGames())
-    // dispatch(resetPage())
   }
 
   const handleKeyPress = (event) => {
@@ -53,7 +39,9 @@ const SearchBar = () => {
 
   return (
     <div className={style.searchbar}>
+      <img src={logo} alt="Search Icon" className={style.searchIcon}/>
       <input
+      img={logo}
         className={style.search}
         type="text"
         placeholder="Search among more than 917655 games around the globe..."

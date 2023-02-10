@@ -47,7 +47,7 @@ const NavBar = () => {
   return (
     <nav className={scroll ? style.scrolled : style.nav}>
       <div className={style.buttons}>
-        <Link to="/home">
+        <Link to="/home" className={style.link}>
           <button onClick={handleHome} className={style.btnHome}>
             Home
           </button>
@@ -57,7 +57,8 @@ const NavBar = () => {
         </Link>
       </div>
       <SearchBar />
-
+ 
+{/*  */}
       <div>
         {searchGames.length
           ? searchGames

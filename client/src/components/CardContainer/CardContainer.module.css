@@ -5,12 +5,9 @@
 }
 
 .cardContainer {
-
-  /* width: 100%; */
   width: 1200px;
   max-width: 1200px;
   height: auto;
-  /* border: 2px solid rgb(6, 220, 67); */
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;

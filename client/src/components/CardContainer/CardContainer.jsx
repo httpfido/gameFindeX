@@ -12,13 +12,15 @@ import { Link } from "react-router-dom";
 // defino mi Card Container
 const CardContainer = () => {
   const searchGame = useSelector((state) => state.searchGames);
-
+const gameDetail = useSelector(state=>state.game)
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGames(searchGame));
-
+    return ()=>{
+      console.log(gameDetail)
+    }
   }, [dispatch, searchGame]);
 
   // agarro el array de juegos del objeto global y lo meto en allGames

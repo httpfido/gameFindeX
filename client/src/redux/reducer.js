@@ -163,7 +163,7 @@ const rootReducer = (state = initialState, action) => {
       case CLEAN_DETAIL:
       return {
         ...state,
-        games: action.payload,
+        game: action.payload,
       };
 
     default:

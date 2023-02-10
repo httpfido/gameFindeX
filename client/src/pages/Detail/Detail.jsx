@@ -1,21 +1,31 @@
-import { cleanGames, getById } from "../../redux/actions";
+import { cleanDetail, getById } from "../../redux/actions";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useParams, Link } from "react-router-dom";
 import style from "./Detail.module.css";
+import star from "../../assets/star.svg";
 
 const Detail = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getById(id));
-    return ()=>{
-      cleanGames()
-    }
+    return () => {
+      dispatch(cleanDetail());
+    };
   }, [dispatch]);
 
+  const [scroll, setScroll] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      setScroll(window.pageYOffset > 0);
+    });
+  }, []);
+
+  
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -23,31 +33,37 @@ const Detail = () => {
   }, [pathname]);
 
   const { id } = useParams();
-  const gamesDetail = useSelector((state) => state.game);
+  const game = useSelector((state) => state.game);
 
-
-  if (!gamesDetail) return <h1>Cargando</h1>;
+  if (!game) return <h1>Cargando</h1>;
 
   return (
     <div className={style.container}>
       <div className={style.imgContainer}>
         <img
-          className={style.img}
-          src={gamesDetail.background_image}
+          className={scroll ? style.imgScrolled : style.img}
+          src={game.background_image}
           alt="imgNotFound"
         />
 
-        <div className={style.dataContainer}>
+        <div 
+        className={scroll ? style.dataContainerScrolled : style.dataContainer}
+
+        >
+          <div className={style.ratingContainer}>
+            <p className={style.rating}>{game?.rating}</p>
+            <img src={star} className={style.star} alt="" />
+          </div>
           <div className={style.nameDescriptionContainer}>
             <h1 className={style.name}>
-              {gamesDetail.name ? gamesDetail.name : "404 - Not Found"}
+              {game.name ? game.name : "404 - Not Found"}
             </h1>
-
-            {gamesDetail.description ? (
+            <h3 className={style.genres}>{game.genres?.join(", ")}</h3>
+            {game.description ? (
               <p
                 className={style.description}
                 dangerouslySetInnerHTML={{
-                  __html: gamesDetail.description,
+                  __html: game.description,
                 }}
               ></p>
             ) : (
@@ -57,14 +73,13 @@ const Detail = () => {
           <div className={style.extraData}></div>
         </div>
       </div>
-
-      <Link to="/home">
-        <button className="">
-          <h3>Back to Home</h3>
-        </button>
-      </Link>
-      <br />
-      <br />
+      <div className={style.bottomContainer}>
+        <Link to="/home">
+          <button className={style.back}>
+            <h3>Back to Home</h3>
+          </button>
+        </Link>
+      </div>
     </div>
   );
 
@@ -82,9 +97,6 @@ const Detail = () => {
 
   //           <label>Released: </label>
   //           <p>{game?.released}</p>
-
-  //           <label>Rating: </label>
-  //           <p>{game?.rating}</p>
 
   //           <label>Platforms: </label>
   //           <p>{game?.platforms}</p>
