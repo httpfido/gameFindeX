@@ -18,9 +18,6 @@ const gameDetail = useSelector(state=>state.game)
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getGames(searchGame));
-    return ()=>{
-      console.log(gameDetail)
-    }
   }, [dispatch, searchGame]);
 
   // agarro el array de juegos del objeto global y lo meto en allGames

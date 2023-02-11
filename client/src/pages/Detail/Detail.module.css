@@ -1,6 +1,9 @@
 .container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
     width: 98.9vw;
-    height: 200vh;
+    height: 300vh;
     overflow: hidden;
     box-sizing: border-box;
     object-fit:cover;
@@ -45,7 +48,12 @@
     width: 100%;
     height: 800px;
   transition: all 0.3s ease-in-out;
-
+}
+.addImg {
+  box-sizing: border-box;
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .imgScrolled {
@@ -55,9 +63,8 @@
   width: 100%;
   height: 800px;
   filter: blur(2px);
-  opacity: 0.8;
+  opacity: 0.7;
   transition: all 0.3s ease-in-out;
-  
 }
 
 .dataContainer {
@@ -74,37 +81,37 @@
     rgba(32, 32, 32, 0.481) 92%,
     rgba(32, 32, 32, 0.021) 100%
     );
-  transition: all 0.3s ease-in-out;
-}
-.dataContainerScrolled {
-  opacity: 1;
-  position: absolute;
-  bottom: 0px;
-  padding: 20px 40px;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    0deg,
-    rgba(16, 16, 16, 0.864) 0%,
-    rgba(16, 16, 16, 0.864) 63%,
-    rgba(32, 32, 32, 0.481) 92%,
-    rgba(32, 32, 32, 0.021) 100%
-  );
-  transition: all 0.3s ease-in-out;
-}
-
-.description {
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-size: 13px;
-  letter-spacing: 2px;
-  word-spacing: 2px;
-  color: #ffffff;
-  font-weight: normal;
-  text-decoration: none;
-  font-style: normal;
-  font-variant: normal;
-  text-transform: none;
-}
-
+    transition: all 0.3s ease-in-out;
+  }
+  .dataContainerScrolled {
+    opacity: 1;
+    position: absolute;
+    bottom: 0px;
+    padding: 20px 40px;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+      0deg,
+      rgba(16, 16, 16, 0.864) 0%,
+      rgba(16, 16, 16, 0.864) 63%,
+      rgba(32, 32, 32, 0.481) 92%,
+      rgba(32, 32, 32, 0.021) 100%
+      );
+      transition: all 0.3s ease-in-out;
+    }
+    
+  .description {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    font-size: 13px;
+    letter-spacing: 2px;
+    word-spacing: 2px;
+    color: #ffffff;
+    font-weight: normal;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+  }
+  
 .name {
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 25px;
@@ -122,9 +129,92 @@
   /* width: 900px; */
 }
 .extraData {
-  /* margin: 0px 0px 0px 60px;
-  width: 500px;
-  border: 1px solid blue; */
+  display: flex;
+  justify-content: center;
+  margin: 2% 0% 8%;
+  width: 90%;
+  height: 18%;
+  /* border: 1px solid blue; */
+}
+.extraDataImg{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: 48%;
+  height: 100%;
+  margin: 0% 3%;
+  border-radius: 4%;
+  overflow: hidden;
+  /* border: 1px solid red; */
+}
+.extraDataText{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  width: 37%;
+  height: 100%;
+  border-radius: 5%;
+  overflow: hidden;
+  /* border: 1px solid red; */
+}
+
+.link{
+  text-decoration: none
+}
+
+
+.block{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 0% 3% 0% 0%;
+  width: 45%;
+  height: 20%;
+  /* border: 1px solid blue; */
+}
+.longBlock{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin: 0% 3% 0% 0%;
+  width: 93%;
+  height: 20%;
+  /* border: 1px solid blue; */
+}
+.blockTitle{
+  font-family: "Courier New", Courier, monospace;
+  font-size:1vw;
+  /* letter-spacing: 2px; */
+  word-spacing: 2px;
+  color: #838383;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  /* border: 1px solid red; */
+  height: 30%;
+  width: 100%;
+}
+.blockText{
+  font-family: "Courier New", Courier, monospace;
+  font-size:1vw;
+  /* letter-spacing: 2px; */
+  word-spacing: 2px;
+  color: #ffffff;
+  font-weight: 300;
+  text-decoration: underline solid rgb(103, 103, 103);
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+  /* border: 1px solid rgb(72, 255, 0); */
+  height: 30%;
+  width: 100%;
+  /* margin: 1% 0% 0% 0%; */
 }
 
 .genres{
@@ -171,4 +261,36 @@
   align-items: center;
   justify-content: center;
   height: 10%;
+}
+
+.relatedTitle{
+  font-family: "Arial Black", Gadget, sans-serif;
+  font-size: 25px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #ffffff;
+  font-weight: 400;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}
+.relatedCointaner{
+  /* border: 1px solid brown; */
+  width: 1200px;
+  max-width: 1200px;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 10px opx;
+  scroll-behavior: smooth;
+  position: relative;
+  
+  z-index: 0;
+}
+
+.circle{
+  margin: 300px 0px;
+  border: 1px solid blue;
 }

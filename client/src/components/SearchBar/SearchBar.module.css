@@ -1,6 +1,9 @@
+.searchbar{
+    width: 60%;
+    /* border: 1px solid rgb(0, 255, 55); */
+}
 .search {
     border-radius:40px;
-    border: none;
     color: rgba(255, 255, 255, 0.651);
     background-color: #1f465f74;
     word-wrap: break-word;
@@ -11,13 +14,13 @@
     height: 42px;
     font-size: 16px;
     font-weight: 100;
-    max-width: 100%;
-    width: 1000px;
+border: none;
     top: 0px;
-    transition: all 0.3s ease;
-    
+    transition: all 0.3s ease;   
     z-index: 2;
+    box-sizing: border-box;
 }
+
 .searchIcon{
     margin-right: -40px;
     z-index: 3;

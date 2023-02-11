@@ -16,6 +16,7 @@ export const FILTER_CREATED = "FILTER_CREATED"
 export const CLEAN_GAMES = "CLEAN_GAMES"
 export const POINTER = "POINTER"
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
+export const FILTER_BY_GENRE_DETAIL = "FILTER_BY_GENRE_DETAIL"
 
 // los dispatch se hacen desde los componentes
 // mi actionCreator de allgames Y get por NAME
@@ -27,26 +28,6 @@ export const getGames = (name) => {
     dispatch({ type: GET_GAMES, payload: results });
   };
 };
-
-// backup de commit "martes madrugada"
-// export const getGames = (paylo) => {
-//   return async function (dispatch) {
-//     const apiData = await axios.get("http://localhost:3001/videogames/");
-//     const games = apiData.data;
-//     dispatch({ type: GET_GAMES, payload: games });
-//   };
-// };
-
-// export const getGame = (name) => {
-//   return async function (dispatch) {
-//     const apiData = await axios.get(`http://localhost:3001/videogames?name=${name}`);
-//     const games = apiData.data;
-//     dispatch({ type: BY_NAME, payload: games });
-//   };
-// };
-
-
-
 
 // mi actionCreator get por ID
 export const getById = (id) => {
@@ -97,6 +78,13 @@ export const backupPage = () => {
 export const filterByGenre = (payload) => {
   return {
       type: FILTER_BY_GENRE,
+      payload: payload
+  }
+}
+
+export const filterByGenreDetail = (payload) => {
+  return {
+      type: FILTER_BY_GENRE_DETAIL,
       payload: payload
   }
 }

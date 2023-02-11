@@ -14,31 +14,30 @@ import {
   FILTER_CREATED,
   CLEAN_GAMES,
   CLEAN_DETAIL,
-
+  FILTER_BY_GENRE_DETAIL,
 } from "./actions";
 
 const initialState = {
   games: [],
   gamesBackup: [],
   game: [],
+  related: [],
   searchGames: null,
   copyOfPlatform: [],
   copyOfGenres: [],
   currentPage: 1,
   currentPageBackup: 1,
-  pointer: 0
+  pointer: 0,
 };
 
-export const searchVideoGame = (videoGames, gameSearch) => {
+export const searchVideoGame = (videoGames) => {
   const filtered = videoGames.filter((games) => games.name);
   return filtered;
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-
     case GET_GAMES:
-
       return { ...state, games: action.payload };
 
     case BY_NAME:
@@ -53,17 +52,18 @@ const rootReducer = (state = initialState, action) => {
     case GET_PLATFORM:
       return { ...state, copyOfPlatform: action.payload };
 
-    case SEARCH_GAME: 
+    case SEARCH_GAME:
       return {
         ...state,
         searchGames: action.payload,
       };
-    
+
     case SET_PAGE:
       return {
         ...state,
         currentPage: action.payload,
-        currentPageBackup: action.gamesLength > 90 ? action.payload : state.currentPageBackup
+        currentPageBackup:
+          action.gamesLength > 90 ? action.payload : state.currentPageBackup,
       };
 
     case RESET_PAGE:
@@ -79,9 +79,11 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      let juegos = action.payload;
-      state.games = state.games.filter((videogames) => videogames.genres?.includes(juegos));
-      if (action.payload === "all") state.games = state.allGames;
+      let source = action.payload;
+      state.games = state.games.filter((videogames) =>
+        videogames.genres?.includes(source)
+      );
+      if (source === "all") state.games = state.allGames;
       if (state.games.length === 0) {
         state.games = state.allGames;
         alert("No hay resultados");
@@ -89,6 +91,23 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         games: state.games,
+      };
+
+    case FILTER_BY_GENRE_DETAIL:
+      let sourceDetail = action.payload;
+      const filtered = state.games.filter((game) => {
+        return (
+          sourceDetail.genres.every((sourceGenre) =>
+          game.genres.includes(sourceGenre)
+          ) && game.name !== sourceDetail.name
+          );
+        });
+        console.log(filtered);
+
+      const filteredCut = filtered.slice(0, 4);
+      return {
+        ...state,
+        related: filteredCut,
       };
 
     case FILTER_BY_RATING:
@@ -159,8 +178,8 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         games: action.payload,
       };
-    
-      case CLEAN_DETAIL:
+
+    case CLEAN_DETAIL:
       return {
         ...state,
         game: action.payload,

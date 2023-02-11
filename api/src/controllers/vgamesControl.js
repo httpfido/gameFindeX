@@ -144,31 +144,37 @@ const findGamesBDD = async (name) => {
 const findGames = async (name) => {
   const bdd = await findGamesBDD(name);
   const api = await findGamesAPI(name);
-
+  
   if (!api && !bdd) throw Error("No se encontro el juego");
-
+  
   return [...bdd, ...api];
 };
 
 // - - - - - - - - - - - - - - - - - - - - BUSCAR POR ID - - - - - - - - - - - - - - - - - - - -
 
-// busca el juego por NAME solamente en la API
+// busca el juego por ID solamente en la API
 const findByIdAPI = async (id) => {
   try {
     const game = (
       await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-    ).data;
+      ).data;
     const result = {
       id: game.id,
       name: game.name,
       description: game.description,
       background_image: game.background_image,
-      released: game.released,
+      background_image_additional: game.background_image_additional,
       rating: game.rating,
-      genres: game.genres.map((g) => g.name),
+      genres: game.genres?.map((g) => g.name),
+      released: game.released,
+      developers: game.developers?.map((d) => d.name),
+      esrb: game.esrb_rating?.name,
+      tags: game.tags?.map((t) => t.name).slice(0,9),
+      platform: game.platforms?.map((p) => p.platform.name),
+      comments: game.ratings?.map((r) => `${r.title} (${r.count})` ),
       created: false,
     };
-
+    
     return result;
   } catch (error) {
     throw Error("No se encontro el juego");

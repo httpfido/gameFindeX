@@ -4,23 +4,17 @@ import SearchBar from "../SearchBar/SearchBar";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  backupPage,
-  getGames,
-  resetPage,
-  cleanGames,
-} from "../../redux/actions";
+import { getGames, resetPage, cleanGames } from "../../redux/actions";
 
 const NavBar = () => {
   const searchGames = useSelector((state) => state.game);
   const allGames = useSelector((state) => state.games);
   const location = useLocation();
 
-
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       setScroll(window.pageYOffset > 0);
     });
   }, []);
@@ -52,13 +46,12 @@ const NavBar = () => {
             Home
           </button>
         </Link>
-        <Link to="/create">
+        <Link to="/create" className={style.link}>
           <button className={style.btnCreate}>+</button>
         </Link>
       </div>
       <SearchBar />
- 
-{/*  */}
+
       <div>
         {searchGames.length
           ? searchGames
