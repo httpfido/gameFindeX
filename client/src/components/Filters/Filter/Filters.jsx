@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import check from "../../../assets/check.svg";
+import chevron from "../../../assets/chevron.svg"
+
 import {
-  getGames,
   filterByGenre,
   filterByRating,
   filterByAbc,
   filterCreated,
   getGenres,
   resetPage,
-  setPage,
 } from "../../../redux/actions";
 import style from "./Filters.module.css";
 
 export default function Filters() {
-  // const [byGenre, setByGenre] = useState();
+
   const dispatch = useDispatch();
   const myGenres = useSelector((state) => state.copyOfGenres);
+
 
   useEffect(() => {
     dispatch(getGenres());
@@ -24,22 +26,10 @@ export default function Filters() {
 
   const [source, setSource] = useState([]);
   const [open, setOpen] = useState(false);
-  const [openStorage, setOpenStorage] = useState(false)
-  const [order, setOrder] = useState()
-  // function handleFilterByGenre(e) {
-  //   e.preventDefault();
-  //   if (e.target.value !== "all" && source.length <= 3) {
-  //     setSource((prevSource) => [...prevSource, e.target.value]);
-  //     console.log(source.length);
-  //   }
-  // }
+  const [openStorage, setOpenStorage] = useState(false);
+  const [openRating, setOpenRating] = useState(false);
+  const [openABC, setOpenABC] = useState(false);
 
-  // function handleDeleteG(e) {
-  //   setSource(source.filter((element) => element !== e.target.value));
-  //   dispatch(filterByGenre(source));
-  // }
-
-  // CON MENU DESPLEGABLE
   const [selectValue, setSelectValue] = useState("all");
 
   const handleFilterByGenre = (event) => {
@@ -50,7 +40,6 @@ export default function Filters() {
     } else {
       setSource([...source, genre]);
     }
-    console.log(source);
   };
 
   useEffect(() => {
@@ -58,24 +47,20 @@ export default function Filters() {
     dispatch(filterByGenre(source));
     dispatch(resetPage());
   }, [source, dispatch]);
-  // setSource((prevSource) => prevSource.filter((element) => element !== e.target.value));
 
   function handleFilterByRating(e) {
     e.preventDefault();
-    e.target.value === "all"
-      ? dispatch(getGames) && setOrder(`Rating ${e.target.value}`)
-      : dispatch(filterByRating(e.target.value));
-    setOrder(`Rating ${e.target.value}`);
+    let source = e.target.value;
+    dispatch(filterByRating(source));
+    dispatch(resetPage());
   }
 
-  // function handleFilterByAbc(e) {
-  //   e.preventDefault();
-  //   e.target.value === "all"
-  //     ? dispatch(filterByAbc) && setOrden(`ABC ${e.target.value}`)
-  //     : dispatch(filterByAbc(e.target.value));
-  //   setOrden(`ABC ${e.target.value}`);
-  //   dispatch(resetPage());
-  // }
+  function handleFilterByAbc(e) {
+    e.preventDefault();
+    let source = e.target.value;
+    dispatch(filterByAbc(source));
+    dispatch(resetPage());
+  }
 
   function handleFilterCreated(e) {
     e.preventDefault();
@@ -88,132 +73,148 @@ export default function Filters() {
   return (
     <div className={style.filters}>
       <div className={style.filterContainer}>
-
         <div className={style.aligns}>
-          <button
-            className={style.openDropdown}
-            onClick={() => setOpen(!open)}
-            value="all"
-          >
-
+          <button className={style.openDropdown} onClick={() => setOpen(!open)}>
             Filter by: Genres
           </button>
-          <div
-            className={
-              style.dropdownGenres + " " + (open ? style.opened : style.closed)
-            }
-            value={selectValue}
-          >
-            {myGenres?.map((element, index) => (
-              <button
-                className={style.options}
-                onClick={(e) => {
-                  setOpen(!open);
-                  handleFilterByGenre(e);
-                }}
-                key={index}
-                value={element}
-              >
-                {element}{" "}
-                {source.includes(element) ? (
-                  <img className={style.check} src={check} alt="" />
-                ) : (
-                  ""
-                )}
-              </button>
-            ))}
-          </div>
+        </div>
+        <div
+          className={
+            style.dropdownGenres + " " + (open ? style.opened : style.closed)
+          }
+          value={selectValue}
+        >
+          {myGenres?.map((element, index) => (
+            <button
+              className={style.options}
+              onClick={(e) => {
+                setOpen(!open);
+                handleFilterByGenre(e);
+              }}
+              key={index}
+              value={element}
+            >
+              {element}{" "}
+              {source.includes(element) ? (
+                <img className={style.check} src={check} alt="" />
+              ) : (
+                ""
+              )}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className={style.storageContainer}>
-
         <div className={style.aligns}>
-          <button className={style.openDropdown} onClick={()=>setOpenStorage(!openStorage)}>Storage</button>
+          <button
+            className={style.openDropdown}
+            onClick={() => setOpenStorage(!openStorage)}
+          >
+            Storage <img src={chevron} alt="" className={openStorage ? style.chevron : style.chevront}/>
+          </button>
         </div>
 
-        <div className={openStorage ? style.storageopenedS : style.storageclosedS}>
-          <button onClick={(e) => handleFilterCreated(e)} value="all"
-          className={style.storageButton}>
+        <div
+          className={openStorage ? style.storageopenedS : style.storageclosedS}
+        >
+          <button
+            onClick={(e) => handleFilterCreated(e)}
+            value="all"
+            className={style.storageButton}
+          >
             All
           </button>
-          <button onClick={(e) => handleFilterCreated(e)} value="lb"
-          className={style.storageButton}>
+          <button
+            onClick={(e) => handleFilterCreated(e)}
+            value="lb"
+            className={style.storageButton}
+          >
             Library
           </button>
-          <button onClick={(e) => handleFilterCreated(e)} value="db"
-          className={style.storageButton}>
+          <button
+            onClick={(e) => handleFilterCreated(e)}
+            value="db"
+            className={style.storageButton}
+          >
             Created
           </button>
         </div>
-
-        {/* <select
-          className={style.openDropdown}
-          onChange={(e) => handleFilterCreated(e)}
-        >
-          <option value="all">All</option>
-          <option value="lb">Library</option>
-          <option value="db">Created in DB</option>
-        </select> */}
       </div>
 
       <div className={style.sortingContainer}>
-
         <div className={style.aligns}>
-          <select className={style.options} onChange={(e) => handleFilterByRating(e)}>
-            <option value="all">All</option>
-            <option value="asc">Rating Asc</option>
-            <option value="desc">Rating Desc</option>
-          </select>
+          <button
+            className={style.openDropdown}
+            onClick={() => setOpenRating(!openRating)}
+          >
+            Order by: Rating <img src={chevron} alt="" className={openRating ? style.chevron : style.chevront}/>
+          </button>
         </div>
-        {/* <h5 className={style.underline}>Alphabetical Order:</h5>
-        <select className={style.options} onChange={(e) => handleFilterByAbc(e)}>
-          <option value="all">All</option>
-          <option value="asc">A-Z</option>
-          <option value="desc">Z-A</option>
-        </select> */}
+
+        <div
+          className={openRating ? style.storageopenedS : style.storageclosedS}
+        >
+          <button
+            onClick={(e) => handleFilterByRating(e)}
+            value="all"
+            className={style.storageButton}
+          >
+            All
+          </button>
+          <button
+            onClick={(e) => handleFilterByRating(e)}
+            value="asc"
+            className={style.storageButton}
+          >
+            Ascending 
+          </button>
+          <button
+            onClick={(e) => handleFilterByRating(e)}
+            value="desc"
+            className={style.storageButton}
+          >
+            Descending
+          </button>
+        </div>
+      </div>
+
+      <div className={style.sortingContainer}>
+        <div className={style.aligns}>
+          <button
+            className={style.openDropdown}
+            onClick={() => setOpenABC(!openABC)}
+          >
+            Order by: Alphabetic <img src={chevron} alt="" className={openABC ? style.chevron : style.chevront}/>
+          </button>
+        </div>
+
+        <div
+          className={openABC ? style.storageopenedS : style.storageclosedS}
+        >
+          <button
+            onClick={(e) => handleFilterByAbc(e)}
+            value="all"
+            className={style.storageButton}
+          >
+            All
+          </button>
+          <button
+            onClick={(e) => handleFilterByAbc(e)}
+            value="asc"
+            className={style.storageButton}
+          >
+            A-Z 
+          </button>
+          <button
+            onClick={(e) => handleFilterByAbc(e)}
+            value="desc"
+            className={style.storageButton}
+          >
+            Z-A
+          </button>
+        </div>
       </div>
     </div>
   );
 }
-
-// import style from "./Filter.module.css";
-// import { Link } from "react-router-dom";
-// import { useDispatch } from "react-redux";
-// import { getGames } from "../../../redux/actions";
-
-// const Filters = () => {
-
-//   const dispatch = useDispatch()
-//   const handleHome = () => {
-//     console.log("llegue a handle");
-//     dispatch(getGames())
-//   }
-
-//   return (
-//     <div className={style.filterbox}>
-//       {/* <div className={style.navbar}>
-//         <Link to="/home">
-//           <button onClick={handleHome} className={style.button}>Home</button>
-//         </Link>
-//         <Link to="/create">
-//           <button className={style.button}>Add game</button>
-//         </Link>
-//       </div> */}
-//       <div className={style.filters}>
-//         <p className={style.text}> Aca van mis:</p>
-//         <select>
-//           <option value="asc">Ascendente</option>
-//           <option value="desc">Descendente</option>
-//         </select>
-//         <br />
-//         <select>
-//           <option value="created">Agregados</option>
-//           <option value="nocreated">Existentes</option>
-//         </select>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Filters;

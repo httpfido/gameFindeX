@@ -107,67 +107,74 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_RATING:
+      if (action.payload === "all") {
+        return { ...state, games: state.gamesBackup };
+      }
       let sorted2 =
         action.payload === "desc"
-          ? state.games.sort((a, b) => {
+          ? [...state.gamesBackup].sort((a, b) => {
               if (a.rating > b.rating) {
-                return 1;
+                return -1;
               }
               if (a.rating < b.rating) {
-                return -1;
+                return 1;
               }
               return 0;
             })
-          : state.games.sort((a, b) => {
+          : [...state.gamesBackup].sort((a, b) => {
               if (a.rating > b.rating) {
-                return -1;
+                return 1;
               }
               if (a.rating < b.rating) {
-                return 1;
+                return -1;
               }
               return 0;
             });
-
-      return {
-        ...state,
-        games: sorted2,
-      };
+      return { ...state, games: sorted2 };
 
     case FILTER_BY_ABC:
+      if (action.payload === "all") {
+        return { ...state, games: state.gamesBackup };
+      }
       let sorted =
-        action.payload === "asc"
-          ? state.games.sort((a, b) => {
+        action.payload === "desc"
+          ? [...state.gamesBackup].sort((a, b) => {
               if (a.name > b.name) {
-                return 1;
+                return -1;
               }
               if (a.name < b.name) {
-                return -1;
+                return 1;
               }
               return 0;
             })
-          : state.games.sort((a, b) => {
+          : [...state.gamesBackup].sort((a, b) => {
               if (a.name > b.name) {
-                return -1;
+                return 1;
               }
               if (a.name < b.name) {
-                return 1;
+                return -1;
               }
               return 0;
             });
-      return {
-        ...state,
-        games: sorted,
-      };
+      return { ...state, games: sorted };
 
     case FILTER_CREATED:
-      console.log(action.payload);
       let createdFilter =
         action.payload === "db"
           ? state.gamesBackup.filter((g) => g.created)
           : state.gamesBackup.filter((g) => !g.created);
+
+      // if (createdFilter.length > 0)
+      //   return { ...state, hasFilteredResults: false};
       return {
         ...state,
-        games: action.payload === "all" ? state.gamesBackup : createdFilter,
+        games:
+          action.payload === "all"
+            ? state.gamesBackup
+            : createdFilter.length
+            ? createdFilter
+            : state.gamesBackup,
+        hasFilteredResults: createdFilter.length > 0,
       };
 
     case CLEAN_GAMES:

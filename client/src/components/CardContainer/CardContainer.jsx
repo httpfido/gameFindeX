@@ -44,8 +44,6 @@ const CardContainer = () => {
     return <Hamster key={"CO1"}/>
   }
   
-  if (!hasFilteredResults) {
-  }
 
   // ahora si, renderizamos el componente
   return (
@@ -69,6 +67,7 @@ const CardContainer = () => {
             name={game.name}
             genres={game.genres?.join(", ")}
             platform={game.platform?.slice(0, 3).join(", ")}
+            rating={game.rating}
             />
             </Link>
             </div>
