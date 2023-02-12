@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import check from "../../../assets/check.svg";
 import {
   getGames,
   filterByGenre,
@@ -13,7 +13,7 @@ import {
 } from "../../../redux/actions";
 import style from "./Filters.module.css";
 
-export default function Filters({ setCurrentPage, setOrden }) {
+export default function Filters() {
   // const [byGenre, setByGenre] = useState();
   const dispatch = useDispatch();
   const myGenres = useSelector((state) => state.copyOfGenres);
@@ -23,34 +23,50 @@ export default function Filters({ setCurrentPage, setOrden }) {
   }, [dispatch]);
 
   const [source, setSource] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [openStorage, setOpenStorage] = useState(false)
+  const [order, setOrder] = useState()
+  // function handleFilterByGenre(e) {
+  //   e.preventDefault();
+  //   if (e.target.value !== "all" && source.length <= 3) {
+  //     setSource((prevSource) => [...prevSource, e.target.value]);
+  //     console.log(source.length);
+  //   }
+  // }
 
-  function handleFilterByGenre(e) {
-    e.preventDefault();
-    if (e.target.value !== "all" && source.length <= 3) {
-      setSource((prevSource) => [...prevSource, e.target.value]);
-      console.log(source.length);
+  // function handleDeleteG(e) {
+  //   setSource(source.filter((element) => element !== e.target.value));
+  //   dispatch(filterByGenre(source));
+  // }
+
+  // CON MENU DESPLEGABLE
+  const [selectValue, setSelectValue] = useState("all");
+
+  const handleFilterByGenre = (event) => {
+    const genre = event.target.value;
+    if (genre === undefined) return;
+    if (source.includes(genre)) {
+      setSource(source.filter((g) => g !== genre));
+    } else {
+      setSource([...source, genre]);
     }
-  }
+    console.log(source);
+  };
 
-  function handleDeleteG(e) {
-    setSource(source.filter((element) => element !== e.target.value));
-    dispatch(filterByGenre(source));
-  }
-  
   useEffect(() => {
     console.log(source);
     dispatch(filterByGenre(source));
-      dispatch(resetPage());
+    dispatch(resetPage());
   }, [source, dispatch]);
   // setSource((prevSource) => prevSource.filter((element) => element !== e.target.value));
 
-  // function handleFilterByRating(e) {
-  //   e.preventDefault();
-  //   e.target.value === "all"
-  //     ? dispatch(getGames) && setOrden(`Rating ${e.target.value}`)
-  //     : dispatch(filterByRating(e.target.value));
-  //   setOrden(`Rating ${e.target.value}`);
-  // }
+  function handleFilterByRating(e) {
+    e.preventDefault();
+    e.target.value === "all"
+      ? dispatch(getGames) && setOrder(`Rating ${e.target.value}`)
+      : dispatch(filterByRating(e.target.value));
+    setOrder(`Rating ${e.target.value}`);
+  }
 
   // function handleFilterByAbc(e) {
   //   e.preventDefault();
@@ -63,67 +79,93 @@ export default function Filters({ setCurrentPage, setOrden }) {
 
   function handleFilterCreated(e) {
     e.preventDefault();
-    dispatch(filterCreated(e.target.value));
+    let source = e.target.value;
+    console.log(source);
+    dispatch(filterCreated(source));
     dispatch(resetPage());
   }
 
   return (
     <div className={style.filters}>
       <div className={style.filterContainer}>
-        <h5 className={style.underline}>Filters</h5>
 
         <div className={style.aligns}>
-          <p className={style.title}>Genres:</p>
-          <select
-            className={style.options}
-            onChange={(e) => handleFilterByGenre(e)}
+          <button
+            className={style.openDropdown}
+            onClick={() => setOpen(!open)}
+            value="all"
           >
-            <option value="all">Genres</option>
+
+            Filter by: Genres
+          </button>
+          <div
+            className={
+              style.dropdownGenres + " " + (open ? style.opened : style.closed)
+            }
+            value={selectValue}
+          >
             {myGenres?.map((element, index) => (
-              <option key={index}>{element}</option>
-            ))}
-          </select>
-          <div className={source.length? style.selected : style.hidden}>
-          {source?.map((element, index) => (
-              <span key={index}>
-                <button
-                  value={element}
-                  className={style.x}
-                  onClick={handleDeleteG}
-                >
-                  {element}
-                </button>
-              </span>
+              <button
+                className={style.options}
+                onClick={(e) => {
+                  setOpen(!open);
+                  handleFilterByGenre(e);
+                }}
+                key={index}
+                value={element}
+              >
+                {element}{" "}
+                {source.includes(element) ? (
+                  <img className={style.check} src={check} alt="" />
+                ) : (
+                  ""
+                )}
+              </button>
             ))}
           </div>
         </div>
       </div>
 
-      <div className={style.sortingContainer}>
-        <h5 className={style.underline}>Sorting</h5>
+      <div className={style.storageContainer}>
+
         <div className={style.aligns}>
-          <p>Storage:</p>
-          <select
-            className={style.options}
-            onChange={(e) => handleFilterCreated(e)}
-          >
-            <option value="all">All</option>
-            <option value="lb">Library</option>
-            <option value="db">Created in DB</option>
-          </select>
+          <button className={style.openDropdown} onClick={()=>setOpenStorage(!openStorage)}>Storage</button>
         </div>
+
+        <div className={openStorage ? style.storageopenedS : style.storageclosedS}>
+          <button onClick={(e) => handleFilterCreated(e)} value="all"
+          className={style.storageButton}>
+            All
+          </button>
+          <button onClick={(e) => handleFilterCreated(e)} value="lb"
+          className={style.storageButton}>
+            Library
+          </button>
+          <button onClick={(e) => handleFilterCreated(e)} value="db"
+          className={style.storageButton}>
+            Created
+          </button>
+        </div>
+
+        {/* <select
+          className={style.openDropdown}
+          onChange={(e) => handleFilterCreated(e)}
+        >
+          <option value="all">All</option>
+          <option value="lb">Library</option>
+          <option value="db">Created in DB</option>
+        </select> */}
       </div>
 
       <div className={style.sortingContainer}>
-        <h5 className={style.underline}>Sorting</h5>
-        {/* <div className={style.aligns}>
-          <p>Rating:</p>
+
+        <div className={style.aligns}>
           <select className={style.options} onChange={(e) => handleFilterByRating(e)}>
             <option value="all">All</option>
             <option value="asc">Rating Asc</option>
             <option value="desc">Rating Desc</option>
           </select>
-        </div> */}
+        </div>
         {/* <h5 className={style.underline}>Alphabetical Order:</h5>
         <select className={style.options} onChange={(e) => handleFilterByAbc(e)}>
           <option value="all">All</option>

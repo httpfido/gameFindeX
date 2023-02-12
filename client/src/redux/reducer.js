@@ -160,13 +160,14 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_CREATED:
-      const createdFilter =
+      console.log(action.payload);
+      let createdFilter =
         action.payload === "db"
-          ? state.allGames.filter((e) => e.created)
-          : state.allGames.filter((e) => !e.created);
+          ? state.gamesBackup.filter((g) => g.created)
+          : state.gamesBackup.filter((g) => !g.created);
       return {
         ...state,
-        games: action.payload === "origin" ? state.allGames : createdFilter,
+        games: action.payload === "all" ? state.gamesBackup : createdFilter,
       };
 
     case CLEAN_GAMES:

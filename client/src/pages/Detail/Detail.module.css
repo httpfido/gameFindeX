@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
     width: 98.9vw;
-    height: 300vh;
+    height: auto;
     overflow: hidden;
     box-sizing: border-box;
     object-fit:cover;
@@ -83,6 +83,7 @@
     );
     transition: all 0.3s ease-in-out;
   }
+
   .dataContainerScrolled {
     opacity: 1;
     position: absolute;
@@ -98,7 +99,7 @@
       );
       transition: all 0.3s ease-in-out;
     }
-    
+  
   .description {
     font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
     font-size: 13px;
@@ -111,7 +112,7 @@
     font-variant: normal;
     text-transform: none;
   }
-  
+
 .name {
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 25px;
@@ -131,9 +132,9 @@
 .extraData {
   display: flex;
   justify-content: center;
-  margin: 2% 0% 8%;
+  margin: 2% 0% 0%;
   width: 90%;
-  height: 18%;
+  height: 400px;
   /* border: 1px solid blue; */
 }
 .extraDataImg{
@@ -169,8 +170,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  margin: 0% 3% 0% 0%;
+  
+  margin: 0px 10px;
   width: 45%;
   height: 20%;
   /* border: 1px solid blue; */
@@ -179,7 +180,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
+  
   margin: 0% 3% 0% 0%;
   width: 93%;
   height: 20%;
@@ -187,7 +188,7 @@
 }
 .blockTitle{
   font-family: "Courier New", Courier, monospace;
-  font-size:1vw;
+  font-size:15px;
   /* letter-spacing: 2px; */
   word-spacing: 2px;
   color: #838383;
@@ -202,7 +203,7 @@
 }
 .blockText{
   font-family: "Courier New", Courier, monospace;
-  font-size:1vw;
+  font-size:15px;
   /* letter-spacing: 2px; */
   word-spacing: 2px;
   color: #ffffff;
@@ -233,40 +234,12 @@
   text-transform: none;
 }
 
-.back{
-  outline: none;
-  cursor: pointer;
-  /* position: absolute; */
-  /* left: 70px; */
-  background-color: #ffeaa700;
-  color: #eaeaea;
-  /* margin: 10%; */
-  height: 40%;
-  border-radius: 5%;
-  border: 1px solid #8f9092;
-  transition: all 0.1s ease-in-out;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.back:hover {
-  color: #fdde76;
-  background: rgba(170, 170, 170, 0.062);
-}
-
-.bottomContainer{
-  /* border: 1px solid blue; */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 10%;
-}
 
 .relatedTitle{
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 25px;
   letter-spacing: 2px;
+  text-align: center;
   word-spacing: 2px;
   color: #ffffff;
   font-weight: 400;
@@ -274,6 +247,7 @@
   font-style: normal;
   font-variant: normal;
   text-transform: none;
+  margin: 5% 0% 0%;
 }
 .relatedCointaner{
   /* border: 1px solid brown; */
@@ -283,7 +257,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 10px opx;
+  margin: 10px;
   scroll-behavior: smooth;
   position: relative;
   
@@ -294,3 +268,32 @@
   margin: 300px 0px;
   border: 1px solid blue;
 }
+  .back{
+    outline: none;
+    cursor: pointer;
+    /* position: absolute; */
+    /* left: 70px; */
+    background-color: #ffeaa700;
+    color: #eaeaea;
+    margin: 80px 0px;
+    height: 40%;
+    border-radius: 5%;
+    border: 1px solid #8f9092;
+    transition: all 0.1s ease-in-out;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .back:hover {
+    color: #fdde76;
+    background: rgba(170, 170, 170, 0.062);
+  }
+  
+  .bottomContainer{
+    /* border: 1px solid blue; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+  }
