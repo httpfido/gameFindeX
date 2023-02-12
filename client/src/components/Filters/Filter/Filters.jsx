@@ -1,4 +1,3 @@
-
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -15,28 +14,35 @@ import {
 import style from "./Filters.module.css";
 
 export default function Filters({ setCurrentPage, setOrden }) {
-  const [byGenre, setByGenre] = useState()
+  // const [byGenre, setByGenre] = useState();
   const dispatch = useDispatch();
   const myGenres = useSelector((state) => state.copyOfGenres);
 
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
- 
+
+  const [source, setSource] = useState([]);
 
   function handleFilterByGenre(e) {
     e.preventDefault();
-    dispatch(filterByGenre(e.target.value));
-    dispatch(resetPage());
+    if (e.target.value !== "all" && source.length <= 3) {
+      setSource((prevSource) => [...prevSource, e.target.value]);
+      console.log(source.length);
+    }
   }
 
-  // function handleDeleteG(event) {
-  //   setForm({
-  //     ...myGenres,
-  //     genres: form.genres.filter((element) => element !== event.target.value),
-  //   });
-  // }
-
+  function handleDeleteG(e) {
+    setSource(source.filter((element) => element !== e.target.value));
+    dispatch(filterByGenre(source));
+  }
+  
+  useEffect(() => {
+    console.log(source);
+    dispatch(filterByGenre(source));
+      dispatch(resetPage());
+  }, [source, dispatch]);
+  // setSource((prevSource) => prevSource.filter((element) => element !== e.target.value));
 
   // function handleFilterByRating(e) {
   //   e.preventDefault();
@@ -44,7 +50,6 @@ export default function Filters({ setCurrentPage, setOrden }) {
   //     ? dispatch(getGames) && setOrden(`Rating ${e.target.value}`)
   //     : dispatch(filterByRating(e.target.value));
   //   setOrden(`Rating ${e.target.value}`);
-  //   dispatch(resetPage());
   // }
 
   // function handleFilterByAbc(e) {
@@ -66,51 +71,50 @@ export default function Filters({ setCurrentPage, setOrden }) {
     <div className={style.filters}>
       <div className={style.filterContainer}>
         <h5 className={style.underline}>Filters</h5>
-        
-        <div className={style.aligns}>
-        <p>Genres:</p>
-        <select className={style.options} onChange={(e) => handleFilterByGenre(e)}>
-          <option  value="all">All</option>
-          {myGenres?.map((element, index) => (
-            <option key={index}>
-              {element}
-            </option>
-          ))}
-        </select>
-        {/* <div className={style.selected}>
-          {form.genres?.map((element, index) => (
-            <span key={index}>
-              {element}
-              <button
-                value={element}
-                className={style.x}
-                onClick={handleDeleteG}
-              >
-                X
-              </button>
-            </span>
-          ))}
-        </div> */}
 
-      </div>
+        <div className={style.aligns}>
+          <p className={style.title}>Genres:</p>
+          <select
+            className={style.options}
+            onChange={(e) => handleFilterByGenre(e)}
+          >
+            <option value="all">Genres</option>
+            {myGenres?.map((element, index) => (
+              <option key={index}>{element}</option>
+            ))}
+          </select>
+          <div className={source.length? style.selected : style.hidden}>
+          {source?.map((element, index) => (
+              <span key={index}>
+                <button
+                  value={element}
+                  className={style.x}
+                  onClick={handleDeleteG}
+                >
+                  {element}
+                </button>
+              </span>
+            ))}
+          </div>
         </div>
+      </div>
 
       <div className={style.sortingContainer}>
-        
         <h5 className={style.underline}>Sorting</h5>
         <div className={style.aligns}>
-          
-        <p>Storage:</p>
-        <select className={style.options} onChange={(e) => handleFilterCreated(e)}>
-          <option value="all">All</option>
-          <option value="lb">Library</option>
-          <option value="db">Created in DB</option>
-        </select>
-      </div>
+          <p>Storage:</p>
+          <select
+            className={style.options}
+            onChange={(e) => handleFilterCreated(e)}
+          >
+            <option value="all">All</option>
+            <option value="lb">Library</option>
+            <option value="db">Created in DB</option>
+          </select>
         </div>
+      </div>
 
       <div className={style.sortingContainer}>
-        
         <h5 className={style.underline}>Sorting</h5>
         {/* <div className={style.aligns}>
           <p>Rating:</p>
@@ -130,7 +134,6 @@ export default function Filters({ setCurrentPage, setOrden }) {
     </div>
   );
 }
-
 
 // import style from "./Filter.module.css";
 // import { Link } from "react-router-dom";
@@ -172,5 +175,3 @@ export default function Filters({ setCurrentPage, setOrden }) {
 // };
 
 // export default Filters;
-
-

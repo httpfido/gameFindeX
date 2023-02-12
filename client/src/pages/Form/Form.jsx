@@ -1,5 +1,4 @@
 import { getGenres, getPlatform } from "../../redux/actions";
-import { useForm } from "../../components/hooks/useForm.jsx";
 import Circle from "../../components/Loader/Circle";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -66,7 +65,7 @@ const Form = () => {
           setErrors({ ...errors, description: "A description is required" });
         if (form.description.trim()) delete errors.description;
         break;
-
+      
     }
   };
 

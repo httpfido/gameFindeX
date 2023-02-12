@@ -25,20 +25,23 @@ const Detail = () => {
   const related = useSelector((state) => state.related);
   useEffect(() => {
     if (game && game.genres) {
-      const sources = {
+      let sources = {
         name: game.name,
         genres: game.genres,
       };
       dispatch(filterByGenreDetail(sources));
     }
   }, [game]);
-
+  
   const [scroll, setScroll] = useState(false);
-
+  
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScroll(window.pageYOffset > 0);
-    });
+    })
+    return ()=>{
+      setScroll(0)
+    }
   }, []);
 
   const { pathname } = useLocation();
@@ -174,32 +177,6 @@ const Detail = () => {
       )}
     </div>
   );
-
-  // return (
-
-  //   <div>
-  //     {gameState.map((game) => {
-  //       return (
-  //         <div key={game.id}>
-  //           <h1>{game?.name}</h1>
-
-  //           <img src={game?.background_image} alt="" />
-
-  //           <br></br>
-
-  //           <label>Released: </label>
-  //           <p>{game?.released}</p>
-
-  //           <label>Platforms: </label>
-  //           <p>{game?.platforms}</p>
-
-  //           <label>Description: </label>
-  //           <p>{game?.description}</p>
-  //         </div>
-  //       );
-  //     })}
-  //   </div>
-  // );
 };
 
 export default Detail;

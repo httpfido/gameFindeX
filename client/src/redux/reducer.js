@@ -21,6 +21,7 @@ const initialState = {
   games: [],
   gamesBackup: [],
   game: [],
+  gamesFiltered: [],
   related: [],
   searchGames: null,
   copyOfPlatform: [],
@@ -38,7 +39,7 @@ export const searchVideoGame = (videoGames) => {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_GAMES:
-      return { ...state, games: action.payload };
+      return { ...state, games: action.payload, gamesBackup: action.payload };
 
     case BY_NAME:
       return { ...state, games: action.payload };
@@ -80,31 +81,26 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_BY_GENRE:
       let source = action.payload;
-      state.games = state.games.filter((videogames) =>
-        videogames.genres?.includes(source)
+      let toFilter = state.gamesBackup;
+      let filtered = toFilter.filter((game) =>
+        source.every((sourceGenre) => game.genres.includes(sourceGenre))
       );
-      if (source === "all") state.games = state.allGames;
-      if (state.games.length === 0) {
-        state.games = state.allGames;
-        alert("No hay resultados");
-      }
       return {
         ...state,
-        games: state.games,
+        games: filtered.length ? filtered : state.games,
+        hasFilteredResults: filtered.length > 0,
       };
 
     case FILTER_BY_GENRE_DETAIL:
       let sourceDetail = action.payload;
-      const filtered = state.games.filter((game) => {
+      const filteredDetail = state.games.filter((game) => {
         return (
           sourceDetail.genres.every((sourceGenre) =>
-          game.genres.includes(sourceGenre)
+            game.genres.includes(sourceGenre)
           ) && game.name !== sourceDetail.name
-          );
-        });
-        console.log(filtered);
-
-      const filteredCut = filtered.slice(0, 4);
+        );
+      });
+      const filteredCut = filteredDetail.slice(0, 4);
       return {
         ...state,
         related: filteredCut,

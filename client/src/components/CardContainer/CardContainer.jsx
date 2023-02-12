@@ -2,6 +2,7 @@ import style from "./CardContainer.module.css";
 import Card from "../Card/Card";
 import Filters from "../../components/Filters/Filter/Filters";
 import Hamster from "../Loader/Hamster";
+import NoFound from "../Loader/noFound"
 
 import Pagination from "../../components/Paginado/Paginado";
 import { useEffect, useState } from "react";
@@ -12,7 +13,6 @@ import { Link } from "react-router-dom";
 // defino mi Card Container
 const CardContainer = () => {
   const searchGame = useSelector((state) => state.searchGames);
-const gameDetail = useSelector(state=>state.game)
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global
   const dispatch = useDispatch();
@@ -23,9 +23,10 @@ const gameDetail = useSelector(state=>state.game)
   // agarro el array de juegos del objeto global y lo meto en allGames
   const currentPage = useSelector((state) => state.currentPage);
   const allGames = useSelector((state) => state.games);
+  // tambien voy a utilizar un global aux cuando el filtrado no devuelva results
+  const hasFilteredResults = useSelector(state => state.hasFilteredResults);
 
   // a continuacion, declaro estados locales
-  // const [currentPage, setCurrentPage] = useState(1);
   const [gamesPerPage] = useState(15);
 
   // ahora voy a hacer logica numerica para el paginado
@@ -38,9 +39,12 @@ const gameDetail = useSelector(state=>state.game)
   const paginado = (pageNumber, gamesLength) => {
     dispatch(setPage(pageNumber, gamesLength));
   };
-
+  
   if (!allGames.length) {
     return <Hamster key={"CO1"}/>
+  }
+  
+  if (!hasFilteredResults) {
   }
 
   // ahora si, renderizamos el componente
@@ -54,22 +58,24 @@ const gameDetail = useSelector(state=>state.game)
         paginado={paginado}
       />
       <div className={style.cardContainer}>
-        {currentGames.map((game) => {
+        {hasFilteredResults?
+        currentGames.map((game) => {
           return (
             <div key={"CO MAP" + game.id }>
-              <Link to={`/home/${game.id}`} className={style.link} key={"CO5"}>
-                <Card
-                  key={game.id}
-                  image={game.background_image && game.background_image}
-                  name={game.name}
-                  genres={game.genres?.join(", ")}
-                  platform={game.platform?.slice(0, 3).join(", ")}
-                />
-              </Link>
+            <Link to={`/home/${game.id}`} className={style.link} key={"CO5"}>
+            <Card
+            key={game.id}
+            image={game.background_image && game.background_image}
+            name={game.name}
+            genres={game.genres?.join(", ")}
+            platform={game.platform?.slice(0, 3).join(", ")}
+            />
+            </Link>
             </div>
-          );
-        })}
-      </div >
+            );
+          })
+         : <NoFound/>}
+          </div >
       <Filters />
     </div>
   );

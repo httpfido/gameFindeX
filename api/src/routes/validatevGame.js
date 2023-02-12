@@ -6,7 +6,6 @@ const validate = (req, res, next) => {
     if (!description) throw Error("Missing description");
 
     if (!platforms.length) {
-      console.log("missing platforms");
       throw Error("Missing platforms")};
 
     next();
