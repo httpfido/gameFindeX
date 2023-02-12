@@ -9,7 +9,6 @@
   height: 70px;
   width: 350px;
   max-width: 1200px;
-  /* border: 1px solid green; */
   border-radius: 5px;
   position: absolute;
   z-index: 1;
@@ -29,8 +28,6 @@
   font-family: "Source Sans Pro", sans-serif;
   font-size: 14px;
   font-weight: 500;
-  /* text-shadow: #d7bf04 0px 0px 8px, #c6af00 0px 0px 3px,
-    -40px -40px 0px rgba(0, 0, 0, 0); */
 }
 
 .back:hover {
@@ -115,11 +112,8 @@
 .prev {
   outline: none;
   cursor: pointer;
-
-  /* width: 35px;
-    height: 50px; */
   position: absolute;
-  left: 340px;
+  left: 250px;
 
   background-color: #ffeaa700;
   color: #eaeaea;
@@ -137,14 +131,10 @@
 .next {
   outline: none;
   cursor: pointer;
-
-  /* width: 35px;
-    height: 50px; */
-
   background-color: #ffeaa700;
   color: #eaeaea;
   position: absolute;
-  right: 340px;
+  right: 250px;
   padding: 5px;
   margin: 7px;
   border-radius: 4px;

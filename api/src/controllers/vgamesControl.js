@@ -49,7 +49,7 @@ const genreMap = async (games) => {
 const getAllAPI = async () => {
   const oneHundredGames = [];
 
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <= 8; i++) {
     let api = await axios.get(
       `https://api.rawg.io/api/games?key=${API_KEY}&page=${i}`
     );
@@ -100,7 +100,7 @@ const getAllGamesBDDAPI = async () => {
 // busca en la API
 const findGamesAPI = async (name) => {
   const sixtyGames = [];
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 1; i <= 6; i++) {
     let api = await axios.get(
       `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}&page=${i}`
     );

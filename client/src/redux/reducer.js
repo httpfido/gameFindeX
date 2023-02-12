@@ -1,5 +1,6 @@
 import {
   GET_GAMES,
+  GET_BACKUP,
   BY_NAME,
   GET_GENRES,
   GET_PLATFORM,
@@ -164,8 +165,6 @@ const rootReducer = (state = initialState, action) => {
           ? state.gamesBackup.filter((g) => g.created)
           : state.gamesBackup.filter((g) => !g.created);
 
-      // if (createdFilter.length > 0)
-      //   return { ...state, hasFilteredResults: false};
       return {
         ...state,
         games:

@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export const GET_GAMES = "GET_GAMES";
+export const GET_BACKUP = "GET_BACKUP";
 export const BY_NAME = "BY_NAME";
 export const GET_ID = "GET_ID";
 export const GET_GENRES = "GET_GENRES";
@@ -113,6 +114,13 @@ export const filterCreated = (payload) => {
 export const cleanGames = () => {
   return {
     type: CLEAN_GAMES,
+    payload: []
+}
+}
+
+export const getBackup = () => {
+  return {
+    type: GET_BACKUP,
     payload: []
 }
 }

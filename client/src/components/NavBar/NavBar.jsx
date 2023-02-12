@@ -22,11 +22,11 @@ const NavBar = () => {
   const dispatch = useDispatch();
   const handleHome = () => {
     // quiero que:
-    // si ya estoy en home && allgames.length > 99  => resetPage
+    // si ya estoy en home && allgames.length > 155  => resetPage
     // si ya estoy en home viendo results => resetPage && dispach allGames && no guardar backup page
     // si no estoy en home => /home && backup page
 
-    if (location.pathname === "/home" && allGames.length > 90) {
+    if (location.pathname === "/home" && allGames.length > 155) {
       dispatch(resetPage());
     } else if (location.pathname === "/home") {
       dispatch(getGames());

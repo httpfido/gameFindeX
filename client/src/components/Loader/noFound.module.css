@@ -1,0 +1,11 @@
+.noFoundContainer{
+    display: inline-flex;
+    margin-top: 70px;
+    /* border: 1px solid red; */
+}
+.text{
+    color: #ffffff;
+}
+.thumbDown{
+    margin-left: 10px;
+}
