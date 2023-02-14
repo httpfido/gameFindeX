@@ -5,6 +5,18 @@ body {
   background-size: cover;
   display: flex;
 }
+::-webkit-scrollbar {
+  width: 10px;
+
+}
+::-webkit-scrollbar-track{
+  background: rgba(140, 140, 140, 0);
+  visibility: hidden;
+} 
+::-webkit-scrollbar-thumb{
+  background: #606060a0;
+  border-radius: 5px;
+}
 
 .body {
   display: inline-flex;

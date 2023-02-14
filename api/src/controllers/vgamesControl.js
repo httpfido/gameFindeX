@@ -100,7 +100,7 @@ const getAllGamesBDDAPI = async () => {
 // busca en la API
 const findGamesAPI = async (name) => {
   const sixtyGames = [];
-  for (let i = 1; i <= 6; i++) {
+  for (let i = 1; i <= 7; i++) {
     let api = await axios.get(
       `https://api.rawg.io/api/games?search=${name}&key=${API_KEY}&page=${i}`
     );

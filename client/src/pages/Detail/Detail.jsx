@@ -1,4 +1,4 @@
-import { cleanDetail, filterByGenreDetail, getById } from "../../redux/actions";
+import { cleanDetail, filterByGenreDetail, getById, getBackup, backupPage } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import Circle from "../../components/Loader/Circle";
 
@@ -50,11 +50,17 @@ const Detail = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  const handleBack = () => {
+    dispatch(getBackup())
+    dispatch(backupPage());
+  };
+
   if (!game) return <h1>Cargando</h1>;
+  if (!game.background_image) return <div className={style.loadingImg}><Circle/></div>;
 
   return (
     <div className={style.container}>
-      {game.background_image ? (
+      {game ? (
         <div className={style.container}>
           <div className={style.imgContainer}>
             <img
@@ -157,6 +163,7 @@ const Detail = () => {
                       name={game.name}
                       genres={game.genres?.join(", ")}
                       platform={game.platform?.slice(0, 3).join(", ")}
+                      rating={game.rating}
                       />
                   </Link>
                 </div>
@@ -173,7 +180,7 @@ const Detail = () => {
           </div>
         </div>
       ) : (
-        <Circle className={style.circle} />
+        <div className={style.loadingImg}><Circle/></div>
       )}
     </div>
   );

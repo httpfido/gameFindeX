@@ -1,7 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Pagination.module.css";
-import { backupPage, getGames, cleanGames } from "../../redux/actions";
+import chevron from "../../assets/chevron.svg"
+import {
+  backupPage,
+  getGames,
+  cleanGames,
+  getBackup,
+} from "../../redux/actions";
 
 const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   const hasFilteredResults = useSelector((state) => state.hasFilteredResults);
@@ -21,69 +27,69 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   };
   const dispatch = useDispatch();
   const handleBack = () => {
-    dispatch(getGames());
-    dispatch(cleanGames());
+    // dispatch(getGames());
+    // dispatch(cleanGames());
+    dispatch(getBackup());
     dispatch(backupPage());
   };
   pageNumber.pop();
-  const prev = "<< Prev";
-  const next = "Next >>";
+  const prev = "Prev ";
+  const next = "Next";
   return (
     <div className={style.container}>
-      
       {!hasFilteredResults || allGames < 155 ? (
         <button className={style.back} onClick={handleBack}>
-          {" "}
-          BACK{" "}
+          BACK
         </button>
       ) : null}
 
-      {hasFilteredResults?
-      <>
-      ({currentPage !== 1 ? (
-        <button
-        className={style.prev}
-        key="prev"
-        onClick={() => handlePrev(currentPage)}
-          >
-          {" "}
-          {prev}{" "}
-          </button>
+      {hasFilteredResults ? (
+        <>
+          (
+          {currentPage !== 1 ? (
+            <button
+              className={style.prev}
+              key="prev"
+              onClick={() => handlePrev(currentPage)}
+            >
+              <img src={chevron} className={style.chevronPrev} alt="" />
+              {prev}
+            </button>
           ) : (
             ""
-            )}
-            
-            <div className={style.paginationButtonContainer}>
-        {pageNumber &&
-          pageNumber.map((number) => {
-            return (
-              <div key={number}>
-                <button
-                  className={`${style.paginationButton} ${
-                    currentPage === number ? style.focus : ""
-                  }`}
-                  onClick={() => paginado(number, allGames)}
-                  >
-                  {number}
-                </button>
-              </div>
-            );
-          })}
-      </div>
-
-      {currentPage !== Math.ceil(allGames / gamesPerPage) ? (
-        <button
-          className={style.next}
-          key="next"
-          onClick={() => handleNext(currentPage)}
-          >
-          {next}
-          </button>
+          )}
+          <div className={style.paginationButtonContainer}>
+            {pageNumber &&
+              pageNumber.map((number) => {
+                return (
+                  <div key={number}>
+                    <button
+                      className={`${style.paginationButton} ${
+                        currentPage === number ? style.focus : ""
+                      }`}
+                      onClick={() => paginado(number, allGames)}
+                    >
+                      {number}
+                    </button>
+                  </div>
+                );
+              })}
+          </div>
+          {currentPage !== Math.ceil(allGames / gamesPerPage) ? (
+            <button
+              className={style.next}
+              key="next"
+              onClick={() => handleNext(currentPage)}
+            >
+              {next}
+              <img src={chevron} className={style.chevronNext} alt="" />
+            </button>
           ) : (
             ""
-            )})
-            </>
-            :null}
+          )}
+          )
+        </>
+      ) : null}
     </div>
   );
 };

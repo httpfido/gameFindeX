@@ -1,6 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
 import style from "./NavBar.module.css";
+
 import SearchBar from "../SearchBar/SearchBar";
+import home from "../../assets/home.svg"
+import plus from "../../assets/plus.svg"
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,12 +45,22 @@ const NavBar = () => {
     <nav className={scroll ? style.scrolled : style.nav}>
       <div className={style.buttons}>
         <Link to="/home" className={style.link}>
-          <button onClick={handleHome} className={style.btnHome}>
+          <button onClick={handleHome} className={style.btn}>
+            <div className={style.subline}>
+            <img src={home} alt="" className={style.icon}/>
             Home
+            </div>
           </button>
         </Link>
         <Link to="/create" className={style.link}>
-          <button className={style.btnCreate}>+</button>
+          <button className={style.btn}>
+            <div className={style.subline}>
+
+            <img src={plus} alt="" className={style.icon}/>
+            Create
+            </div>
+          </button>
+
         </Link>
       </div>
       <SearchBar />
@@ -71,45 +84,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-//     import { Link } from "react-router-dom";
-//     import style from './NavBar.module.css'
-
-// export default function Navbar() {
-//   // Navbar
-
-//   return (
-//     <>
-//       <ul className={style.mainContainer}>
-//         <Link to="/home">
-//           <li className="li">
-//             <a className="a" href="#home">
-//               Games
-//             </a>
-//           </li>
-//         </Link>
-//         <Link to="/create">
-//           <li className="li">
-//             <a href className="a">
-//               Add
-//             </a>
-//           </li>
-//         </Link>
-//         <Link to="/About">
-//           <li className="lasti">
-//             <a href className="a">
-//               About
-//             </a>
-//           </li>
-//         </Link>
-//         <Link to="/pickem">
-//           <li className="lasti">
-//             <a href className="a">
-//               PickEm
-//             </a>
-//           </li>
-//         </Link>
-//       </ul>
-//     </>
-//   );
-// }

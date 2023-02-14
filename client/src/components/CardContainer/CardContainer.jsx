@@ -8,10 +8,20 @@ import Pagination from "../../components/Paginado/Paginado";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGames, setPage } from "../../redux/actions";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // defino mi Card Container
 const CardContainer = () => {
+
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }, [pathname]);
+
   const searchGame = useSelector((state) => state.searchGames);
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global

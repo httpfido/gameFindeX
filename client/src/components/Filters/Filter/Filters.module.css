@@ -35,7 +35,8 @@
   letter-spacing: 2px;
   margin: 0%;
   color: #ffffff;
-  background-color: #91919100;
+  /* background-color: #91919100; */
+  background-color: #a3a3a30a;
   border: none;
   /* border: 1px solid rgb(156, 30, 30); */
   border-bottom: 2px solid #8f9092;
@@ -52,7 +53,7 @@
   align-items: center;
   /* border: 1px solid black; */
   border-radius: 8px;
-  background-color: #253e4f;
+  background-color: #17262f;
   width: 87%;
   z-index: 3;
   padding: 5px;
@@ -239,7 +240,7 @@
   overflow: hidden;
   height: 85px;
   transition: height 0.3s ease-in-out;
-  background-color: #253e4f;
+  background-color: #17262f;
 
 }
 .storageclosedS {

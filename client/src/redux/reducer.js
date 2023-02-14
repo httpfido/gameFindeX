@@ -42,7 +42,10 @@ const rootReducer = (state = initialState, action) => {
     case GET_GAMES:
       return { ...state, games: action.payload, gamesBackup: action.payload };
 
-    case BY_NAME:
+    case GET_BACKUP:
+      return { ...state, games: state.gamesBackup };
+
+      case BY_NAME:
       return { ...state, games: action.payload };
 
     case GET_ID:
