@@ -36,16 +36,16 @@ export default function Filters() {
     dispatch(filterByGenre(source));
     dispatch(resetPage());
   }, [source, dispatch]);
-
+  
   useEffect(() => {
     if (order === null) return;
     console.log("useEffect order");
     order === "reset" || order === "asc" || order === "desc"
-      ? dispatch(filterByRating(order))
-      : dispatch(filterByAbc(order));
+    ? dispatch(filterByRating(order))
+    : dispatch(filterByAbc(order));
     dispatch(resetPage());
   }, [order]);
-
+  
   const handleFilterByGenre = (event) => {
     const genre = event.target.value;
     if (genre === undefined) return;
@@ -55,12 +55,15 @@ export default function Filters() {
       dispatch(setSource([...source, genre]));
     }
   };
-
+  
+  useEffect(() => {
+    dispatch(filterCreated(sourceCreated));
+    dispatch(resetPage());
+  }, [sourceCreated]);
+  
   const handleFilterCreated = (e) => {
     e.preventDefault();
     setSourceCreated(e.target.value);
-    dispatch(filterCreated(sourceCreated));
-    dispatch(resetPage());
   };
 
   const handleOrder = (e) => {
