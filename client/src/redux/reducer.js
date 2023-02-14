@@ -21,8 +21,8 @@ import {
 const initialState = {
   games: [],
   gamesBackup: [],
-  game: [],
   gamesFiltered: [],
+  game: [],
   related: [],
   searchGames: null,
   copyOfPlatform: [],
@@ -45,7 +45,7 @@ const rootReducer = (state = initialState, action) => {
     case GET_BACKUP:
       return { ...state, games: state.gamesBackup };
 
-      case BY_NAME:
+    case BY_NAME:
       return { ...state, games: action.payload };
 
     case GET_ID:
@@ -89,9 +89,11 @@ const rootReducer = (state = initialState, action) => {
       let filtered = toFilter.filter((game) =>
         source.every((sourceGenre) => game.genres.includes(sourceGenre))
       );
+      const result = filtered.length ? filtered : state.games;
       return {
         ...state,
-        games: filtered.length ? filtered : state.games,
+        games: result,
+        gamesFiltered: result,
         hasFilteredResults: filtered.length > 0,
       };
 
@@ -112,11 +114,11 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_BY_RATING:
       if (action.payload === "all") {
-        return { ...state, games: state.gamesBackup };
+        return { ...state, games: state.gamesFiltered };
       }
       let sorted2 =
         action.payload === "desc"
-          ? [...state.gamesBackup].sort((a, b) => {
+          ? [...state.games].sort((a, b) => {
               if (a.rating > b.rating) {
                 return -1;
               }
@@ -125,7 +127,7 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0;
             })
-          : [...state.gamesBackup].sort((a, b) => {
+          : [...state.games].sort((a, b) => {
               if (a.rating > b.rating) {
                 return 1;
               }
@@ -138,11 +140,11 @@ const rootReducer = (state = initialState, action) => {
 
     case FILTER_BY_ABC:
       if (action.payload === "all") {
-        return { ...state, games: state.gamesBackup };
+        return { ...state, games: state.gamesFiltered };
       }
       let sorted =
         action.payload === "desc"
-          ? [...state.gamesBackup].sort((a, b) => {
+          ? [...state.games].sort((a, b) => {
               if (a.name > b.name) {
                 return -1;
               }
@@ -151,7 +153,7 @@ const rootReducer = (state = initialState, action) => {
               }
               return 0;
             })
-          : [...state.gamesBackup].sort((a, b) => {
+          : [...state.games].sort((a, b) => {
               if (a.name > b.name) {
                 return 1;
               }
@@ -163,16 +165,19 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, games: sorted };
 
     case FILTER_CREATED:
+      let toFilter2 = state.gamesFiltered.length
+        ? state.gamesFiltered
+        : state.gamesBackup;
       let createdFilter =
         action.payload === "db"
-          ? state.gamesBackup.filter((g) => g.created)
-          : state.gamesBackup.filter((g) => !g.created);
+          ? toFilter2.filter((g) => g.created)
+          : toFilter2.filter((g) => !g.created);
 
       return {
         ...state,
         games:
           action.payload === "all"
-            ? state.gamesBackup
+            ? state.gamesFiltered
             : createdFilter.length
             ? createdFilter
             : state.gamesBackup,

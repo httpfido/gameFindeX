@@ -4,10 +4,12 @@
   text-align: center;
   /* border: 1px solid aqua; */
   position: fixed;
-  top: 115px;
+  top: 200px;
   left: 0px;
   z-index: 0;
-  padding: 70px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  border-right: 2px solid #8f909278;
+
 }
 
 .aligns {
@@ -53,7 +55,7 @@
   align-items: center;
   /* border: 1px solid black; */
   border-radius: 8px;
-  background-color: #17262f;
+  background-color: #1a2a34;
   width: 87%;
   z-index: 3;
   padding: 5px;
@@ -240,7 +242,7 @@
   overflow: hidden;
   height: 85px;
   transition: height 0.3s ease-in-out;
-  background-color: #17262f;
+  background-color: #1a2a34;
 
 }
 .storageclosedS {
@@ -254,7 +256,7 @@
   overflow: hidden;
   height: 0px;
   transition: height 0.2s ease-in-out;
-  background-color: #253e4f;
+  background-color: #223f53;
 
 }
 

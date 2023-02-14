@@ -16,6 +16,7 @@
   position: relative;
   /* border: 1px solid greenyellow; */
   z-index: 0;
+  margin-left: 30px;
 }
 
 .link{

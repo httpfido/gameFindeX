@@ -53,7 +53,7 @@ const CardContainer = () => {
   if (!allGames.length) {
     return <Hamster key={"CO1"}/>
   }
-  
+
 
   // ahora si, renderizamos el componente
   return (

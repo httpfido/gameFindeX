@@ -30,8 +30,6 @@ export default function Filters() {
   const [openRating, setOpenRating] = useState(false);
   const [openABC, setOpenABC] = useState(false);
 
-  const [selectValue, setSelectValue] = useState("all");
-
   const handleFilterByGenre = (event) => {
     const genre = event.target.value;
     if (genre === undefined) return;
@@ -82,7 +80,7 @@ export default function Filters() {
           className={
             style.dropdownGenres + " " + (open ? style.opened : style.closed)
           }
-          value={selectValue}
+
         >
           {myGenres?.map((element, index) => (
             <button
@@ -160,7 +158,7 @@ export default function Filters() {
             value="all"
             className={style.storageButton}
           >
-            All
+            Reset
           </button>
           <button
             onClick={(e) => handleFilterByRating(e)}
@@ -197,7 +195,7 @@ export default function Filters() {
             value="all"
             className={style.storageButton}
           >
-            All
+            Reset
           </button>
           <button
             onClick={(e) => handleFilterByAbc(e)}

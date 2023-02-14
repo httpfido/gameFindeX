@@ -27,8 +27,6 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   };
   const dispatch = useDispatch();
   const handleBack = () => {
-    // dispatch(getGames());
-    // dispatch(cleanGames());
     dispatch(getBackup());
     dispatch(backupPage());
   };
@@ -37,15 +35,15 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   const next = "Next";
   return (
     <div className={style.container}>
-      {!hasFilteredResults || allGames < 155 ? (
+      {!hasFilteredResults || allGames < 155 ? 
         <button className={style.back} onClick={handleBack}>
           BACK
         </button>
-      ) : null}
+       : null}
 
-      {hasFilteredResults ? (
+      {hasFilteredResults ? 
         <>
-          (
+        
           {currentPage !== 1 ? (
             <button
               className={style.prev}
@@ -87,9 +85,9 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
           ) : (
             ""
           )}
-          )
+          
         </>
-      ) : null}
+       : null}
     </div>
   );
 };
