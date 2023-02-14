@@ -1,13 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Pagination.module.css";
-import chevron from "../../assets/chevron.svg"
-import {
-  backupPage,
-  getGames,
-  cleanGames,
-  getBackup,
-} from "../../redux/actions";
+import chevron from "../../assets/chevron.svg";
+import { backupPage, getBackup, cleanSource, cleanOrder } from "../../redux/actions";
 
 const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   const hasFilteredResults = useSelector((state) => state.hasFilteredResults);
@@ -29,21 +24,22 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   const handleBack = () => {
     dispatch(getBackup());
     dispatch(backupPage());
+    dispatch(cleanSource())
+    dispatch(cleanOrder())
   };
   pageNumber.pop();
   const prev = "Prev ";
   const next = "Next";
   return (
     <div className={style.container}>
-      {!hasFilteredResults || allGames < 155 ? 
+      {!hasFilteredResults || allGames < 155 ? (
         <button className={style.back} onClick={handleBack}>
           BACK
         </button>
-       : null}
+      ) : null}
 
-      {hasFilteredResults ? 
+      {hasFilteredResults ? (
         <>
-        
           {currentPage !== 1 ? (
             <button
               className={style.prev}
@@ -85,9 +81,8 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
           ) : (
             ""
           )}
-          
         </>
-       : null}
+      ) : null}
     </div>
   );
 };

@@ -46,7 +46,6 @@
   height: 70px;
   width: 1200px;
   max-width: 1200px;
-  /* border: 1px solid rgb(219, 110, 15); */
 
   position: relative;
   z-index: 1;
@@ -68,7 +67,6 @@
   border-bottom: 2px solid #747474d8;
   border-left: 1px solid #6c6c6cc4;
 
-
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: 500;
   resize: none;
@@ -77,19 +75,16 @@
   text-align: left;
   color: #ffffff;
   background-color: #9999990e;
-  /* transition: all 0.2s linear; */
 }
 
 .paginationButton:hover {
   color: #ffeba7;
   background-color: #a3a3a340;
-  
 }
 
 .paginationButton:active {
   border-bottom: 1px solid #6c6c6c00;
   color: #fdd962;
-  /* background-image: linear-gradient(to top, #9c9c9c 0%, #fff 80%, #fdfdfd 100%); */
   box-shadow: inset 0 0 6px 3px #9999994c, inset 0 0 10px #aaaaaa32;
 }
 
@@ -97,20 +92,21 @@
   color: #fdd962;
   border-bottom: 2px solid #6c6c6c00;
   border-left: 1px solid #6c6c6c00;
-background-color: #a3a3a317;
-  }
-  
-  .focus {
-    color: #fdd962;
-    border-bottom: 2px solid #6c6c6c00;
-    border-left: 1px solid #6c6c6c00;
   background-color: #a3a3a317;
 }
 
-.prev, .next {
+.focus {
+  color: #fdd962;
+  border-bottom: 2px solid #6c6c6c00;
+  border-left: 1px solid #6c6c6c00;
+  background-color: #a3a3a317;
+}
+
+.prev,
+.next {
   display: inline-flex;
   align-items: center;
-  
+
   outline: none;
   cursor: pointer;
   position: absolute;
@@ -122,7 +118,7 @@ background-color: #a3a3a317;
   margin: 7px;
   border-radius: 4px;
 
-border: none;
+  border: none;
 
   transition: all 0.1s linear;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -131,9 +127,8 @@ border: none;
 
   letter-spacing: 2px;
   font-size: 14px;
-
 }
-.prev{
+.prev {
   left: 240px;
   padding-right: 15px;
 }
@@ -141,20 +136,19 @@ border: none;
   right: 240px;
   padding-left: 15px;
 }
-.prev:hover, .next:hover{
+.prev:hover,
+.next:hover {
   background: rgba(170, 170, 170, 0.062);
 
   text-shadow: #ff2d95 0px 0px 8px, #ff2d95 0px 0px 3px,
-  -40px -40px 0px rgba(0, 0, 0, 0);
+    -40px -40px 0px rgba(0, 0, 0, 0);
 }
 
-.chevronPrev{
+.chevronPrev {
   margin-right: auto;
   transform: rotate(180deg);
 }
 
-.chevronNext{
+.chevronNext {
   margin-left: auto;
-
 }
-

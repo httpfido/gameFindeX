@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { setSource, setOrder } from "../../../redux/actions";
 import check from "../../../assets/check.svg";
-import chevron from "../../../assets/chevron.svg"
+import chevron from "../../../assets/chevron.svg";
 
 import {
   filterByGenre,
@@ -15,58 +16,59 @@ import {
 import style from "./Filters.module.css";
 
 export default function Filters() {
-
   const dispatch = useDispatch();
   const myGenres = useSelector((state) => state.copyOfGenres);
-
 
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
 
-  const [source, setSource] = useState([]);
+  const order = useSelector((state) => state.order);
+  const source = useSelector((state) => state.sourceFilterGenre);
+  
   const [open, setOpen] = useState(false);
   const [openStorage, setOpenStorage] = useState(false);
   const [openRating, setOpenRating] = useState(false);
   const [openABC, setOpenABC] = useState(false);
+  const [sourceCreated, setSourceCreated] = useState(false);
+
+  useEffect(() => {
+    dispatch(filterByGenre(source));
+    dispatch(resetPage());
+  }, [source, dispatch]);
+
+  useEffect(() => {
+    if (order === null) return;
+    console.log("useEffect order");
+    order === "reset" || order === "asc" || order === "desc"
+      ? dispatch(filterByRating(order))
+      : dispatch(filterByAbc(order));
+    dispatch(resetPage());
+  }, [order]);
 
   const handleFilterByGenre = (event) => {
     const genre = event.target.value;
     if (genre === undefined) return;
     if (source.includes(genre)) {
-      setSource(source.filter((g) => g !== genre));
+      dispatch(setSource(source.filter((g) => g !== genre)));
     } else {
-      setSource([...source, genre]);
+      dispatch(setSource([...source, genre]));
     }
   };
 
-  useEffect(() => {
-    console.log(source);
-    dispatch(filterByGenre(source));
+  const handleFilterCreated = (e) => {
+    e.preventDefault();
+    setSourceCreated(e.target.value);
+    dispatch(filterCreated(sourceCreated));
     dispatch(resetPage());
-  }, [source, dispatch]);
+  };
 
-  function handleFilterByRating(e) {
+  const handleOrder = (e) => {
     e.preventDefault();
     let source = e.target.value;
-    dispatch(filterByRating(source));
+    dispatch(setOrder(source));
     dispatch(resetPage());
-  }
-
-  function handleFilterByAbc(e) {
-    e.preventDefault();
-    let source = e.target.value;
-    dispatch(filterByAbc(source));
-    dispatch(resetPage());
-  }
-
-  function handleFilterCreated(e) {
-    e.preventDefault();
-    let source = e.target.value;
-    console.log(source);
-    dispatch(filterCreated(source));
-    dispatch(resetPage());
-  }
+  };
 
   return (
     <div className={style.filters}>
@@ -80,7 +82,6 @@ export default function Filters() {
           className={
             style.dropdownGenres + " " + (open ? style.opened : style.closed)
           }
-
         >
           {myGenres?.map((element, index) => (
             <button
@@ -109,7 +110,12 @@ export default function Filters() {
             className={style.openDropdown}
             onClick={() => setOpenStorage(!openStorage)}
           >
-            Storage <img src={chevron} alt="" className={openStorage ? style.chevron : style.chevront}/>
+            Storage{" "}
+            <img
+              src={chevron}
+              alt=""
+              className={openStorage ? style.chevron : style.chevront}
+            />
           </button>
         </div>
 
@@ -127,15 +133,25 @@ export default function Filters() {
             onClick={(e) => handleFilterCreated(e)}
             value="lb"
             className={style.storageButton}
-          >
+            >
             Library
+            {sourceCreated === "lb" ? (
+              <img src={check} alt="" className={style.check} />
+            ) : (
+              ""
+            )}
           </button>
           <button
             onClick={(e) => handleFilterCreated(e)}
             value="db"
             className={style.storageButton}
-          >
+            >
             Created
+            {sourceCreated === "db" ? (
+              <img src={check} alt="" className={style.check} />
+            ) : (
+              ""
+            )}
           </button>
         </div>
       </div>
@@ -146,7 +162,12 @@ export default function Filters() {
             className={style.openDropdown}
             onClick={() => setOpenRating(!openRating)}
           >
-            Order by: Rating <img src={chevron} alt="" className={openRating ? style.chevron : style.chevront}/>
+            Order by: Rating{" "}
+            <img
+              src={chevron}
+              alt=""
+              className={openRating ? style.chevron : style.chevront}
+              />
           </button>
         </div>
 
@@ -154,25 +175,35 @@ export default function Filters() {
           className={openRating ? style.storageopenedS : style.storageclosedS}
         >
           <button
-            onClick={(e) => handleFilterByRating(e)}
-            value="all"
+            onClick={(e) => handleOrder(e)}
+            value="reset"
             className={style.storageButton}
-          >
+            >
             Reset
           </button>
           <button
-            onClick={(e) => handleFilterByRating(e)}
+            onClick={(e) => handleOrder(e)}
             value="asc"
             className={style.storageButton}
-          >
-            Ascending 
+            >
+            Ascending
+            {order === "asc" ? (
+              <img src={check} alt="" className={style.check} />
+              ) : (
+                ""
+                )}
           </button>
           <button
-            onClick={(e) => handleFilterByRating(e)}
+            onClick={(e) => handleOrder(e)}
             value="desc"
             className={style.storageButton}
           >
             Descending
+            {order === "desc" ? (
+              <img src={check} alt="" className={style.check} />
+            ) : (
+              ""
+            )}
           </button>
         </div>
       </div>
@@ -183,33 +214,46 @@ export default function Filters() {
             className={style.openDropdown}
             onClick={() => setOpenABC(!openABC)}
           >
-            Order by: Alphabetic <img src={chevron} alt="" className={openABC ? style.chevron : style.chevront}/>
+            Order by: Alphabetic{" "}
+            <img
+              src={chevron}
+              alt=""
+              className={openABC ? style.chevron : style.chevront}
+            />
           </button>
         </div>
 
-        <div
-          className={openABC ? style.storageopenedS : style.storageclosedS}
-        >
+        <div className={openABC ? style.storageopenedS : style.storageclosedS}>
           <button
-            onClick={(e) => handleFilterByAbc(e)}
-            value="all"
+            onClick={(e) => handleOrder(e)}
+            value="resetABC"
             className={style.storageButton}
           >
             Reset
           </button>
           <button
-            onClick={(e) => handleFilterByAbc(e)}
-            value="asc"
+            onClick={(e) => handleOrder(e)}
+            value="AZ"
             className={style.storageButton}
           >
-            A-Z 
+            A-Z
+            {order === "AZ" ? (
+              <img src={check} alt="" className={style.check} />
+            ) : (
+              ""
+            )}
           </button>
           <button
-            onClick={(e) => handleFilterByAbc(e)}
-            value="desc"
+            onClick={(e) => handleOrder(e)}
+            value="ZA"
             className={style.storageButton}
           >
             Z-A
+            {order === "ZA" ? (
+              <img src={check} alt="" className={style.check} />
+            ) : (
+              ""
+            )}
           </button>
         </div>
       </div>

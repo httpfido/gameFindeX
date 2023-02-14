@@ -1,68 +1,60 @@
-.searchbar{
-    width: 70%;
-    /* border: 1px solid rgb(0, 255, 55); */
+.searchbar {
+  width: 70%;
 }
 .search {
-    /* border: 1px solid rgb(0, 255, 55); */
-    border-radius:40px;
-    color: rgba(255, 255, 255, 0.651);
-    background-color: #19425c89;
-    word-wrap: break-word;
-    outline: none;
-    display: flex;
-    flex: 100%;
-    padding-left: 50px;
-    height: 42px;
-    font-size: 16px;
-    font-weight: 100;
-border: none;
-    top: 0px;
-    transition: all 0.3s ease;   
-    z-index: 2;
-    box-sizing: border-box;
+  border-radius: 40px;
+  color: rgba(255, 255, 255, 0.651);
+  background-color: #19425c89;
+  word-wrap: break-word;
+  outline: none;
+  display: flex;
+  flex: 100%;
+  padding-left: 50px;
+  height: 42px;
+  font-size: 16px;
+  font-weight: 100;
+  border: none;
+  top: 0px;
+  transition: all 0.3s ease;
+  z-index: 2;
+  box-sizing: border-box;
 }
 
-.searchIcon{
-    margin-right: -40px;
-    z-index: 3;
+.searchIcon {
+  margin-right: -40px;
+  z-index: 3;
 }
 
 .search:hover {
-    color: rgb(88, 88, 88);
-    /* background-color: rgba(240, 248, 255, 0.901); */
-    background-color: rgb(240, 248, 255);
+  color: rgb(88, 88, 88);
+  background-color: rgb(240, 248, 255);
 }
-/* .search:active {
-    background-color: aliceblue;
-} */
 .search:focus {
-    color: rgb(68, 68, 68);
-    /* color: rgba(95, 95, 95, 0.87); */
-    
-    background-color: rgb(240, 248, 255);
+  color: rgb(68, 68, 68);
+  background-color: rgb(240, 248, 255);
 }
 
 .searchtext {
-    background-color: rgb(255, 255, 255);
+  background-color: rgb(255, 255, 255);
 }
 
 .searchbar {
-    display: flex;
+  display: flex;
 }
 
-.back{
-    outline: none;
-    cursor: pointer;
-    position: absolute;
-    left: 70px;
-    background-color: #ffeaa700;
-    color: #eaeaea;
-    padding: 15px;
-    margin: 7px;
-    border-radius: 4px;
-    border: 1px solid #8f9092;
-    transition: all 0.1s ease-in-out;
-    font-family: "Source Sans Pro", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
+.back {
+  outline: none;
+  cursor: pointer;
+  position: absolute;
+  left: 70px;
+  background-color: #ffeaa700;
+  color: #eaeaea;
+  padding: 15px;
+  margin: 7px;
+  border-radius: 4px;
+  border: 1px solid #8f9092;
+  transition: all 0.1s ease-in-out;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 }

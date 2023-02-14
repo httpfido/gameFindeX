@@ -1,6 +1,6 @@
-.body{
-display: flex;
-justify-content: center;
+.body {
+  display: flex;
+  justify-content: center;
 }
 .mainContainer {
   margin: 100px 0px;
@@ -10,15 +10,10 @@ justify-content: center;
   display: inline-flex;
   justify-content: center;
   width: 800px;
-  /* border: 1px solid red; */
   border-radius: 30px;
   background-color: #333333;
-  /* background-image: url(../../image/asd.jpg); */
-  /* background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(182, 182, 182, 0.5)); */
-  
 }
-.title{
-
+.title {
   font-family: "Arial Black", Gadget, sans-serif;
   font-size: 24px;
   letter-spacing: 2px;
@@ -31,30 +26,16 @@ justify-content: center;
   text-transform: uppercase;
   margin: 30px 0px;
   letter-spacing: 2px;
-
 }
 .formContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid blue; */
 
   height: auto;
   width: 500px;
 }
-
-/* 
-.form {
-  border: 2px solid rgb(32, 185, 18);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin: auto;
-  scroll-behavior: smooth;
-
-  z-index: 0;
-} */
 
 .nameReleased {
   display: flex;
@@ -74,7 +55,7 @@ justify-content: center;
   width: 100%;
 }
 
-.rating{
+.rating {
   border: none;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   justify-content: center;
@@ -82,9 +63,7 @@ justify-content: center;
   padding: 5px;
   background-color: #ffffff;
   margin: 15px 0px;
-  /* background: linear-gradient(to left, #cacaca, #f0f0f0); */
   font-size: medium;
-  /* font-weight: bold; */
   width: 490px;
   transition: all 0.2s ease;
 }
@@ -97,23 +76,18 @@ justify-content: center;
   padding: 5px;
   background-color: #ffffff;
   margin: 15px 0px;
-  /* background: linear-gradient(to left, #cacaca, #f0f0f0); */
   font-size: medium;
-  /* font-weight: bold; */
   width: 490px;
   transition: all 0.2s ease;
-  
 }
 
-.submitContainer{
+.submitContainer {
   position: relative;
-/* border: 1px solid red; */
-display: flex;
-/* flex-direction: column; */
-justify-content: center;
-width: 500px;
-text-align: center;
-margin: 15px 0px;
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  text-align: center;
+  margin: 15px 0px;
 }
 
 .description {
@@ -123,7 +97,6 @@ margin: 15px 0px;
   margin: 12px 0px;
 
   border: none;
-  /* background: linear-gradient(145deg, #cacaca, #f0f0f0); */
   font-size: medium;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   resize: none;
@@ -151,17 +124,13 @@ margin: 15px 0px;
   margin: 10px 0px;
   text-align: center;
   color: #444444;
-  /* position: absolute; */
-  /* top: 20px; */
-  /* left: -48px; */
-
 }
 .genres {
   font-weight: bold;
 }
-.input, .rating,
+.input,
+.rating,
 .description:focus {
-  /* box-shadow: 0px 0px 10px #bebebe, -3px -3px 5px #ffffff; */
   outline-color: rgb(149, 54, 54);
 }
 
@@ -181,32 +150,23 @@ margin: 15px 0px;
   left: 20px;
 }
 
-
 .inputContainer {
-  /* border: 1px solid red; */
   height: 80px;
   width: 100%;
-  /* border: 1px solid red; */
   position: relative;
-  /* margin: 10px 0px; */
 }
 .selectContainer {
-  
   height: 100px;
   width: 100%;
-  /* border: 1px solid red; */
   position: relative;
   margin: 10px 0px;
 }
 
 .descriptionContainer {
-  /* margin: 0px 0px 15px 0px; */
-  /* border: 1px solid red; */
   height: 122px;
   position: relative;
-
 }
-.max{
+.max {
   font-family: "Courier New", Courier, monospace;
   font-size: 15px;
   letter-spacing: 1px;
@@ -222,12 +182,10 @@ margin: 15px 0px;
   left: 177px;
 }
 
-
-.platformContainer{
+.platformContainer {
   position: relative;
   width: 100%;
 }
-
 
 .submit {
   cursor: pointer;
@@ -259,28 +217,23 @@ margin: 15px 0px;
   transition: 100ms;
 }
 
-
 .selected {
-  /* border: 1px solid rgb(255, 7, 7); */
   display: flex;
   justify-content: center;
   border-radius: 25px;
   min-height: 30px;
   height: auto;
-  /* max-height: fit-content; */
   flex-wrap: wrap;
-position: relative;
+  position: relative;
   width: 480px;
   margin: 10px 0px;
-  padding: 0px 10px ;
+  padding: 0px 10px;
   align-items: center;
-color: #ffffff;
+  color: #ffffff;
   background-color: rgb(123, 123, 123);
 }
 
-
 .x {
-
   cursor: pointer;
   border-radius: 5px;
   border: 1px solid white;
@@ -290,9 +243,7 @@ color: #ffffff;
   transition: all 0.1s ease;
 }
 
-.x:hover{
+.x:hover {
   color: white;
   background-color: rgb(255, 0, 0);
-  
 }
-

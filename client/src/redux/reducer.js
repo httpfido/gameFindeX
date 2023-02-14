@@ -16,6 +16,10 @@ import {
   CLEAN_GAMES,
   CLEAN_DETAIL,
   FILTER_BY_GENRE_DETAIL,
+  SET_SOURCE,
+  CLEAN_SOURCE,
+  ORDER,
+  CLEAN_ORDER,
 } from "./actions";
 
 const initialState = {
@@ -29,7 +33,8 @@ const initialState = {
   copyOfGenres: [],
   currentPage: 1,
   currentPageBackup: 1,
-  pointer: 0,
+  sourceFilterGenre: [],
+  order: null,
 };
 
 export const searchVideoGame = (videoGames) => {
@@ -97,6 +102,12 @@ const rootReducer = (state = initialState, action) => {
         hasFilteredResults: filtered.length > 0,
       };
 
+    case SET_SOURCE:
+      return { ...state, sourceFilterGenre: action.payload };
+
+    case ORDER:
+      return { ...state, order: action.payload };
+
     case FILTER_BY_GENRE_DETAIL:
       let sourceDetail = action.payload;
       const filteredDetail = state.games.filter((game) => {
@@ -113,7 +124,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_RATING:
-      if (action.payload === "all") {
+      if (action.payload === "reset") {
         return { ...state, games: state.gamesFiltered };
       }
       let sorted2 =
@@ -139,11 +150,11 @@ const rootReducer = (state = initialState, action) => {
       return { ...state, games: sorted2 };
 
     case FILTER_BY_ABC:
-      if (action.payload === "all") {
+      if (action.payload === "resetABC") {
         return { ...state, games: state.gamesFiltered };
       }
       let sorted =
-        action.payload === "desc"
+        action.payload === "ZA"
           ? [...state.games].sort((a, b) => {
               if (a.name > b.name) {
                 return -1;
@@ -198,6 +209,12 @@ const rootReducer = (state = initialState, action) => {
 
     default:
       return { ...state };
+
+    case CLEAN_SOURCE:
+      return { ...state, sourceFilterGenre: [] };
+
+    case CLEAN_ORDER:
+      return { ...state, order: null };
   }
 };
 

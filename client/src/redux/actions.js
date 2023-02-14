@@ -11,13 +11,18 @@ export const RESET_PAGE = "RESET_PAGE"
 export const GO_BACKUP_PAGE = "GO_BACKUP_PAGE"
 export const SEARCH_GAME = "SEARCH_GAME"
 export const FILTER_BY_GENRE = "FILTER_BY_GENRE";
+export const ORDER = "ORDER";
+export const SET_SOURCE = "SET_SOURCE";
+export const CLEAN_SOURCE = "CLEAN_SOURCE";
+export const FILTER_BY_GENRE_DETAIL = "FILTER_BY_GENRE_DETAIL"
 export const FILTER_BY_RATING = "FILTER_BY_RATING"
 export const FILTER_BY_ABC = "FILTER_BY_ABC"
 export const FILTER_CREATED = "FILTER_CREATED"
 export const CLEAN_GAMES = "CLEAN_GAMES"
 export const POINTER = "POINTER"
 export const CLEAN_DETAIL = "CLEAN_DETAIL"
-export const FILTER_BY_GENRE_DETAIL = "FILTER_BY_GENRE_DETAIL"
+export const CLEAN_ORDER = "CLEAN_ORDER"
+
 
 // los dispatch se hacen desde los componentes
 // mi actionCreator de allgames Y get por NAME
@@ -83,6 +88,18 @@ export const filterByGenre = (payload) => {
   }
 }
 
+export const setSource = (payload) => {
+  return {
+      type: SET_SOURCE,
+      payload: payload
+  }
+}
+export const cleanSource = () => {
+  return {
+      type: CLEAN_SOURCE
+  }
+}
+
 export const filterByGenreDetail = (payload) => {
   return {
       type: FILTER_BY_GENRE_DETAIL,
@@ -130,4 +147,16 @@ export const cleanDetail = () => {
     type: CLEAN_DETAIL,
     payload: []
 }
+}
+
+export const setOrder = (payload) => {
+  return {
+    type: ORDER,
+    payload
+  }
+}
+export const cleanOrder = () => {
+  return {
+    type: CLEAN_ORDER
+  }
 }

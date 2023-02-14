@@ -2,7 +2,6 @@
   width: 270px;
   height: 800px;
   text-align: center;
-  /* border: 1px solid aqua; */
   position: fixed;
   top: 200px;
   left: 0px;
@@ -14,7 +13,6 @@
 
 .aligns {
   color: #eaeaea;
-  /* border: 1px solid greenyellow; */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -37,10 +35,8 @@
   letter-spacing: 2px;
   margin: 0%;
   color: #ffffff;
-  /* background-color: #91919100; */
   background-color: #a3a3a30a;
   border: none;
-  /* border: 1px solid rgb(156, 30, 30); */
   border-bottom: 2px solid #8f9092;
   height: 40px;
   transition: all 0.2s ease;
@@ -53,9 +49,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid black; */
   border-radius: 8px;
-  background-color: #1a2a34;
+  background-color: #17262f;
   width: 87%;
   z-index: 3;
   padding: 5px;
@@ -64,20 +59,16 @@
 .dropdownGenres.opened {
   opacity: 1;
   visibility: visible;
-  /* transform: translateY(0); */
   transition: opacity 0.3s ease;
 }
 .dropdownGenres.closed {
   opacity: 0;
   visibility: hidden;
-  /* transform: translateY(-20px); */
   transition: opacity 0.1s ease;
 }
 
 .options {
-  /* height: 25px; */
   display: flex;
-  /* flex-direction: row; */
   text-align: center;
   cursor: pointer;
   border-radius: 3px;
@@ -92,20 +83,16 @@
   color: #ffffff;
   background-color: #99999900;
   border: none;
-  /* border: 1px solid rgb(156, 30, 30); */
   border-bottom: 1px solid #8b8b8b33;
   height: auto;
   transition: all 0.2s ease;
 }
 .options:hover {
   background-color: #a3a3a340;
-  /* border: 1px solid gainsboro; */
 }
 
 .check {
-  /* width: 20%; */
   height: 20px;
-  /* border: 1px solid black; */
   margin: 0px;
   margin-left: auto;
 }
@@ -116,12 +103,12 @@
   border-radius: 15px;
   min-height: 30px;
   height: auto;
-
+  
   flex-wrap: wrap;
   position: relative;
   width: 93%;
   margin: 0px 10px;
-
+  
   align-items: center;
   color: #ffffff;
   background-color: rgb(123, 123, 123);
@@ -171,7 +158,7 @@
   bottom: 0;
   height: 4px;
   width: 100%;
-
+  
   border-bottom: 4px solid black;
   border-left: 4px solid transparent;
   box-sizing: border-box;
@@ -212,7 +199,6 @@
 .filterContainer {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid rgb(109, 31, 218); */
   width: 100%;
   height: 75px;
   min-height: 8%;
@@ -221,7 +207,6 @@
 .storageContainer {
   display: flex;
   flex-direction: column;
-  /* border: 1px solid rgb(225, 255, 0); */
   width: 100%;
   height: max-content;
   min-height: 8%;
@@ -234,11 +219,8 @@
   align-items: flex-end;
   width: 70%;
   flex-direction: column;
-  /* border: 1px solid red; */
   border-left: 2px solid #8f9092;
 
-  /* visibility: hidden; */
-  /* height: 15%; */
   overflow: hidden;
   height: 85px;
   transition: height 0.3s ease-in-out;
@@ -250,25 +232,21 @@
   align-items: flex-end;
   width: 70%;
   flex-direction: column;
-  /* border: 1px solid red; */
   border-left: 2px solid #8f9092;
-  /* visibility: hidden; */
   overflow: hidden;
   height: 0px;
   transition: height 0.2s ease-in-out;
-  background-color: #223f53;
-
+  background-color: #253e4f;
 }
-
+  
 .storageButton {
+  display: flex;
   width: 95%;
   text-align: left;
   padding: 3px 10px 0px 40px;
 
   border: none;
   color: #ffffff;
-  display: block;
-  /* flex-direction: row; */
 
   cursor: pointer;
   border-radius: 3px;
@@ -283,20 +261,17 @@
   color: #ffffff;
   background-color: #99999900;
 
-  /* border: 1px solid rgb(156, 30, 30); */
   border-bottom: 1px solid #6c6c6c33;
   height: auto;
   transition: all 0.2s ease;
 }
 .storageButton:hover {
   background-color: #a3a3a340;
-  /* border: 1px solid gainsboro; */
 }
 
 .sortingContainer{
   display: flex;
   flex-direction: column;
-  /* border: 1px solid rgb(0, 255, 13); */
   width: 100%;
   height: max-content;
   min-height: 8%;
