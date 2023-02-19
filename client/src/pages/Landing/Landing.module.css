@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    width: 99.3vw;
+    height: 118vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    object-fit: cover;
+
+    background: url('../../assets/kratos-fortnite-uhdpaper.com-4K-7.3384.jpg') no-repeat;
+    background-size: 100% auto;
+}
+
+.midContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 35%;
+    height: 100vh;
+position: fixed;
+top: -0px;
+    background-color: rgba(61, 61, 61, 0.149);
+    backdrop-filter: blur(1px);
+    transition: all .3s ease-in-out ;
+    border: 1px solid rgb(255, 255, 255, 0.18);
+    border-top: 1px solid rgba(0, 0, 0, 0);
+}
+
+.midContainer:hover{
+    background-color: rgba(26, 26, 26, 0.253);
+    backdrop-filter: blur(2px);
+}
+
+/* .navlink{
+    
+} */
+
+  .start {
+      
+    cursor: pointer;
+    padding: 35px 70px;
+    margin: 50px;
+    border-radius: 15px;
+    font-weight: bold;
+    border: 1px solid rgba(105, 105, 105, 0.418);
+    background-color: rgba(66, 51, 95, 0);
+    color: hsl(0, 0%, 100%);
+    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 26px;
+    
+    transition: all .2s ease-in-out;
+    height: 100px;
+}
+
+  .midContainer:hover .start{
+    height: 120px;
+    letter-spacing: 10px;
+    background-color: #ffeaa700;
+}
+
+.start:hover{
+      box-shadow: 0px 10px 22px 0 rgba(0, 0, 0, 0.378)
+
+  }
+  
+  .start:active {
+    letter-spacing: 3px;
+    background-color: hsla(261, 80%, 48%, 0);
+    transform: translateY(8px);
+    transition: 100ms;
+  }

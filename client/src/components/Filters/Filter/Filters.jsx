@@ -17,12 +17,11 @@ import style from "./Filters.module.css";
 
 export default function Filters() {
   const dispatch = useDispatch();
-  const myGenres = useSelector((state) => state.copyOfGenres);
-
   useEffect(() => {
     dispatch(getGenres());
   }, [dispatch]);
-
+  
+  const myGenres = useSelector((state) => state.copyOfGenres);
   const order = useSelector((state) => state.order);
   const source = useSelector((state) => state.sourceFilterGenre);
   
@@ -39,27 +38,31 @@ export default function Filters() {
   
   useEffect(() => {
     if (order === null) return;
-    console.log("useEffect order");
     order === "reset" || order === "asc" || order === "desc"
     ? dispatch(filterByRating(order))
     : dispatch(filterByAbc(order));
     dispatch(resetPage());
-  }, [order]);
+  }, [dispatch, order]);
   
   const handleFilterByGenre = (event) => {
     const genre = event.target.value;
+
     if (genre === undefined) return;
     if (source.includes(genre)) {
       dispatch(setSource(source.filter((g) => g !== genre)));
     } else {
-      dispatch(setSource([...source, genre]));
+      if (source === "reset") {
+        dispatch(setSource([genre]));
+      } else{
+        dispatch(setSource([...source, genre]));
+      }
     }
   };
   
   useEffect(() => {
     dispatch(filterCreated(sourceCreated));
     dispatch(resetPage());
-  }, [sourceCreated]);
+  }, [dispatch,sourceCreated]);
   
   const handleFilterCreated = (e) => {
     e.preventDefault();
@@ -96,7 +99,7 @@ export default function Filters() {
               key={index}
               value={element}
             >
-              {element}{" "}
+              {element}
               {source.includes(element) ? (
                 <img className={style.check} src={check} alt="" />
               ) : (

@@ -65,7 +65,8 @@ const Form = () => {
           setErrors({ ...errors, description: "A description is required" });
         if (form.description.trim()) delete errors.description;
         break;
-      
+      default:
+        break;
     }
   };
 

@@ -8,6 +8,7 @@ import {
   GET_ID,
   SET_PAGE,
   RESET_PAGE,
+  BACK_TO_ALL,
   GO_BACKUP_PAGE,
   FILTER_BY_GENRE,
   FILTER_BY_RATING,
@@ -25,6 +26,7 @@ import {
 const initialState = {
   games: [],
   gamesBackup: [],
+  allGames: [],
   gamesFiltered: [],
   game: [],
   related: [],
@@ -45,10 +47,19 @@ export const searchVideoGame = (videoGames) => {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_GAMES:
-      return { ...state, games: action.payload, gamesBackup: action.payload };
+      const aux = action.payload.length > 155 ? action.payload : state.allGames;
+      return {
+        ...state,
+        games: action.payload,
+        gamesBackup: action.payload,
+        allGames: aux,
+      };
 
     case GET_BACKUP:
       return { ...state, games: state.gamesBackup };
+
+      case BACK_TO_ALL:
+      return { ...state, games: state.allGames, gamesBackup: state.allGames };
 
     case BY_NAME:
       return { ...state, games: action.payload };
@@ -73,7 +84,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         currentPage: action.payload,
         currentPageBackup:
-          action.gamesLength > 90 ? action.payload : state.currentPageBackup,
+          action.gamesLength > 150 ? action.payload : state.currentPageBackup,
       };
 
     case RESET_PAGE:
@@ -89,7 +100,7 @@ const rootReducer = (state = initialState, action) => {
       };
 
     case FILTER_BY_GENRE:
-      let source = action.payload;
+      let source = action.payload === "reset"? [] : action.payload
       let toFilter = state.gamesBackup;
       let filtered = toFilter.filter((game) =>
         source.every((sourceGenre) => game.genres.includes(sourceGenre))
@@ -97,7 +108,7 @@ const rootReducer = (state = initialState, action) => {
       const result = filtered.length ? filtered : state.games;
       return {
         ...state,
-        games: result,
+        games: action.payload === "reset"? state.allGames : result,
         gamesFiltered: result,
         hasFilteredResults: filtered.length > 0,
       };

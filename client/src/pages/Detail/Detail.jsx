@@ -1,4 +1,4 @@
-import { cleanDetail, filterByGenreDetail, getById, getBackup, backupPage } from "../../redux/actions";
+import { cleanDetail, filterByGenreDetail, getById } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import Circle from "../../components/Loader/Circle";
 
@@ -31,7 +31,7 @@ const Detail = () => {
       };
       dispatch(filterByGenreDetail(sources));
     }
-  }, [game]);
+  }, [dispatch, game]);
   
   const [scroll, setScroll] = useState(false);
   
@@ -50,10 +50,6 @@ const Detail = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const handleBack = () => {
-    dispatch(getBackup())
-    dispatch(backupPage());
-  };
 
   if (!game) return <h1>Cargando</h1>;
   if (!game.background_image) return <div className={style.loadingImg}><Circle/></div>;
@@ -147,7 +143,7 @@ const Detail = () => {
                   {related.length? 
                   <div>
 
-            <h2 className={style.relatedTitle}>Related</h2>
+            <h2 className={style.relatedTitle}>More games</h2>
           <div className={style.relatedCointaner}>
             {related.map((game) => {
               return (
@@ -173,7 +169,7 @@ const Detail = () => {
             </div> : ""}
           <div className={style.bottomContainer}>
             <Link to="/home">
-              <button className={style.back}>
+              <button className={style.back} >
                 <h3>Back to Home</h3>
               </button>
             </Link>

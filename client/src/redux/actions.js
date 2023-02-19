@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const GET_GAMES = "GET_GAMES";
 export const GET_BACKUP = "GET_BACKUP";
+export const BACK_TO_ALL = "BACK_TO_ALL";
 export const BY_NAME = "BY_NAME";
 export const GET_ID = "GET_ID";
 export const GET_GENRES = "GET_GENRES";
@@ -35,6 +36,8 @@ export const getGames = (name) => {
   };
 };
 
+
+
 // mi actionCreator get por ID
 export const getById = (id) => {
   return async function (dispatch) {
@@ -61,6 +64,9 @@ export const getPlatform = () => {
   };
 };
 
+export const backToAllGames = () => {
+  return {type: BACK_TO_ALL}
+}
 export const searchGame = (payload) => {
 
   return {
@@ -96,7 +102,8 @@ export const setSource = (payload) => {
 }
 export const cleanSource = () => {
   return {
-      type: CLEAN_SOURCE
+      type: SET_SOURCE,
+      payload: "reset"
   }
 }
 
