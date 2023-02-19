@@ -2,8 +2,9 @@ import { Link, useLocation } from "react-router-dom";
 import style from "./NavBar.module.css";
 
 import SearchBar from "../SearchBar/SearchBar";
-import home from "../../assets/home.svg"
 import plus from "../../assets/plus.svg"
+import logosinfondo from '../../assets/logo-sin-fondo.png'
+
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -44,10 +45,11 @@ const NavBar = () => {
   return (
     <nav className={scroll ? style.scrolled : style.nav}>
       <div className={style.buttons}>
+      {/* <img src={logosinfondo} alt="" className={style.logo}/> */}
         <Link to="/home" className={style.link}>
           <button onClick={handleHome} className={style.btn}>
             <div className={style.subline}>
-            <img src={home} alt="" className={style.icon}/>
+            <img src={logosinfondo} alt="" className={style.icon}/>
             Home
             </div>
           </button>

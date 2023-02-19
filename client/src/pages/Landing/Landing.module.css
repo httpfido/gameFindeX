@@ -70,3 +70,11 @@ top: -0px;
     transform: translateY(8px);
     transition: 100ms;
   }
+  .logo{
+    position:fixed;
+    top: 20px;
+    left: 40px;
+    z-index: 10;
+    height: 80px;
+    /* width: ; */
+  }

@@ -132,3 +132,12 @@ margin-right: 4px;
   border-radius: 4px; /* Bordes redondeados */
 }
 
+
+.logo{
+  /* position:fixed; */
+  /* top: 20px; */
+  /* left: 40px; */
+  z-index: 10;
+  height: 40px;
+  /* width: ; */
+}
