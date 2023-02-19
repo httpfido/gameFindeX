@@ -48,12 +48,6 @@ const Form = () => {
 
   const validateField = (field) => {
     switch (field) {
-      case "released":
-        if (!form.released.trim())
-          setErrors({ ...errors, released: "Released date is required" });
-        else if (form.released.trim()) delete errors.released;
-        break;
-
       case "name":
         if (!form.name.trim())
           setErrors({ ...errors, name: "A name is required" });
@@ -65,28 +59,58 @@ const Form = () => {
           setErrors({ ...errors, description: "A description is required" });
         if (form.description.trim()) delete errors.description;
         break;
+
       default:
+        const newErrors = {};
+
+        if (!form.description) {
+          newErrors.description = "A description is required";
+        }
+        if (!form.name) {
+          newErrors.name = "A name is required";
+        }
+        if (!form.platforms.length) {
+          newErrors.platforms = "At least one platform must be selectioned";
+        }
+        if (!form.platforms.length) {
+          newErrors.genres = "At least one genre must be selectioned";
+        }
+
+        setErrors({
+          ...errors,
+          ...newErrors,
+        });
+
         break;
     }
   };
 
   const validateSelected = () => {
-    setErrors({
-      ...errors,
-      platforms: "At least one platform must be selectioned",
-    });
-  if (form.platforms.length) delete errors.platforms;
-
-    if(!form.genres.length){
+    if (!form.genres.length) {
       setErrors({
         ...errors,
         genres: "At least one genre must be selectioned",
       });
-    if (form.genres.length) delete errors.genres;
+      if (!form.platforms.length) {
+        setErrors({
+          ...errors,
+          platforms: "At least one platform must be selectioned",
+        });
+      }
+
+      if (form.platforms.length) delete errors.platforms;
+      if (form.genres.length) delete errors.genres;
+    } else {
+      setErrors({
+        ...errors,
+        genres: "At least one genre must be selectioned",
+        platforms: "At least one platform must be selectioned",
+      });
     }
-  }
+  };
 
   const handleChange = (e) => {
+    e.preventDefault();
     setIncomplete(false);
     const { name, value } = e.target;
     setForm({
@@ -106,10 +130,12 @@ const Form = () => {
       setMax({ ...max, platforms: true });
       setTimeout(() => {
         setMax({ ...max, platforms: false });
-      }, 2300);
+      }, 2900);
       return;
     }
+    if (event.target.value === "Platforms") return;
     if (!form.platforms.includes(event.target.value)) {
+      if (errors.platforms && errors.platforms.length) delete errors.platforms;
       setForm({
         ...form,
         platforms: [...form.platforms, event.target.value],
@@ -133,10 +159,12 @@ const Form = () => {
       setMax({ ...max, genres: true });
       setTimeout(() => {
         setMax({ ...max, genres: false });
-      }, 2300);
+      }, 2900);
       return;
     }
+    if (event.target.value === "Genres") return;
     if (!form.genres.includes(event.target.value)) {
+      if (errors.genres && errors.genres.length) delete errors.genres;
       setForm({
         ...form,
         genres: [...form.genres, event.target.value],
@@ -155,13 +183,19 @@ const Form = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     validateSelected();
+    validateField();
 
-    if (!form.name || !form.description || !form.platforms.length){
-      setLoading(false)
+    if (
+      !form.name ||
+      !form.description ||
+      !form.platforms.length ||
+      !form.genres.length
+    ) {
+      setLoading(false);
       return setIncomplete(true);
     }
     if (Object.keys(errors).length) {
-      setLoading(false)
+      setLoading(false);
       return setIncomplete(true);
     }
 
@@ -171,17 +205,11 @@ const Form = () => {
       .then((res) => setLoading(false));
   };
 
-  //   // handler para enviar el post al back
-  //   const submitHandler = (event) => {
-  //     event.preventDefault();
-  //     axios.post("http://localhost:3001/videogames", form);
-  //   };
   return (
     <div className={style.mainContainer}>
       <form onSubmit={handleSubmit} className={style.formContainer}>
         <h1 className={style.title}>Add a new game to the list!</h1>
-        {/* <div className={style.nameReleased}>
-            </div> */}
+
         <div className={style.inputContainer}>
           <input
             className={style.input}
@@ -204,7 +232,6 @@ const Form = () => {
             name="released"
             placeholder="Released"
           />
-          {errors.released && <p className={style.error}>{errors.released}</p>}
         </div>
 
         <div className={style.descriptionContainer}>
@@ -238,14 +265,12 @@ const Form = () => {
               </option>
             ))}
           </select>
-
-          {errors.genres && <p className={style.error}>{errors.genres}</p>}
-
           <div className={style.selected}>
             {form.genres?.map((element, index) => (
               <span key={index}>
                 <button
                   value={element}
+                  type="button"
                   className={style.x}
                   onClick={handleDeleteG}
                 >
@@ -253,6 +278,7 @@ const Form = () => {
                 </button>
               </span>
             ))}
+            {errors.genres && <p className={style.errorG}>{errors.genres}</p>}
             {max.genres && <p className={style.max}>Max 4 genres</p>}
           </div>
         </div>
@@ -275,7 +301,6 @@ const Form = () => {
             type="number"
             value={form.rating}
             onChange={handleChange}
-            onBlur={() => validateField("rating")}
             name="rating"
             placeholder="Rating"
             min="0.25"
@@ -289,9 +314,6 @@ const Form = () => {
             className={style.select}
             name="platforms"
             onChange={handleSelectP}
-            onClick={() => {
-              validateField("platforms");
-            }}
           >
             <option value="platforms" className={style.genres}>
               Platforms
@@ -305,6 +327,7 @@ const Form = () => {
               <span key={index}>
                 <button
                   value={element}
+                  type="button"
                   onClick={handleDeleteP}
                   className={style.x}
                 >
@@ -312,8 +335,9 @@ const Form = () => {
                 </button>
               </span>
             ))}
-            {errors.platforms && <p className={style.error}>{errors.platforms}</p>}
-            {/* {errors.platforms && <p className={style.error}>{errors.platforms}</p>} */}
+            {errors.platforms && (
+              <p className={style.errorP}>{errors.platforms}</p>
+            )}
             {max.platforms && <p className={style.max}>Max 8 platforms</p>}
           </div>
         </div>
@@ -323,7 +347,9 @@ const Form = () => {
               SUBMIT
             </button>
           )}
-          {incomplete && <p className={style.error}>There is incompleted fields</p>}
+          {incomplete && (
+            <p className={style.error}>There is incompleted fields</p>
+          )}
           {loading && <Circle />}
         </div>
       </form>

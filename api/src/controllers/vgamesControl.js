@@ -25,25 +25,6 @@ const genreMap = async (games) => {
 
 // - - - - - - - - - - - - - - - - - - - - TRAER TODOS LOS JUEGOS - - - - - - - - - - - - - - - - - - - -
 
-// traigo todos los videogames desde la API
-// const getAllAPI = async () => {
-//   const getAll = await axios.get(
-//     `https://api.rawg.io/api/games?key=${API_KEY}`
-//   );
-//   const gamesREADY = getAll.data.results.map((game) => {
-//     return {
-//       id: game.id,
-//       name: game.name,
-//       background_image: game.background_image,
-//       released: game.released,
-//       rating: game.rating,
-//       genres: game.genres.map((g) => g.name),
-//       platforms: game.platforms.map((g) => g.platform.name),
-//       created: false,
-//     };
-//   });
-//   return gamesREADY;
-// };
 
 // traigo todos los videogames desde la API
 const getAllAPI = async () => {
@@ -91,7 +72,7 @@ const getAllBDD = async () => {
 const getAllGamesBDDAPI = async () => {
   const fromAPI = await getAllAPI();
   const fromBDD = await getAllBDD();
-  const BDDAPI = await fromBDD.concat(fromAPI);
+  const BDDAPI = fromBDD.concat(fromAPI);
   return BDDAPI;
 };
 

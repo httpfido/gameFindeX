@@ -3,6 +3,7 @@ import Card from "../Card/Card";
 import Filters from "../../components/Filters/Filter/Filters";
 import Hamster from "../Loader/Hamster";
 import NoFound from "../Loader/noFound"
+import imgDefault from "../../assets/img-default.png"
 
 import Pagination from "../../components/Paginado/Paginado";
 import { useEffect, useState } from "react";
@@ -35,9 +36,13 @@ const CardContainer = () => {
   const allGames = useSelector((state) => state.games);
   // tambien voy a utilizar un global aux cuando el filtrado no devuelva results
   const hasFilteredResults = useSelector(state => state.hasFilteredResults);
+  // const gamesBackup = useSelector(state => state.gamesBackup);
+// console.log(gamesBackup);
+// console.log(allGames);
+
 
   // a continuacion, declaro estados locales
-  const [gamesPerPage] = useState(15);
+  const [gamesPerPage] = useState(16);
 
   // ahora voy a hacer logica numerica para el paginado
   const indexOfLastGame = currentPage * gamesPerPage; //15
@@ -51,15 +56,14 @@ const CardContainer = () => {
   };
   
   if (!allGames.length) {
-    return <Hamster key={"CO1"}/>
+    return <Hamster/>
   }
 
 
   // ahora si, renderizamos el componente
   return (
-    <div className={style.container} key={"CO2"}>
+    <div className={style.container} >
       <Pagination
-      key={"CO3"}
         currentPage={currentPage}
         gamesPerPage={gamesPerPage}
         allGames={allGames.length}
@@ -73,7 +77,7 @@ const CardContainer = () => {
             <Link to={`/home/${game.id}`} className={style.link} key={"CO5"}>
             <Card
             key={game.id}
-            image={game.background_image && game.background_image}
+            image={game.background_image ? game.background_image : imgDefault}
             name={game.name}
             genres={game.genres?.join(", ")}
             platform={game.platform?.slice(0, 3).join(", ")}

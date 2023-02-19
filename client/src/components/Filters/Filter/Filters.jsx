@@ -29,7 +29,7 @@ export default function Filters() {
   const [openStorage, setOpenStorage] = useState(false);
   const [openRating, setOpenRating] = useState(false);
   const [openABC, setOpenABC] = useState(false);
-  const [sourceCreated, setSourceCreated] = useState(false);
+  const [sourceCreated, setSourceCreated] = useState("all");
 
   useEffect(() => {
     dispatch(filterByGenre(source));
@@ -60,6 +60,7 @@ export default function Filters() {
   };
   
   useEffect(() => {
+    console.log(sourceCreated);
     dispatch(filterCreated(sourceCreated));
     dispatch(resetPage());
   }, [dispatch,sourceCreated]);
@@ -116,7 +117,7 @@ export default function Filters() {
             className={style.openDropdown}
             onClick={() => setOpenStorage(!openStorage)}
           >
-            Storage{" "}
+            Storage
             <img
               src={chevron}
               alt=""

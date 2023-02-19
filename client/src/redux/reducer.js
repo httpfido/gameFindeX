@@ -47,6 +47,8 @@ export const searchVideoGame = (videoGames) => {
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_GAMES:
+      console.log(action.payload);
+
       const aux = action.payload.length > 155 ? action.payload : state.allGames;
       return {
         ...state,

@@ -134,7 +134,7 @@
   outline-color: rgb(149, 54, 54);
 }
 
-.error {
+.error, .errorP, .errorG {
   font-family: "Courier New", Courier, monospace;
   font-size: 15px;
   letter-spacing: 1px;
@@ -146,7 +146,17 @@
   font-variant: normal;
   text-transform: none;
   position: absolute;
+}
+.error{
   bottom: -5px;
+  left: 20px; 
+}
+.errorP {
+  bottom: -40px;
+  left: 20px;
+}
+.errorG {
+  bottom: -40px;
   left: 20px;
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import style from "./Pagination.module.css";
 import chevron from "../../assets/chevron.svg";
+import refresh from "../../assets/refresh.svg";
 import { backupPage, cleanSource, cleanOrder, cleanGames, backToAllGames } from "../../redux/actions";
 
 const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
@@ -35,7 +36,7 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
     <div className={style.container}>
       {!hasFilteredResults || allGames < 155 ? (
         <button className={style.back} onClick={handleBack}>
-          BACK
+          <img src={refresh} alt="" />
         </button>
       ) : null}
 
