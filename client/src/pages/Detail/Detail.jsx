@@ -1,6 +1,8 @@
 import { cleanDetail, filterByGenreDetail, getById } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import Circle from "../../components/Loader/Circle";
+import imgDefault2 from "../../assets/img-default2.png"
+import imgDefault from "../../assets/img-default.png"
 
 import { useEffect, useState } from "react";
 
@@ -61,7 +63,7 @@ const Detail = () => {
           <div className={style.imgContainer}>
             <img
               className={scroll ? style.imgScrolled : style.img}
-              src={game.background_image}
+              src={game.background_image? game.background_image : imgDefault}
               alt="imgNotFound"
             />
 
@@ -143,7 +145,7 @@ const Detail = () => {
                   {related.length? 
                   <div>
 
-            <h2 className={style.relatedTitle}>More games</h2>
+            <h2 className={style.relatedTitle}>More</h2>
           <div className={style.relatedCointaner}>
             {related.map((game) => {
               return (
@@ -155,7 +157,7 @@ const Detail = () => {
                   >
                     <Card
                       key={game.id}
-                      image={game.background_image && game.background_image}
+                      image={game.background_image ? game.background_image : imgDefault2}
                       name={game.name}
                       genres={game.genres?.join(", ")}
                       platform={game.platform?.slice(0, 3).join(", ")}

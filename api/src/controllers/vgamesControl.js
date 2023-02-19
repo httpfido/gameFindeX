@@ -16,7 +16,7 @@ const genreMap = async (games) => {
       released: game.released,
       rating: game.rating,
       genres: game.genres.map((genre) => genre.name),
-      platforms: game.platforms,
+      platform: game.platform,
       created: game.created,
     };
   });
@@ -198,8 +198,7 @@ const createGame = async (
   released,
   genres,
   rating,
-  platforms
-) => {
+  platform) => {
   const api = await getAllAPI();
   const apiFilter = api.filter((game) => game.name === name);
   if (apiFilter.length !== 0) throw Error("Ya existe un juego con ese nombre");
@@ -209,7 +208,7 @@ const createGame = async (
     description,
     released,
     rating,
-    platforms,
+    platform
   });
 
   const genreBDD = await Genre.findAll({

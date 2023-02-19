@@ -12,8 +12,8 @@ const initialForm = {
   description: "",
   genres: [],
   released: "",
-  rating: "",
-  platforms: [],
+  rating: "0.25",
+  platform: [],
 };
 
 // * * * * * * * * * * * DE ACA PARA ATRAS FUNCIONA * * * * * * * * * * * * * * * * * * * *
@@ -41,7 +41,7 @@ const Form = () => {
   const [errors, setErrors] = useState({});
   const [max, setMax] = useState({
     genres: false,
-    platforms: false,
+    platform: false,
   });
   const [loading, setLoading] = useState(false);
   const [incomplete, setIncomplete] = useState(false);
@@ -69,10 +69,10 @@ const Form = () => {
         if (!form.name) {
           newErrors.name = "A name is required";
         }
-        if (!form.platforms.length) {
-          newErrors.platforms = "At least one platform must be selectioned";
+        if (!form.platform.length) {
+          newErrors.platform = "At least one platform must be selectioned";
         }
-        if (!form.platforms.length) {
+        if (!form.platform.length) {
           newErrors.genres = "At least one genre must be selectioned";
         }
 
@@ -91,20 +91,20 @@ const Form = () => {
         ...errors,
         genres: "At least one genre must be selectioned",
       });
-      if (!form.platforms.length) {
+      if (!form.platform.length) {
         setErrors({
           ...errors,
-          platforms: "At least one platform must be selectioned",
+          platform: "At least one platform must be selectioned",
         });
       }
 
-      if (form.platforms.length) delete errors.platforms;
+      if (form.platform.length) delete errors.platform;
       if (form.genres.length) delete errors.genres;
     } else {
       setErrors({
         ...errors,
         genres: "At least one genre must be selectioned",
-        platforms: "At least one platform must be selectioned",
+        platform: "At least one platform must be selectioned",
       });
     }
   };
@@ -124,30 +124,30 @@ const Form = () => {
 
   // HANDLERS PARA MENUS DESPLEGABLES
 
-  // platforms: agrega
+  // platform: agrega
   function handleSelectP(event) {
-    if (form.platforms.length >= 8) {
-      setMax({ ...max, platforms: true });
+    if (form.platform.length >= 8) {
+      setMax({ ...max, platform: true });
       setTimeout(() => {
-        setMax({ ...max, platforms: false });
+        setMax({ ...max, platform: false });
       }, 2900);
       return;
     }
-    if (event.target.value === "Platforms") return;
-    if (!form.platforms.includes(event.target.value)) {
-      if (errors.platforms && errors.platforms.length) delete errors.platforms;
+    if (event.target.value === "Platform") return;
+    if (!form.platform.includes(event.target.value)) {
+      if (errors.platform && errors.platform.length) delete errors.platform;
       setForm({
         ...form,
-        platforms: [...form.platforms, event.target.value],
+        platform: [...form.platform, event.target.value],
       });
     }
   }
 
-  // platforms: borra
+  // platform: borra
   function handleDeleteP(event) {
     setForm({
       ...form,
-      platforms: form.platforms.filter(
+      platform: form.platform.filter(
         (element) => element !== event.target.value
       ),
     });
@@ -188,7 +188,7 @@ const Form = () => {
     if (
       !form.name ||
       !form.description ||
-      !form.platforms.length ||
+      !form.platform.length ||
       !form.genres.length
     ) {
       setLoading(false);
@@ -201,7 +201,7 @@ const Form = () => {
 
     if (!Object.keys(errors).length) setLoading(true);
     axios
-      .post("http://localhost:3001/videogames", form)
+      .post("/videogames", form)
       .then((res) => setLoading(false));
   };
 
@@ -289,7 +289,6 @@ const Form = () => {
             type="text"
             value={form.background_image}
             onChange={handleChange}
-            onBlur={() => validateField("img")}
             name="background_image"
             placeholder="Imagen"
           />
@@ -312,18 +311,18 @@ const Form = () => {
         <div className={style.selectContainer}>
           <select
             className={style.select}
-            name="platforms"
+            name="platform"
             onChange={handleSelectP}
           >
-            <option value="platforms" className={style.genres}>
-              Platforms
+            <option value="platform" className={style.genres}>
+              Platform
             </option>
             {platf?.map((element, index) => (
               <option key={index}>{element}</option>
             ))}
           </select>
           <div className={style.selected}>
-            {form.platforms?.map((element, index) => (
+            {form.platform?.map((element, index) => (
               <span key={index}>
                 <button
                   value={element}
@@ -335,10 +334,10 @@ const Form = () => {
                 </button>
               </span>
             ))}
-            {errors.platforms && (
-              <p className={style.errorP}>{errors.platforms}</p>
+            {errors.platform && (
+              <p className={style.errorP}>{errors.platform}</p>
             )}
-            {max.platforms && <p className={style.max}>Max 8 platforms</p>}
+            {max.platform && <p className={style.max}>Max 8 platform</p>}
           </div>
         </div>
         <div className={style.submitContainer}>

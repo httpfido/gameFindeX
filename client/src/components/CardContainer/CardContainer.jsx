@@ -3,7 +3,7 @@ import Card from "../Card/Card";
 import Filters from "../../components/Filters/Filter/Filters";
 import Hamster from "../Loader/Hamster";
 import NoFound from "../Loader/noFound"
-import imgDefault from "../../assets/img-default.png"
+import imgDefault2 from "../../assets/img-default2.png"
 
 import Pagination from "../../components/Paginado/Paginado";
 import { useEffect, useState } from "react";
@@ -22,7 +22,8 @@ const CardContainer = () => {
       behavior: 'smooth'
     });
   }, [pathname]);
-
+  
+  const allGames = useSelector((state) => state.games);
   const searchGame = useSelector((state) => state.searchGames);
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global
@@ -33,7 +34,6 @@ const CardContainer = () => {
 
   // agarro el array de juegos del objeto global y lo meto en allGames
   const currentPage = useSelector((state) => state.currentPage);
-  const allGames = useSelector((state) => state.games);
   // tambien voy a utilizar un global aux cuando el filtrado no devuelva results
   const hasFilteredResults = useSelector(state => state.hasFilteredResults);
   // const gamesBackup = useSelector(state => state.gamesBackup);
@@ -77,7 +77,7 @@ const CardContainer = () => {
             <Link to={`/home/${game.id}`} className={style.link} key={"CO5"}>
             <Card
             key={game.id}
-            image={game.background_image ? game.background_image : imgDefault}
+            image={game.background_image ? game.background_image : imgDefault2}
             name={game.name}
             genres={game.genres?.join(", ")}
             platform={game.platform?.slice(0, 3).join(", ")}

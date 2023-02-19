@@ -23,10 +23,10 @@ const Pagination = ({ gamesPerPage, allGames, paginado, currentPage }) => {
   };
   const dispatch = useDispatch();
   const handleBack = () => {
-    dispatch(cleanSource())
     dispatch(cleanGames());
     dispatch(backToAllGames());
     dispatch(backupPage());
+    dispatch(cleanSource())
     dispatch(cleanOrder())
   };
   pageNumber.pop();

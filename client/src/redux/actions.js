@@ -29,8 +29,8 @@ export const CLEAN_ORDER = "CLEAN_ORDER"
 // mi actionCreator de allgames Y get por NAME
 export const getGames = (name) => {
   return async function (dispatch) {
-    const apiData = name ? await axios.get(`http://localhost:3001/videogames?name=${name}`)
-    : await axios.get("http://localhost:3001/videogames/");
+    const apiData = name ? await axios.get(`/videogames?name=${name}`)
+    : await axios.get("/videogames/");
     const results = apiData.data;
     dispatch({ type: GET_GAMES, payload: results });
   };
@@ -41,7 +41,7 @@ export const getGames = (name) => {
 // mi actionCreator get por ID
 export const getById = (id) => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/videogames/${id}`);
+    const apiData = await axios.get(`/videogames/${id}`);
     const game = apiData.data;
     dispatch({ type: GET_ID, payload: game });
   }
@@ -49,7 +49,7 @@ export const getById = (id) => {
 // mi actionCreator get de genres
 export const getGenres = () => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/genres`);
+    const apiData = await axios.get(`/genres`);
     const genres = apiData.data.map(g=>g.name)
     dispatch({ type: GET_GENRES, payload: genres });
   };
@@ -58,7 +58,7 @@ export const getGenres = () => {
 // mi actionCreator get de platform
 export const getPlatform = () => {
   return async function (dispatch) {
-    const apiData = await axios.get(`http://localhost:3001/platforms`);
+    const apiData = await axios.get(`/platforms`);
     const platform = apiData.data
     dispatch({ type: GET_PLATFORM, payload: platform });
   };
