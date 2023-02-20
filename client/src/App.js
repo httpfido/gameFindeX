@@ -20,8 +20,8 @@ function App() {
       <Route exact path="/home" render={()=><Home/>}/>
       <Route exact path="/home/:id" render={()=><Detail/>}/>
       <Route exact path="/create" render={()=><Form/>}/>
-      
-      {location.pathname !== '/' && <Footer/> }
+
+
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import { cleanDetail, filterByGenreDetail, getById } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import Circle from "../../components/Loader/Circle";
-import imgDefault2 from "../../assets/img-default2.png"
-import imgDefault from "../../assets/img-default.png"
+import imgDefault2 from "../../assets/img-default2.png";
+import imgDefault from "../../assets/img-default.png";
+import Footer from "../../components/Footer/Footer";
 
 import { useEffect, useState } from "react";
 
@@ -34,16 +35,16 @@ const Detail = () => {
       dispatch(filterByGenreDetail(sources));
     }
   }, [dispatch, game]);
-  
+
   const [scroll, setScroll] = useState(false);
-  
+
   useEffect(() => {
     window.addEventListener("scroll", () => {
       setScroll(window.pageYOffset > 0);
-    })
-    return ()=>{
-      setScroll(0)
-    }
+    });
+    return () => {
+      setScroll(0);
+    };
   }, []);
 
   const { pathname } = useLocation();
@@ -52,9 +53,13 @@ const Detail = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-
   if (!game) return <h1>Cargando</h1>;
-  if (!game.background_image) return <div className={style.loadingImg}><Circle/></div>;
+  if (!game.background_image)
+    return (
+      <div className={style.loadingImg}>
+        <Circle />
+      </div>
+    );
 
   return (
     <div className={style.container}>
@@ -63,7 +68,7 @@ const Detail = () => {
           <div className={style.imgContainer}>
             <img
               className={scroll ? style.imgScrolled : style.img}
-              src={game.background_image? game.background_image : imgDefault}
+              src={game.background_image ? game.background_image : imgDefault}
               alt="imgNotFound"
             />
 
@@ -142,44 +147,53 @@ const Detail = () => {
               />
             </div>
           </div>
-                  {related.length? 
-                  <div>
-
-            <h2 className={style.relatedTitle}>More</h2>
-          <div className={style.relatedCointaner}>
-            {related.map((game) => {
-              return (
-                <div key={"CD MAP" + game.id}>
-                  <Link
-                    to={`/home/${game.id}`}
-                    className={style.link}
-                    key={"CO5"}
-                  >
-                    <Card
-                      key={game.id}
-                      image={game.background_image ? game.background_image : imgDefault2}
-                      name={game.name}
-                      genres={game.genres?.join(", ")}
-                      platform={game.platform?.slice(0, 3).join(", ")}
-                      rating={game.rating}
-                      />
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-            </div> : ""}
+          {related.length ? (
+            <div>
+              <h2 className={style.relatedTitle}>More</h2>
+              <div className={style.relatedCointaner}>
+                {related.map((game) => {
+                  return (
+                    <div key={"CD MAP" + game.id}>
+                      <Link
+                        to={`/home/${game.id}`}
+                        className={style.link}
+                        key={"CO5"}
+                      >
+                        <Card
+                          key={game.id}
+                          image={
+                            game.background_image
+                              ? game.background_image
+                              : imgDefault2
+                          }
+                          name={game.name}
+                          genres={game.genres?.join(", ")}
+                          platform={game.platform?.slice(0, 3).join(", ")}
+                          rating={game.rating}
+                        />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
           <div className={style.bottomContainer}>
             <Link to="/home">
-              <button className={style.back} >
+              <button className={style.back}>
                 <h3>Back to Home</h3>
               </button>
             </Link>
           </div>
         </div>
       ) : (
-        <div className={style.loadingImg}><Circle/></div>
+        <div className={style.loadingImg}>
+          <Circle />
+        </div>
       )}
+      <Footer />
     </div>
   );
 };

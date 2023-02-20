@@ -1,5 +1,7 @@
 import { getGenres, getPlatform } from "../../redux/actions";
 import Circle from "../../components/Loader/Circle";
+import Footer from "../../components/Footer/Footer";
+
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
@@ -352,6 +354,7 @@ const Form = () => {
           {loading && <Circle />}
         </div>
       </form>
+        <Footer/>
     </div>
   );
 };
