@@ -5,8 +5,7 @@
   align-items: center;
 
   position: relative;
-  position: fixed;
-  bottom: 0;
+
   width: 100%;
   background-color: rgb(33, 33, 33);
   transition: height 0.4s linear;
