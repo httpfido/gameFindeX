@@ -354,7 +354,6 @@ const Form = () => {
           {loading && <Circle />}
         </div>
       </form>
-        <Footer/>
     </div>
   );
 };
