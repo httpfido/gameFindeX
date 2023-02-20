@@ -2,7 +2,7 @@
 
 const { Op } = require("sequelize");
 const axios = require("axios");
-const { Videogame, Genre, VideogameGenre } = require("../db");
+const { Videogame, Genre } = require("../db");
 const { API_KEY } = process.env;
 
 // me voy a auxiliar con una funcion que me va a devolver de manera prolija los generos cada juego de BDD
