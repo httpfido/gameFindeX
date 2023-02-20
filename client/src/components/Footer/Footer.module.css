@@ -1,0 +1,58 @@
+
+.footerScrolled{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: rgb(33, 33, 33);
+  transition: height 0.4s linear;
+  z-index: 20;
+  height: 50px;
+  margin-top: 100px;
+}
+.logo {
+  height: 35px;
+}
+.logoContainer{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 0px;
+  width: 15%;
+  height: 50px;
+  left: 80px;
+}
+.contact {
+  position: absolute;
+  top: 0px;
+  right: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+}
+.icon {
+  height: 35px;
+}
+
+.text {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 4px;
+  font-family: Verdana, Arial, Tahoma, Serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  word-spacing: 2px;
+  color: #ffffff;
+  font-weight: 200;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none
+}
