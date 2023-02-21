@@ -1,14 +1,18 @@
 .filters {
-  width: 270px;
-  height: 800px;
+  position: sticky;
+  top: 90px;
+  width: 20%;
+  height: 90vh;
+  max-height: auto;
   text-align: center;
-  position: fixed;
-  top: 200px;
+  /* position: fixed; */
+  /* top: 200px; */
   left: 0px;
   z-index: 0;
   padding: 0px 0px 0px 0px;
+  margin-top: 90px;
   border-right: 2px solid #8f909278;
-
+/* border: 1px solid yellow; */
 }
 
 .aligns {
@@ -212,38 +216,37 @@
   min-height: 8%;
   padding: 0px 0px 10px 0px;
   align-items: center;
+  /* border: 1px solid green; */
+  margin: 7% 0%;
 }
 
-.storageopenedS {
+.storageopenedS, .storageclosedS {
   display: flex;
   align-items: flex-end;
   width: 70%;
   flex-direction: column;
+  justify-content: center;
   border-left: 2px solid #8f9092;
-
+  
   overflow: hidden;
-  height: 85px;
   transition: height 0.3s ease-in-out;
   background-color: #1a2a34;
-
+  /* border: 1px solid red; */
+  
 }
-.storageclosedS {
-  display: flex;
-  align-items: flex-end;
-  width: 70%;
-  flex-direction: column;
-  border-left: 2px solid #8f9092;
-  overflow: hidden;
+
+.storageopenedS{
+  height: 110px;
+}
+.storageclosedS{
   height: 0px;
-  transition: height 0.2s ease-in-out;
-  background-color: #253e4f;
 }
   
 .storageButton {
   display: flex;
   width: 95%;
   text-align: left;
-  padding: 3px 10px 0px 40px;
+  /* padding: 3px 10px 0px 40px; */
 
   border: none;
   color: #ffffff;
@@ -277,6 +280,8 @@
   min-height: 8%;
   padding: 0px 0px 10px 0px;
   align-items: center;
+  margin: 7% 0%;
+
 }
 
 .chevron{

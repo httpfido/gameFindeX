@@ -149,7 +149,7 @@ const Detail = () => {
           </div>
           {related.length ? (
             <div>
-              <h2 className={style.relatedTitle}>More</h2>
+              <h2 className={style.relatedTitle}>More games</h2>
               <div className={style.relatedCointaner}>
                 {related.map((game) => {
                   return (

@@ -1,9 +1,11 @@
 import style from "./CardContainer.module.css";
 import Card from "../Card/Card";
+import Footer from "../Footer/Footer";
+
 import Filters from "../../components/Filters/Filter/Filters";
 import Hamster from "../Loader/Hamster";
-import NoFound from "../Loader/noFound"
-import imgDefault2 from "../../assets/img-default2.png"
+import NoFound from "../Loader/noFound";
+import imgDefault2 from "../../assets/img-default2.png";
 
 import Pagination from "../../components/Paginado/Paginado";
 import { useEffect, useState } from "react";
@@ -13,16 +15,15 @@ import { Link, useLocation } from "react-router-dom";
 
 // defino mi Card Container
 const CardContainer = () => {
-
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo({
       top: 0,
       left: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
   }, [pathname]);
-  
+
   const allGames = useSelector((state) => state.games);
   const searchGame = useSelector((state) => state.searchGames);
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
@@ -35,11 +36,10 @@ const CardContainer = () => {
   // agarro el array de juegos del objeto global y lo meto en allGames
   const currentPage = useSelector((state) => state.currentPage);
   // tambien voy a utilizar un global aux cuando el filtrado no devuelva results
-  const hasFilteredResults = useSelector(state => state.hasFilteredResults);
+  const hasFilteredResults = useSelector((state) => state.hasFilteredResults);
   // const gamesBackup = useSelector(state => state.gamesBackup);
-// console.log(gamesBackup);
-// console.log(allGames);
-
+  // console.log(gamesBackup);
+  // console.log(allGames);
 
   // a continuacion, declaro estados locales
   const [gamesPerPage] = useState(16);
@@ -54,42 +54,56 @@ const CardContainer = () => {
   const paginado = (pageNumber, gamesLength) => {
     dispatch(setPage(pageNumber, gamesLength));
   };
-  
-  if (!allGames.length) {
-    return <Hamster/>
-  }
 
+  if (!allGames.length) {
+    return <div className={style.bodyLoad}><Hamster /><Footer/></div>;
+  }
 
   // ahora si, renderizamos el componente
   return (
-    <div className={style.container} >
-      <Pagination
-        currentPage={currentPage}
-        gamesPerPage={gamesPerPage}
-        allGames={allGames.length}
-        paginado={paginado}
-      />
-      <div className={style.cardContainer}>
-        {hasFilteredResults?
-        currentGames.map((game) => {
-          return (
-            <div key={"CO MAP" + game.id }>
-            <Link to={`/home/${game.id}`} className={style.link} key={"CO5"}>
-            <Card
-            key={game.id}
-            image={game.background_image ? game.background_image : imgDefault2}
-            name={game.name}
-            genres={game.genres?.join(", ")}
-            platform={game.platform?.slice(0, 3).join(", ")}
-            rating={game.rating}
-            />
-            </Link>
-            </div>
-            );
-          })
-         : <NoFound/>}
-          </div >
-      <Filters />
+    <div className={style.body}>
+      <div className={style.container}>
+        <Filters className={style.filters} />
+        <div className={style.paginatedAndCards}>
+          <Pagination
+            currentPage={currentPage}
+            gamesPerPage={gamesPerPage}
+            allGames={allGames.length}
+            paginado={paginado}
+          />
+          <div className={style.cardContainer}>
+            {hasFilteredResults ? (
+              currentGames.map((game) => {
+                return (
+                  <div key={"CO MAP" + game.id}>
+                    <Link
+                      to={`/home/${game.id}`}
+                      className={style.link}
+                      key={"CO5"}
+                    >
+                      <Card
+                        key={game.id}
+                        image={
+                          game.background_image
+                            ? game.background_image
+                            : imgDefault2
+                        }
+                        name={game.name}
+                        genres={game.genres?.join(", ")}
+                        platform={game.platform?.slice(0, 3).join(", ")}
+                        rating={game.rating}
+                      />
+                    </Link>
+                  </div>
+                );
+              })
+            ) : (
+              <NoFound />
+            )}
+          </div>
+        </div>
+      </div>
+      <Footer/>
     </div>
   );
 };

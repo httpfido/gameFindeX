@@ -6,11 +6,12 @@
 
   position: relative;
 
-  width: 100%;
+  min-width: 99.3vw;
   background-color: rgb(33, 33, 33);
   transition: height 0.4s linear;
   z-index: 20;
   height: 50px;
+  margin-top: 30px;
 }
 .logo {
   height: 35px;
