@@ -14,13 +14,13 @@ const Footer = () => {
       Ⓒ All rights reserved GameFINDEX S.A. contact +54 9 11 2719-1198
     </h3>
     <div className={style.contact}>
-      <a href="https://www.instagram.com/http_fido/">
+      <a href="https://www.instagram.com/http_fido/" target="_blank">
         <img src={ig} alt="" className={style.icon} />
       </a>
-      <a href="https://github.com/FideRomano">
+      <a href="https://github.com/FideRomano" target="_blank">
         <img src={github} alt="" className={style.icon} />
       </a>
-      <a href="https://www.linkedin.com/in/fidel-romano/">
+      <a href="https://www.linkedin.com/in/fidel-romano/" target="_blank">
         <img src={linkedin} alt="" className={style.icon} />
       </a>
     </div>
