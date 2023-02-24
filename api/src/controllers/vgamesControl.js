@@ -25,7 +25,6 @@ const genreMap = async (games) => {
 
 // - - - - - - - - - - - - - - - - - - - - TRAER TODOS LOS JUEGOS - - - - - - - - - - - - - - - - - - - -
 
-
 // traigo todos los videogames desde la API
 const getAllAPI = async () => {
   const oneHundredGames = [];
@@ -155,7 +154,6 @@ const findByIdAPI = async (id) => {
       comments: game.ratings?.map((r) => `${r.title} (${r.count})` ),
       created: false,
     };
-    
     return result;
   } catch (error) {
     throw Error("No se encontro el juego");
@@ -164,8 +162,7 @@ const findByIdAPI = async (id) => {
 
 // busca el juego por ID solamente en la BDD
 const findByIdBDD = async (id) => {
-  const result = await Videogame.findAll({
-    where: { id },
+  const result = await Videogame.findByPk(id, {
     include: [
       {
         model: Genre,
@@ -176,9 +173,8 @@ const findByIdBDD = async (id) => {
       },
     ],
   });
-
-  const mapped = await genreMap(result);
-  return mapped;
+  console.log("findbyBDD AAAAAAAAAAAA");
+  return result
 };
 
 // findbyID funciona de spliter. Señala si buscar en BDD o API
@@ -187,6 +183,7 @@ const findById = async (id, source) => {
     source === "api" ? await findByIdAPI(id) : await findByIdBDD(id);
   return result;
 };
+
 
 // - - - - - - - - - - - - - - - - - - - - CREAR NUEVO JUEGO - - - - - - - - - - - - - - - - - - - -
 
