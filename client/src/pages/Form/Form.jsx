@@ -13,11 +13,10 @@ const initialForm = {
   description: "",
   genres: [],
   released: "",
-  rating: "0.25",
+  rating: "0,25",
   platform: [],
+  showPlaceholder: true,
 };
-
-// * * * * * * * * * * * DE ACA PARA ATRAS FUNCIONA * * * * * * * * * * * * * * * * * * * *
 
 const Form = () => {
   //   // como primera instancia, le ordeno al reducer que haga la peticion a la api, tanto de generos como de plataformas, y los meta
@@ -81,7 +80,6 @@ const Form = () => {
           ...errors,
           ...newErrors,
         });
-
         break;
     }
   };
@@ -117,6 +115,7 @@ const Form = () => {
     setForm({
       ...form,
       [name]: value,
+      showPlaceholder: name === "rating" ? false : true, // establecer en false cuando se ingresa un valor
     });
     if (errors[name]) {
       delete errors[name];
@@ -203,156 +202,165 @@ const Form = () => {
     if (!Object.keys(errors).length) setLoading(true);
     axios
       .post("/videogames", form)
-      .then((res) => setLoading(false));
+      .then((res) => {
+        setLoading(false);
+      })
+      .catch((error) => {
+        alert(error.message);
+        setLoading(false);
+      });
   };
 
   return (
-    <div className={style.mainContainer}>
-      <form onSubmit={handleSubmit} className={style.formContainer}>
-        <h1 className={style.title}>Add a new game to the list!</h1>
+    <div className={style.body}>
+      <div className={style.mainContainer}>
+        <form onSubmit={handleSubmit} className={style.formContainer}>
+          <h1 className={style.title}>Add a new game to the list!</h1>
 
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            name="name"
-            type="text"
-            value={form.name}
-            onChange={handleChange}
-            onBlur={() => validateField("name")}
-            placeholder="Name"
-          />
-          {errors.name && <p className={style.error}>{errors.name}</p>}
-        </div>
-
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            type="text"
-            value={form.released}
-            onChange={handleChange}
-            name="released"
-            placeholder="Released"
-          />
-        </div>
-
-        <div className={style.descriptionContainer}>
-          <textarea
-            className={style.description}
-            name="description"
-            type="text"
-            value={form.description}
-            onChange={handleChange}
-            onBlur={() => validateField("description")}
-            placeholder="Description"
-          />
-
-          {errors.description && (
-            <p className={style.error}>{errors.description}</p>
-          )}
-        </div>
-
-        <div className={style.selectContainer}>
-          <select
-            className={style.select}
-            name="genres"
-            onChange={handleSelectG}
-          >
-            <option value="genres" className={style.genres}>
-              Genres
-            </option>
-            {gen?.map((element, index) => (
-              <option key={index} className={style.selectGenre}>
-                {element}
-              </option>
-            ))}
-          </select>
-          <div className={style.selected}>
-            {form.genres?.map((element, index) => (
-              <span key={index}>
-                <button
-                  value={element}
-                  type="button"
-                  className={style.x}
-                  onClick={handleDeleteG}
-                >
-                  {element}
-                </button>
-              </span>
-            ))}
-            {errors.genres && <p className={style.errorG}>{errors.genres}</p>}
-            {max.genres && <p className={style.max}>Max 4 genres</p>}
+          <div className={style.inputContainer}>
+            <input
+              className={style.input}
+              name="name"
+              type="text"
+              value={form.name}
+              onChange={handleChange}
+              onBlur={() => validateField("name")}
+              placeholder="Name"
+            />
+            {errors.name && <p className={style.error}>{errors.name}</p>}
           </div>
-        </div>
 
-        <div className={style.inputContainer}>
-          <input
-            className={style.input}
-            type="text"
-            value={form.background_image}
-            onChange={handleChange}
-            name="background_image"
-            placeholder="Imagen"
-          />
-        </div>
+          <div className={style.inputContainer}>
+            <label className={style.releaseDate}>Enter a release date</label>
+            <input
+              className={style.input}
+              type="date"
+              value={form.released}
+              onChange={handleChange}
+              name="released"
+              placeholder="Released"
+            />
+          </div>
 
-        <div className={style.inputContainer}>
-          <input
-            className={style.rating}
-            type="number"
-            value={form.rating}
-            onChange={handleChange}
-            name="rating"
-            placeholder="Rating"
-            min="0.25"
-            max="5"
-            step="0.25"
-          />
-        </div>
+          <div className={style.descriptionContainer}>
+            <textarea
+              className={style.description}
+              name="description"
+              type="text"
+              value={form.description}
+              onChange={handleChange}
+              onBlur={() => validateField("description")}
+              placeholder="Description"
+            />
 
-        <div className={style.selectContainer}>
-          <select
-            className={style.select}
-            name="platform"
-            onChange={handleSelectP}
-          >
-            <option value="platform" className={style.genres}>
-              Platform
-            </option>
-            {platf?.map((element, index) => (
-              <option key={index}>{element}</option>
-            ))}
-          </select>
-          <div className={style.selected}>
-            {form.platform?.map((element, index) => (
-              <span key={index}>
-                <button
-                  value={element}
-                  type="button"
-                  onClick={handleDeleteP}
-                  className={style.x}
-                >
-                  {element}
-                </button>
-              </span>
-            ))}
-            {errors.platform && (
-              <p className={style.errorP}>{errors.platform}</p>
+            {errors.description && (
+              <p className={style.error}>{errors.description}</p>
             )}
-            {max.platform && <p className={style.max}>Max 8 platform</p>}
           </div>
-        </div>
-        <div className={style.submitContainer}>
-          {!loading && (
-            <button className={style.submit} type="submit">
-              SUBMIT
-            </button>
-          )}
-          {incomplete && (
-            <p className={style.error}>There is incompleted fields</p>
-          )}
-          {loading && <Circle />}
-        </div>
-      </form>
+
+          <div className={style.selectContainer}>
+            <select
+              className={style.select}
+              name="genres"
+              onChange={handleSelectG}
+            >
+              <option value="genres" className={style.genres}>
+                Genres
+              </option>
+              {gen?.map((element, index) => (
+                <option key={index} className={style.selectGenre}>
+                  {element}
+                </option>
+              ))}
+            </select>
+            <div className={style.selected}>
+              {form.genres?.map((element, index) => (
+                <span key={index}>
+                  <button
+                    value={element}
+                    type="button"
+                    className={style.x}
+                    onClick={handleDeleteG}
+                  >
+                    {element}
+                  </button>
+                </span>
+              ))}
+              {errors.genres && <p className={style.errorG}>{errors.genres}</p>}
+              {max.genres && <p className={style.max}>Max 4 genres</p>}
+            </div>
+          </div>
+
+          <div className={style.inputContainer}>
+            <input
+              className={style.input}
+              type="text"
+              value={form.background_image}
+              onChange={handleChange}
+              name="background_image"
+              placeholder="Imagen"
+            />
+          </div>
+
+          <div className={style.inputContainer}>
+            <input
+              className={style.rating}
+              type="number"
+              value={form.rating}
+              onChange={handleChange}
+              name="rating"
+              placeholder={form.showPlaceholder ? "Rating" : ""}
+              min="0.25"
+              max="5"
+              step="0.25"
+            />
+          </div>
+
+          <div className={style.selectContainer}>
+            <select
+              className={style.select}
+              name="platform"
+              onChange={handleSelectP}
+            >
+              <option value="platform" className={style.genres}>
+                Platform
+              </option>
+              {platf?.map((element, index) => (
+                <option key={index}>{element}</option>
+              ))}
+            </select>
+            <div className={style.selected}>
+              {form.platform?.map((element, index) => (
+                <span key={index}>
+                  <button
+                    value={element}
+                    type="button"
+                    onClick={handleDeleteP}
+                    className={style.x}
+                  >
+                    {element}
+                  </button>
+                </span>
+              ))}
+              {errors.platform && (
+                <p className={style.errorP}>{errors.platform}</p>
+              )}
+              {max.platform && <p className={style.max}>Max 8 platform</p>}
+            </div>
+          </div>
+          <div className={style.submitContainer}>
+            {!loading && (
+              <button className={style.submit} type="submit">
+                SUBMIT
+              </button>
+            )}
+            {incomplete && (
+              <p className={style.error}>There is incompleted fields</p>
+            )}
+            {loading && <Circle />}
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

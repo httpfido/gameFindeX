@@ -1,12 +1,12 @@
 .card {
-  width: 260px;
-  height: 415px;
+  width: 250px;
+  height: 405px;
   justify-content: center;
   text-align: center;
   border: 2px solid #002137;
   border-radius: 10px;
   background: linear-gradient(0deg, #545454, #292929);
-  margin: 19px 30px;
+  margin: 2vh .7vw;
   padding: 6px;
   transition: all 0.2s ease;
   overflow: hidden;
@@ -100,11 +100,11 @@
 
 .att {
   position: absolute;
-  width: 260px;
+  width: 250px;
   
   left: 5px;
   bottom: 0px;
-  height: 120px;
+  height: 110px;
   
   visibility: visible;
 }
@@ -134,17 +134,17 @@
 .title {
   font-size: 12px;
   color: #ffdb65e2;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .values {
   text-align: right;
   width: 70%;
   font-family: "Trebuchet MS", Helvetica, sans-serif;
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 2px;
   color: #ffffff;
-  font-weight: 450;
+  font-weight: 200;
   text-decoration: none;
   font-style: italic;
   text-transform: none;

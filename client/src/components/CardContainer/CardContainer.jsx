@@ -8,6 +8,7 @@ import NoFound from "../Loader/noFound";
 import imgDefault2 from "../../assets/img-default2.png";
 
 import Pagination from "../../components/Paginado/Paginado";
+import PaginationBottom from "../../components/Paginado/PaginadoBottom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getGames, setPage } from "../../redux/actions";
@@ -38,8 +39,6 @@ const CardContainer = () => {
   // tambien voy a utilizar un global aux cuando el filtrado no devuelva results
   const hasFilteredResults = useSelector((state) => state.hasFilteredResults);
   // const gamesBackup = useSelector(state => state.gamesBackup);
-  // console.log(gamesBackup);
-  // console.log(allGames);
 
   // a continuacion, declaro estados locales
   const [gamesPerPage] = useState(16);
@@ -48,7 +47,7 @@ const CardContainer = () => {
   const indexOfLastGame = currentPage * gamesPerPage; //15
   const indexOfFirstGame = indexOfLastGame - gamesPerPage; //0
   const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame);
-
+console.log(currentGames);
   // declaro una funcion que va a modificar el estado local de CurrentPage, esto lo voy a pasar
   // como prop al componente Paginated
   const paginado = (pageNumber, gamesLength) => {
@@ -100,7 +99,15 @@ const CardContainer = () => {
             ) : (
               <NoFound />
             )}
+            
           </div>
+          <PaginationBottom
+            currentPage={currentPage}
+            gamesPerPage={gamesPerPage}
+            allGames={allGames.length}
+            paginado={paginado}
+            className={style.paginationBot}
+          />
         </div>
       </div>
       <Footer/>

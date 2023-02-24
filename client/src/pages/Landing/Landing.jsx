@@ -31,7 +31,7 @@ const Landing = () => {
           <button className={style.start}>S T A R T</button>
         </NavLink>
       </div>
-      <div className={scroll ? style.footerScrolled : style.footer}>
+      <footer className={scroll ? style.footerScrolled : style.footer}>
         <div className={style.logoContainer}>
           <img src={logosinfondo} alt="" className={style.logo} />
         </div>
@@ -49,7 +49,7 @@ const Landing = () => {
             <img src={linkedin} alt="" className={style.icon} />
           </a>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };

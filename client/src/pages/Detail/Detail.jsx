@@ -6,16 +6,15 @@ import imgDefault from "../../assets/img-default.png";
 import Footer from "../../components/Footer/Footer";
 
 import { useEffect, useState } from "react";
-
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import { useParams, Link } from "react-router-dom";
+import { useLocation, useParams, Link  } from "react-router-dom";
+
 import style from "./Detail.module.css";
 import star from "../../assets/star.svg";
 
 const Detail = () => {
   const { id } = useParams();
-  const game = useSelector((state) => state.game);
+  let game = useSelector((state) => state.game);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -53,24 +52,30 @@ const Detail = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  if (!game) return <h1>Cargando</h1>;
+  
+  if (!game.background_image && game.created){
+
+    game = {
+      ...game,
+      background_image: imgDefault
+    }
+  }
   if (!game.background_image)
     return (
       <div className={style.loadingImg}>
         <Circle />
       </div>
     );
-
   return (
     <div className={style.container}>
       {game ? (
         <div className={style.container}>
           <div className={style.imgContainer}>
-            <img
-              className={scroll ? style.imgScrolled : style.img}
-              src={game.background_image ? game.background_image : imgDefault}
-              alt="imgNotFound"
-            />
+              <img
+                className={scroll ? style.imgScrolled : style.img}
+                src={game.background_image}
+                alt="imgNotFound"
+              />
 
             <div
               className={
@@ -99,6 +104,7 @@ const Detail = () => {
               </div>
             </div>
           </div>
+          {!game.created?
           <div className={style.extraData}>
             <div className={style.extraDataText}>
               <div className={style.block}>
@@ -147,9 +153,10 @@ const Detail = () => {
               />
             </div>
           </div>
+          :""}
           {related.length ? (
             <div>
-              <h2 className={style.relatedTitle}>More games</h2>
+            <h2 className={style.relatedTitle}>More games</h2>
               <div className={style.relatedCointaner}>
                 {related.map((game) => {
                   return (

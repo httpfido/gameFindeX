@@ -2,9 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import style from "./NavBar.module.css";
 
 import SearchBar from "../SearchBar/SearchBar";
-import plus from "../../assets/plus.svg"
-import logosinfondo from '../../assets/logo-sin-fondo.png'
-
+import plus from "../../assets/plus.svg";
+import logosinfondo from "../../assets/logo-sin-fondo.png";
 
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,6 +20,9 @@ const NavBar = () => {
     window.addEventListener("scroll", () => {
       setScroll(window.pageYOffset > 0);
     });
+    return () => {
+      window.removeEventListener("scroll");
+    };
   }, []);
 
   const dispatch = useDispatch();
@@ -45,27 +47,23 @@ const NavBar = () => {
   return (
     <nav className={scroll ? style.scrolled : style.nav}>
       <div className={style.buttons}>
-      {/* <img src={logosinfondo} alt="" className={style.logo}/> */}
+        {/* <img src={logosinfondo} alt="" className={style.logo}/> */}
         <Link to="/home" className={style.link}>
           <button onClick={handleHome} className={style.btn}>
-            <div className={style.subline}>
-            <img src={logosinfondo} alt="" className={style.icon}/>
-            Home
-            </div>
+              <img src={logosinfondo} alt="" className={style.icon} />
+              <span className={style.btnText}>home</span>
           </button>
         </Link>
         <Link to="/create" className={style.link}>
           <button className={style.btn}>
-            <div className={style.subline}>
-
-            <img src={plus} alt="" className={style.icon}/>
-            Create
-            </div>
+              <img src={plus} alt="" className={style.icon} />
+              <span className={style.btnText}>Create</span>
           </button>
-
         </Link>
       </div>
-      <SearchBar />
+      <div className={style.searchContainer}>
+        <SearchBar />
+      </div>
 
       <div>
         {searchGames.length

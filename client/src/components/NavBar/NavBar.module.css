@@ -1,26 +1,19 @@
-.nav {
+.nav, .scrolled {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100vw;
-  height: 110px;
   transition: height 0.3s ease-in-out;
   position: fixed;
   z-index: 2;
 }
-
+.nav{
+  height: 110px;
+}
 .scrolled {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  width: 100vw;
   height: 67px;
   background: #151515ee;
-  position: fixed;
-  z-index: 2;
-  transition: all 0.3s ease-in-out;
 }
 
 .buttons {
@@ -30,19 +23,35 @@
   align-items: center;
   height: 100%;
   width: 25%;
+  transition: .2s linear;
+}
+.scrolled .buttons{
+  transition: .3s linear;
+}
+.searchContainer{
+  width: 70%;
+  transition: width 0.3s ease-in-out;  
 }
 
+
 .link{
+  margin: 0px 5%;
   width: max-content;
+  min-width: 30%;
   text-decoration: none;
+  transition: .3s linear;
+}
+.scrolled .link{
+  transition: .3s linear;
+  margin: 0%;
 }
 
 .btn {
   display: inline-flex;
   align-items: center;
-  width: max-content;
+  justify-content: center;
+  width: 100%;
   cursor: pointer;
-  margin: 0px 12px;
   border: none;
   border-radius: 7px;
   font-weight: bold;
@@ -54,24 +63,38 @@
   background-color: #ffeaa700;
   color: #eaeaea;
   transition: border 0.1s ease-in-out;
-  border: 1px solid rgba(92, 92, 92, 0);
+  /* border: 1px solid rgba(92, 92, 92, 0); */
 }
-
+.scrolled .btn{
+  transition: all .3s ease-in-out;
+  padding: 0px;
+}
 .btn:hover {
-  border: 1px solid rgb(92, 92, 92);
+  /* border: 1px solid rgb(92, 92, 92); */
   color: #fdde76;
   background: rgba(170, 170, 170, 0.062);
 }
-.subline{
-  width: 100%;
-  height:50%;
-  display: flex;
-  align-items: flex-end;
-}
 .icon{
-width: 30px;
-height: 30px;
-margin-right: 10px;
+  height: 30px;
+  margin-right: 10px;
+  transition: all .3s ease-in-out;
+}
+.scrolled .icon{
+  margin-right: 0px;
+  height: 80%;
+  transition: all 0.5s ease-out;
+}
+.nav .btnText{
+  opacity: 1;
+  visibility: visible;
+  transition: all .3s ease-in-out;
+}
+.scrolled .btnText{
+position: absolute;
+  opacity: 0;
+visibility: hidden;
+  transform: translateX(-40px);
+  transition: opacity .3s ease-in-out;
 }
 
 .containerWrapperList {
@@ -134,10 +157,6 @@ margin-right: 10px;
 
 
 .logo{
-  /* position:fixed; */
-  /* top: 20px; */
-  /* left: 40px; */
   z-index: 10;
   height: 40px;
-  /* width: ; */
 }

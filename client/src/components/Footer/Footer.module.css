@@ -11,7 +11,7 @@
   transition: height 0.4s linear;
   z-index: 20;
   height: 50px;
-  margin-top: 30px;
+  margin-top: 14vh;
 }
 .logo {
   height: 35px;

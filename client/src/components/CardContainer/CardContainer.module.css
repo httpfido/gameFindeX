@@ -19,8 +19,7 @@ body {
 
 .body {
   min-height: 100vh;
-
-  padding-top: 8%;
+  padding-top: 16vh;
 }
 .bodyLoad {
   min-height: 100vh;
@@ -30,22 +29,22 @@ body {
 }
 .container {
   display: flex;
-
-  top: 115px;
-  left: 270px;
+ justify-content: center;
   width: 100%;
 }
 .paginatedAndCards {
   width: 78%;
+  max-width: 1400px;
 }
 .cardContainer {
   width: 100%;
   height: auto;
+  min-height: 100vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 10px 0px;
   scroll-behavior: smooth;
+
 }
 
 .link {
