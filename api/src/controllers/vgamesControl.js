@@ -8,6 +8,7 @@ const { API_KEY } = process.env;
 // me voy a auxiliar con una funcion que me va a devolver de manera prolija los generos cada juego de BDD
 
 const genreMap = async (games) => {
+  console.log(games);
   const result = await games.map((game) => {
     return {
       id: game.id,
@@ -162,6 +163,7 @@ const findByIdAPI = async (id) => {
 
 // busca el juego por ID solamente en la BDD
 const findByIdBDD = async (id) => {
+  console.log("por id");
   const result = await Videogame.findByPk(id, {
     include: [
       {
@@ -173,8 +175,9 @@ const findByIdBDD = async (id) => {
       },
     ],
   });
-  console.log("findbyBDD AAAAAAAAAAAA");
-  return result
+  const mapped = result.toJSON();
+  mapped.genres = mapped.genres.map((g) => g.name);
+  return mapped;
 };
 
 // findbyID funciona de spliter. Señala si buscar en BDD o API
