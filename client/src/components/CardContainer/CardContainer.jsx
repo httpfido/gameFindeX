@@ -30,9 +30,13 @@ const CardContainer = () => {
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global
   const dispatch = useDispatch();
+
   useEffect(() => {
+    if (allGames.length) {
+      return;
+    }
     dispatch(getGames(searchGame));
-  }, [dispatch, searchGame]);
+  }, [dispatch, searchGame, allGames.length]);
 
   // agarro el array de juegos del objeto global y lo meto en allGames
   const currentPage = useSelector((state) => state.currentPage);
@@ -47,7 +51,6 @@ const CardContainer = () => {
   const indexOfLastGame = currentPage * gamesPerPage; //15
   const indexOfFirstGame = indexOfLastGame - gamesPerPage; //0
   const currentGames = allGames.slice(indexOfFirstGame, indexOfLastGame);
-console.log(currentGames);
   // declaro una funcion que va a modificar el estado local de CurrentPage, esto lo voy a pasar
   // como prop al componente Paginated
   const paginado = (pageNumber, gamesLength) => {
@@ -55,7 +58,12 @@ console.log(currentGames);
   };
 
   if (!allGames.length) {
-    return <div className={style.bodyLoad}><Hamster /><Footer/></div>;
+    return (
+      <div className={style.bodyLoad}>
+        <Hamster />
+        <Footer />
+      </div>
+    );
   }
 
   // ahora si, renderizamos el componente
@@ -99,7 +107,6 @@ console.log(currentGames);
             ) : (
               <NoFound />
             )}
-            
           </div>
           <PaginationBottom
             currentPage={currentPage}
@@ -110,7 +117,7 @@ console.log(currentGames);
           />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

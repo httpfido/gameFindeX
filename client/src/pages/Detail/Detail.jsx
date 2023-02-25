@@ -1,4 +1,9 @@
-import { cleanDetail, filterByGenreDetail, getById } from "../../redux/actions";
+import {
+  cleanDetail,
+  filterByGenreDetail,
+  getById,
+  resetPage
+} from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import Circle from "../../components/Loader/Circle";
 import imgDefault2 from "../../assets/img-default2.png";
@@ -7,7 +12,7 @@ import Footer from "../../components/Footer/Footer";
 
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams, Link  } from "react-router-dom";
+import { useLocation, useParams, Link } from "react-router-dom";
 
 import style from "./Detail.module.css";
 import star from "../../assets/star.svg";
@@ -15,6 +20,7 @@ import star from "../../assets/star.svg";
 const Detail = () => {
   const { id } = useParams();
   let game = useSelector((state) => state.game);
+
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -34,7 +40,7 @@ const Detail = () => {
       dispatch(filterByGenreDetail(sources));
     }
   }, [dispatch, game]);
-
+  
   const [scroll, setScroll] = useState(false);
 
   useEffect(() => {
@@ -45,23 +51,25 @@ const Detail = () => {
       setScroll(0);
     };
   }, []);
-
+  
   const { pathname } = useLocation();
-
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
-  
-  if (!game.background_image && game.created){
-
+  if (!game.background_image && game.created) {
     game = {
       ...game,
-      background_image: imgDefault
-    }
+      background_image: imgDefault,
+    };
   }
+  const handleBackToHomeClick=()=> {
+    dispatch(resetPage());
+
+  }
+    
   if (!game.background_image)
-    return (
+  return (
       <div className={style.loadingImg}>
         <Circle />
       </div>
@@ -71,11 +79,11 @@ const Detail = () => {
       {game ? (
         <div className={style.container}>
           <div className={style.imgContainer}>
-              <img
-                className={scroll ? style.imgScrolled : style.img}
-                src={game.background_image}
-                alt="imgNotFound"
-              />
+            <img
+              className={scroll ? style.imgScrolled : style.img}
+              src={game.background_image}
+              alt="imgNotFound"
+            />
 
             <div
               className={
@@ -104,59 +112,61 @@ const Detail = () => {
               </div>
             </div>
           </div>
-          {!game.created?
-          <div className={style.extraData}>
-            <div className={style.extraDataText}>
-              <div className={style.block}>
-                <div className={style.blockTitle}>Release date</div>
-                <div className={style.blockText}>
-                  {game.released ? game.released : "not specified"}
+          {!game.created ? (
+            <div className={style.extraData}>
+              <div className={style.extraDataText}>
+                <div className={style.block}>
+                  <div className={style.blockTitle}>Release date</div>
+                  <div className={style.blockText}>
+                    {game.released ? game.released : "not specified"}
+                  </div>
+                </div>
+                <div className={style.block}>
+                  <div className={style.blockTitle}>Developers</div>
+                  <div className={style.blockText}>
+                    {game.developers?.join(", ")}
+                  </div>
+                </div>
+                <div className={style.block}>
+                  <div className={style.blockTitle}>Age rating</div>
+                  <div className={style.blockText}>
+                    {game.esrb ? game.esrb : "not rated"}
+                  </div>
+                </div>
+                <div className={style.block}>
+                  <div className={style.blockTitle}>Comments</div>
+                  <div className={style.blockText}>
+                    {game.comments ? game.comments.join(", ") : "not commented"}
+                  </div>
+                </div>
+                <div className={style.longBlock}>
+                  <div className={style.blockTitle}>Platform</div>
+                  <div className={style.blockText}>
+                    {game.platform ? game.platform.join(", ") : "not available"}
+                  </div>
+                </div>
+                <div className={style.longBlock}>
+                  <div className={style.blockTitle}>Tags</div>
+                  <div className={style.blockText}>
+                    {game.tags ? game.tags.join(", ") : "not taged"}
+                  </div>
                 </div>
               </div>
-              <div className={style.block}>
-                <div className={style.blockTitle}>Developers</div>
-                <div className={style.blockText}>
-                  {game.developers?.join(", ")}
-                </div>
-              </div>
-              <div className={style.block}>
-                <div className={style.blockTitle}>Age rating</div>
-                <div className={style.blockText}>
-                  {game.esrb ? game.esrb : "not rated"}
-                </div>
-              </div>
-              <div className={style.block}>
-                <div className={style.blockTitle}>Comments</div>
-                <div className={style.blockText}>
-                  {game.comments ? game.comments.join(", ") : "not commented"}
-                </div>
-              </div>
-              <div className={style.longBlock}>
-                <div className={style.blockTitle}>Platform</div>
-                <div className={style.blockText}>
-                  {game.platform ? game.platform.join(", ") : "not available"}
-                </div>
-              </div>
-              <div className={style.longBlock}>
-                <div className={style.blockTitle}>Tags</div>
-                <div className={style.blockText}>
-                  {game.tags ? game.tags.join(", ") : "not taged"}
-                </div>
-              </div>
-            </div>
 
-            <div className={style.extraDataImg}>
-              <img
-                className={style.addImg}
-                src={game.background_image_additional}
-                alt="imgNotFound"
-              />
+              <div className={style.extraDataImg}>
+                <img
+                  className={style.addImg}
+                  src={game.background_image_additional}
+                  alt="imgNotFound"
+                />
+              </div>
             </div>
-          </div>
-          :""}
+          ) : (
+            ""
+          )}
           {related.length ? (
             <div>
-            <h2 className={style.relatedTitle}>More games</h2>
+              <h2 className={style.relatedTitle}>More games</h2>
               <div className={style.relatedCointaner}>
                 {related.map((game) => {
                   return (
@@ -189,7 +199,7 @@ const Detail = () => {
           )}
           <div className={style.bottomContainer}>
             <Link to="/home">
-              <button className={style.back}>
+              <button className={style.back} onClick={handleBackToHomeClick}>
                 <h3>Back to Home</h3>
               </button>
             </Link>

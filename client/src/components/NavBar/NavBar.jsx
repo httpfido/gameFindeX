@@ -47,7 +47,6 @@ const NavBar = () => {
   return (
     <nav className={scroll ? style.scrolled : style.nav}>
       <div className={style.buttons}>
-        {/* <img src={logosinfondo} alt="" className={style.logo}/> */}
         <Link to="/home" className={style.link}>
           <button onClick={handleHome} className={style.btn}>
               <img src={logosinfondo} alt="" className={style.icon} />

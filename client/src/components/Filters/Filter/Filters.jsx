@@ -82,16 +82,17 @@ export default function Filters() {
   const myDivRef = useRef(null);
 
   function handleButtonClick() {
+
     if (myDivRef.current) {
       setTimeout(() => {
         const rect = myDivRef.current.getBoundingClientRect();
         const distanceToBottom = window.innerHeight - rect.bottom;
         if (distanceToBottom >= 0) {
-          // Element is already visible, no need to scroll
+          // Elemento visible, no hace falta scrollear
           return;
         } else if (distanceToBottom <= 0) {
           window.window.scrollTo({
-            top: Math.abs(distanceToBottom) + 30,
+            top: Math.abs(distanceToBottom)+30,
             behavior: "smooth",
           });
         }

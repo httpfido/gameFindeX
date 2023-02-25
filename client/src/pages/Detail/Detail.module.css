@@ -37,8 +37,7 @@
   text-transform: none;
 }
 .imgContainer {
-
-  width: 100vw;
+  width: 100%;
   position: relative;
   overflow: hidden;
 }
@@ -71,7 +70,6 @@
   }
 
 .dataContainer, .dataContainerScrolled {
-  transform: translateY(20%);
   position: absolute;
   bottom: 0px;
   padding: 20px 40px;
@@ -85,8 +83,10 @@
     rgba(32, 32, 32, 0.021) 100%
   );
   transition: all 0.3s ease-in-out;
+  /* border: 1px solid red; */
 }
 .dataContainer{
+  transform: translateY(20%);
   opacity: 0;
 }
 .dataContainerScrolled {
@@ -105,6 +105,8 @@
   font-style: normal;
   font-variant: normal;
   text-transform: none;
+  /* border: 1px solid yellow; */
+  margin: 0px 70px 0px 0px;
 }
 
 .name {

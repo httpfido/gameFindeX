@@ -1,13 +1,16 @@
-import style from "./Landing.module.css";
+import { getGames } from "../../redux/actions";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logosinfondo from "../../assets/logo-sin-fondo.png";
-import { useEffect, useState } from "react";
 import ig from "../../assets/ig.svg";
 import linkedin from "../../assets/linkedin.svg";
 import github from "../../assets/github.svg";
+import style from "./Landing.module.css";
+import { useDispatch } from "react-redux";
 
 const Landing = () => {
   const [scroll, setScroll] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -17,6 +20,9 @@ const Landing = () => {
       setScroll(0);
     };
   }, []);
+  useEffect(() => {
+    dispatch(getGames());
+  }, [dispatch]);
 
   const { pathname } = useLocation();
 
@@ -39,15 +45,15 @@ const Landing = () => {
           Ⓒ All rights reserved GameFINDEX S.A. contact +54 9 11 2719-1198
         </h3>
         <div className={style.contact}>
-          <a href="https://www.instagram.com/http_fido/" target="_blank">
-            <img src={ig} alt="" className={style.icon} />
-          </a>
-          <a href="https://github.com/FideRomano" target="_blank">
-            <img src={github} alt="" className={style.icon} />
-          </a>
-          <a href="https://www.linkedin.com/in/fidel-romano/" target="_blank">
-            <img src={linkedin} alt="" className={style.icon} />
-          </a>
+        <a href="https://www.instagram.com/http_fido/" target="_blank" rel="noreferrer">
+        <img src={ig} alt="" className={style.icon} />
+      </a>
+      <a href="https://github.com/FideRomano" target="_blank" rel="noreferrer">
+        <img src={github} alt="" className={style.icon} />
+      </a>
+      <a href="https://www.linkedin.com/in/fidel-romano/" target="_blank" rel="noreferrer">
+        <img src={linkedin} alt="" className={style.icon} />
+      </a>
         </div>
       </footer>
     </div>
