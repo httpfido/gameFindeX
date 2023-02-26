@@ -30,9 +30,9 @@ const CardContainer = () => {
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global
   const dispatch = useDispatch();
-
+console.log(searchGame);
   useEffect(() => {
-    if (allGames.length) {
+    if (allGames.length && !searchGame) {
       return;
     }
     dispatch(getGames(searchGame));
