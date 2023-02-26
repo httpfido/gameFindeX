@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { cleanGames, cleanOrder, cleanSource, getGames, resetPage, searchGame } from "../../redux/actions";
+import { cleanGames, cleanOrder, cleanSource, resetPage, searchGame } from "../../redux/actions";
 import style from "./SearchBar.module.css";
 import { useHistory, useLocation } from "react-router-dom";
 import logo from "../../assets/search.svg"
@@ -20,13 +20,16 @@ const SearchBar = () => {
 
   function HandleSubmit(e) {
     e.preventDefault();
+    console.log("hola");
     dispatch(resetPage())
     dispatch(cleanGames());
     dispatch(cleanSource())
     dispatch(cleanOrder())
     if(location.pathname === "/home") {  
-      dispatch(getGames(name))   
+      dispatch(searchGame(name));
+      console.log(name);
     }else{
+      console.log("else");
       dispatch(searchGame(name));
       history.push("/home");
     }
@@ -50,10 +53,6 @@ const SearchBar = () => {
         value={name}
         onKeyPress={handleKeyPress}
       />
-
-      {/* <button type="submit" onClick={handleSubmit}>
-        <p>Search</p>
-      </button> */}
     </div>
   );
 };

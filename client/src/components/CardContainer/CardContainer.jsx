@@ -30,13 +30,13 @@ const CardContainer = () => {
   // le digo al reducer que haga la peticion a la api de todos los juegos, y los meta
   // en el objeto global
   const dispatch = useDispatch();
-console.log(searchGame);
   useEffect(() => {
-    if (allGames.length && !searchGame) {
+    if (allGames.length) {
       return;
     }
     dispatch(getGames(searchGame));
   }, [dispatch, searchGame, allGames.length]);
+
 
   // agarro el array de juegos del objeto global y lo meto en allGames
   const currentPage = useSelector((state) => state.currentPage);
@@ -58,12 +58,7 @@ console.log(searchGame);
   };
 
   if (!allGames.length) {
-    return (
-      <div className={style.bodyLoad}>
-        <Hamster />
-        <Footer />
-      </div>
-    );
+    return <div className={style.bodyLoad}><Hamster /><Footer/></div>;
   }
 
   // ahora si, renderizamos el componente
@@ -107,6 +102,7 @@ console.log(searchGame);
             ) : (
               <NoFound />
             )}
+            
           </div>
           <PaginationBottom
             currentPage={currentPage}
@@ -117,7 +113,7 @@ console.log(searchGame);
           />
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };
