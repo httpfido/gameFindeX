@@ -204,10 +204,11 @@ const Form = () => {
       .post("/videogames", form)
       .then((res) => {
         setLoading(false);
+        alert("Gamed created succesfully!")
       })
       .catch((error) => {
-        alert(error.message);
         setLoading(false);
+        alert("An error occurred. please try again later");
       });
   };
 
